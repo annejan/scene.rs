@@ -45,13 +45,13 @@
 			const animate = () => {
 				if (z > 5) {
 					z -= (0.01 * z);
+					camera.position.z = z;
 				}
 				requestAnimationFrame( animate );
 				deFEEST.rotation.x += 0.02;
 				deFEEST.rotation.y += 0.033;
 				bawlE.rotation.x -= 0.03;
 				bawlE.rotation.y -= 0.025;
-				camera.position.z = z;
 				renderer.render( scene, camera );
 			}
 	</script>
