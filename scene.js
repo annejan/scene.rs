@@ -309,14 +309,15 @@ function startGL() {
     const spin = 0.7 * Math.sin(s * (0.5 + 0.4 * demo)) + flip;
     const pulse = 1 + 0.07 * kick * demo;
     const lift = 0.12;
-    const logo = mul(move(0, lift, 0), mul(size(pulse), mul(rotY(spin), mul(rotX(Math.PI / 2 + 0.25 * Math.sin(s * 0.9)), rotZ(0)))));
-    draw('defeest', logo, view, eye, 1.45, climax, s, flash);
+    const logo = mul(move(0, lift, 0), mul(size(pulse), mul(rotY(spin), mul(rotX(-Math.PI / 2 + 0.25 * Math.sin(s * 0.9)), rotZ(0)))));
+    draw('defeest', logo, view, eye, 1, climax, s, flash);
 
-    // Bawl-E circles the logo.
+    // Bawl-E circles the logo like a ring around it, facing us: round the outside of the
+    // lettering, a little behind it over the top and a little in front underneath.
     const a = s * (0.9 + 0.6 * demo);
-    const room = Math.min(1.35, 0.85 * (dist - 1.35) * Math.tan(fov / 2) * aspect);   // narrow screens
-    const bawle = mul(move(Math.cos(a) * room, lift + 0.15 * Math.sin(a * 2), Math.sin(a) * 1.35),
-      mul(size(0.42 * pulse), mul(rotY(-s * 1.6), rotX(0.2 * Math.sin(s)))));
+    const room = Math.min(1.5, 0.9 * dist * Math.tan(fov / 2) * aspect - 0.3);   // narrow screens
+    const bawle = mul(move(Math.cos(a) * room, lift + 0.62 * Math.sin(a), -0.4 * Math.sin(a)),
+      mul(size(0.36 * pulse), mul(rotY(-s * 1.6), rotX(0.2 * Math.sin(s)))));
     draw('bawle', bawle, view, eye, 1, climax * 0.8, s + 1, flash);
   };
 }

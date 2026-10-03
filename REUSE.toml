@@ -15,9 +15,10 @@ path = ["music/**"]
 SPDX-FileCopyrightText = "Anne Jan Brouwer (deFEEST)"
 SPDX-License-Identifier = "MIT"
 
-# The deFEEST logo: the 3D model, as exported and as converted by tools/models.py; and the favicon.
+# The deFEEST logo: the 3D model (extruded from the official vector by martin's
+# pipeline/svg_extrude_logo.py), as converted by tools/models.py; and the favicon.
 [[annotations]]
-path = ["collada/deFEEST.dae", "models/defeest.bin", "favicon.ico"]
+path = ["collada/defeest.dae", "models/defeest.bin", "favicon.ico"]
 SPDX-FileCopyrightText = "deFEEST"
 SPDX-License-Identifier = "LicenseRef-AllRightsReserved"
 

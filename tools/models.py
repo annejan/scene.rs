@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Turn the Collada logos into the small mesh files scene.js draws.
 
-Usage: tools/models.py collada/deFEEST.dae models/defeest.bin
+Usage: tools/models.py collada/defeest.dae models/defeest.bin
                        collada/bawl-e.dae   models/bawl-e.bin
 
 Each .bin is: uint32 part count, then per part: float32 r, g, b, uint32 vertex count, and
