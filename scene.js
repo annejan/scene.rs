@@ -312,11 +312,15 @@ function startGL() {
     const logo = mul(move(0, lift, 0), mul(size(pulse), mul(rotY(spin), mul(rotX(-Math.PI / 2 + 0.25 * Math.sin(s * 0.9)), rotZ(0)))));
     draw('defeest', logo, view, eye, 1, climax, s, flash);
 
-    // Bawl-E circles the logo like a ring around it, facing us: round the outside of the
-    // lettering, a little behind it over the top and a little in front underneath.
+    // Bawl-E orbits the logo, in front of it and behind it, but never through it: both models
+    // have a radius of 1 before scaling, so an orbit of ORBIT keeps them apart even at the
+    // beat's pulse. Where the screen is too narrow for it sideways, the orbit tilts instead
+    // of shrinking, so it stays just as far out.
+    const ORBIT = (1 + 0.36) * 1.07 + 0.08;
     const a = s * (0.9 + 0.6 * demo);
-    const room = Math.min(1.5, 0.9 * dist * Math.tan(fov / 2) * aspect - 0.3);   // narrow screens
-    const bawle = mul(move(Math.cos(a) * room, lift + 0.62 * Math.sin(a), -0.4 * Math.sin(a)),
+    const room = 0.9 * dist * Math.tan(fov / 2) * aspect - 0.3;
+    const tilt = Math.acos(Math.min(1, Math.max(0, room / ORBIT)));
+    const bawle = mul(move(Math.cos(a) * Math.cos(tilt) * ORBIT, lift + Math.cos(a) * Math.sin(tilt) * ORBIT, Math.sin(a) * ORBIT),
       mul(size(0.36 * pulse), mul(rotY(-s * 1.6), rotX(0.2 * Math.sin(s)))));
     draw('bawle', bawle, view, eye, 1, climax * 0.8, s + 1, flash);
   };
