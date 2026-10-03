@@ -1,0 +1,78 @@
+:root {
+  --text: #ffffff;
+  --shade: rgba(0, 0, 40, 0.65);
+  --link: #fdf05a;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #1d63d8;
+  color: var(--text);
+  font: 15px/1.4 Tahoma, Verdana, system-ui, sans-serif;
+  overflow: hidden;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+header, footer, .hint {
+  position: fixed;
+  left: 0;
+  right: 0;
+  padding: 10px 16px;
+  text-shadow: 0 1px 3px var(--shade), 0 0 8px var(--shade);
+}
+
+header { top: 0; }
+
+h1 {
+  margin: 0 0 4px;
+  font: 900 clamp(1.6rem, 5vw, 2.6rem)/1 Impact, 'Arial Black', sans-serif;
+  letter-spacing: 0.03em;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+}
+
+nav.prods {
+  margin-top: 4px;
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover, a:focus-visible { text-decoration: underline; }
+
+.hint {
+  bottom: 30px;
+  margin: 0;
+  text-align: center;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+footer {
+  bottom: 0;
+  font-size: 0.72rem;
+  text-align: right;
+  opacity: 0.85;
+}
+
+/* Reduced motion, or no script: a still picture, the links stay. */
+.still #logos, .still #front { display: none; }

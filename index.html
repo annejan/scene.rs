@@ -1,59 +1,41 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset=utf-8>
-		<link href="/favicon.ico" rel="icon" type="image/x-icon" />
-		<title>scene.rs / deFEEST / BawlSec</title>
-		<style>
-			body { margin: 0; overflow: hidden;   background: #000080 url('love.jpg');   background-size: cover; background-repeat: no-repeat; background-position: center; height: 100%; background-attachment: fixed; }
-			canvas { width: 100%; height: 100%; top: 0; left: 0; position: fixed; }
-		</style>
-	</head>
-	<body>
-		<canvas id="canvas3d"></canvas>
-		<script src="js/three.js"></script>
-		<script>
-			const canvas = document.getElementById( 'canvas3d' );
-			const context = canvas.getContext('webgl2');
-			const scene = new THREE.Scene();
-			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-			const renderer = new THREE.WebGLRenderer({ canvas: canvas, context: context, alpha: true });
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			// document.body.appendChild( renderer.domElement );
-			const light = new THREE.PointLight(0xfffff3, 0.8);
-			light.position.set(-100, 200, 200);
-			scene.add(light);
-			const ambientLight = new THREE.AmbientLight(0xaaaaaa);
-			scene.add(ambientLight);
-			let deFEEST, bawlE;
-			const loader = new THREE.ColladaLoader();
-			loader.load("collada/deFEEST.dae", function (result) {
-				deFEEST = result.scene;
-				scene.add(deFEEST);
-				animate();
-			});
-			loader.load("collada/bawl-e.dae", function (result) {
-                                bawlE = result.scene;
-				bawlE.scale.x = .4;
-				bawlE.scale.y = .4;
-				bawlE.scale.z = .1;
-                                scene.add(bawlE);
-                                animate();
-                        });
-			let z = 1000;
-			camera.position.z = z;
-			const animate = () => {
-				if (z > 5) {
-					z -= (0.01 * z);
-					camera.position.z = z;
-				}
-				requestAnimationFrame( animate );
-				deFEEST.rotation.x += 0.02;
-				deFEEST.rotation.y += 0.033;
-				bawlE.rotation.x -= 0.03;
-				bawlE.rotation.y -= 0.025;
-				renderer.render( scene, camera );
-			}
-	</script>
-	</body>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>scene.rs</title>
+  <meta name="description" content="scene.rs: deFEEST and BawlSec, a Dutch demoscene crew. Prods, greetings and a little demo with music from martin.">
+  <link rel="canonical" href="https://scene.rs/">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/scene.css">
+  <script src="/scene.js" defer></script>
+</head>
+<body>
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <canvas id="logos" aria-hidden="true"></canvas>
+  <canvas id="front" aria-hidden="true"></canvas>
+  <header>
+    <h1>scene.rs</h1>
+    <nav aria-label="Links">
+      <a href="https://www.pouet.net/groups.php?which=11310">deFEEST on pouët</a>
+      <a href="/pets/">pets</a>
+      <a href="https://badge.rs/">badge.rs</a>
+      <a href="https://annejan.com/">annejan.com</a>
+    </nav>
+    <nav class="prods" aria-label="deFEEST prods on pouët">
+      <a href="https://www.pouet.net/prod.php?which=106371">Kloten met de broodtrommel</a>
+      <a href="https://www.pouet.net/prod.php?which=106370">Claude maar wat aan</a>
+      <a href="https://www.pouet.net/prod.php?which=70207">Badge Demo</a>
+      <a href="https://www.pouet.net/prod.php?which=70203">Pentest an AI</a>
+      <a href="https://www.pouet.net/prod.php?which=61378">bagger</a>
+      <a href="https://www.pouet.net/prod.php?which=60479">kansloos</a>
+      <a href="https://www.pouet.net/prod.php?which=57074">instaFAIL</a>
+    </nav>
+  </header>
+  <p class="hint" id="hint" hidden>click or press a key for sound · M mutes · F fullscreen</p>
+  <footer>
+    Music: “Köln” from <a href="https://github.com/annejan/martin">martin</a>, deFEEST.
+    Code on <a href="https://github.com/annejan/scene.rs">GitHub</a>.
+  </footer>
+</body>
 </html>

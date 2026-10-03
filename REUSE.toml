@@ -1,0 +1,23 @@
+version = 1
+SPDX-PackageName = "scene.rs"
+SPDX-PackageDownloadLocation = "https://github.com/annejan/scene.rs"
+
+# The page, its style and script, the server config and the model tool.
+[[annotations]]
+path = ["index.html", "scene.css", "scene.js", ".htaccess", "tools/**", "README.md", "REUSE.toml", ".gitignore"]
+SPDX-FileCopyrightText = "Anne Jan Brouwer"
+SPDX-License-Identifier = "MIT"
+
+# "Köln", the track of deFEEST's martin demo: synthesised from its tracker score
+# (productions/cities/score.txt in https://github.com/annejan/martin, MIT) and encoded here.
+[[annotations]]
+path = ["music/**"]
+SPDX-FileCopyrightText = "Anne Jan Brouwer (deFEEST)"
+SPDX-License-Identifier = "MIT"
+
+# The deFEEST logo and Bawl-E, the BawlSec mascot: the 3D models, as exported, and as
+# converted by tools/models.py; and the favicon.
+[[annotations]]
+path = ["collada/**", "models/**", "favicon.ico"]
+SPDX-FileCopyrightText = "deFEEST and BawlSec"
+SPDX-License-Identifier = "LicenseRef-AllRightsReserved"
