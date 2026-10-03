@@ -11,7 +11,7 @@ const SONG = 46 * BAR;
 const SECTIONS = { intro: 0, build: 4 * BAR, drop: 10 * BAR, breakdown: 22 * BAR, climax: 26 * BAR, outro: 38 * BAR };
 const GLITCH = 0.45; // seconds of glitch around each switch between the hill and the demo
 
-const SCROLL_TEXT = 'scene.rs ... deFEEST and BawlSec say hi ... '
+const SCROLL_TEXT = 'scene.rs ... deFEEST and BawlSec say hi ... BawlSec: the CTF team that specializes in everything and nothing ... '
   + 'greetings to Badge.Team, Hacker Hotel, Trepaan, Poobrain, BornHack, Evoke, Outline, '
   + 'Revision and everyone at the parties ... music: Köln, from martin ... '
   + 'no Windows XP wallpapers were harmed in the making of this hill ... ';

@@ -1,6 +1,7 @@
 # scene.rs
 
-The front page of [scene.rs](https://scene.rs/), home of deFEEST and BawlSec: the deFEEST
+The front page of [scene.rs](https://scene.rs/), home of deFEEST (demoscene) and
+[BawlSec](https://bawlsec.com/) ([CTFtime](https://ctftime.org/team/70972)): the deFEEST
 logo and Bawl-E spin over a sunny green hill, which glitches into a demo (stars, copper
 bars, a rainbow) on the drop of "Köln", the track from deFEEST's
 [martin](https://github.com/annejan/martin). Plus a sine scroller with greetings, the
