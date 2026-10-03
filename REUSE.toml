@@ -15,9 +15,14 @@ path = ["music/**"]
 SPDX-FileCopyrightText = "Anne Jan Brouwer (deFEEST)"
 SPDX-License-Identifier = "MIT"
 
-# The deFEEST logo and Bawl-E, the BawlSec mascot: the 3D models, as exported, and as
-# converted by tools/models.py; and the favicon.
+# The deFEEST logo: the 3D model, as exported and as converted by tools/models.py; and the favicon.
 [[annotations]]
-path = ["collada/**", "models/**", "favicon.ico"]
-SPDX-FileCopyrightText = "deFEEST and BawlSec"
+path = ["collada/deFEEST.dae", "models/defeest.bin", "favicon.ico"]
+SPDX-FileCopyrightText = "deFEEST"
+SPDX-License-Identifier = "LicenseRef-AllRightsReserved"
+
+# Bawl-E, BawlSec's mascot and logo, by M42D: the 3D model, as exported and as converted.
+[[annotations]]
+path = ["collada/bawl-e.dae", "models/bawl-e.bin"]
+SPDX-FileCopyrightText = "M42D (BawlSec)"
 SPDX-License-Identifier = "LicenseRef-AllRightsReserved"

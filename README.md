@@ -24,5 +24,6 @@ the web root. No build step. `collada/` and `tools/` are the sources, not served
 
 ## Licence
 
-The code is MIT, and so is the music. The deFEEST logo and Bawl-E are not: see
+The code is MIT, and so is the music. The deFEEST logo and Bawl-E (BawlSec's mascot, by
+M42D) are not: see
 `REUSE.toml` and `LICENSES/`.

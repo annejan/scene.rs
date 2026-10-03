@@ -1,6 +1,6 @@
 All rights reserved.
 
 The deFEEST logo (the 3D model in collada/deFEEST.dae and models/defeest.bin, and the
-favicon) and Bawl-E, the BawlSec mascot (collada/bawl-e.dae, models/bawl-e.bin), identify
-deFEEST and BawlSec. They are not covered by this repository's MIT licence and may not be
+favicon) and Bawl-E, BawlSec's mascot and logo by M42D (collada/bawl-e.dae,
+models/bawl-e.bin), identify deFEEST and BawlSec. They are not covered by this repository's MIT licence and may not be
 reused or redistributed outside this site without permission.
