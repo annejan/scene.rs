@@ -92,16 +92,17 @@ function makeHill() {
   const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
   clouds = Array.from({ length: 9 }, (_, i) => {
     const w = Math.max(W, H) * (0.12 + rnd() * 0.16);
-    const h = w * 0.45;
+    const h = w * 0.55;
     const c = document.createElement('canvas');
     c.width = Math.round(w * dpr);
     c.height = Math.round(h * dpr);
     const g = c.getContext('2d');
     g.scale(dpr, dpr);
     for (let k = 0; k < 12; k += 1) {
-      const px = w * (0.15 + rnd() * 0.7);
-      const py = h * (0.45 + rnd() * 0.3);
-      const r = h * (0.18 + rnd() * 0.25);
+      // Each puff stays inside the cloud's canvas: soft edges all round, nothing cut off.
+      const r = h * (0.15 + rnd() * 0.2);
+      const px = r + rnd() * (w - 2 * r);
+      const py = h * 0.62 - rnd() * h * 0.22;
       const puff = g.createRadialGradient(px, py - r * 0.3, r * 0.1, px, py, r);
       puff.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
       puff.addColorStop(0.6, 'rgba(255, 255, 255, 0.8)');
