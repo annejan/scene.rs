@@ -41,11 +41,17 @@ h1 {
 nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 14px;
+  gap: 0 14px;
+}
+
+/* Links at least 24 px tall, for fingers and shaky hands. */
+nav a {
+  display: inline-block;
+  min-height: 24px;
+  line-height: 24px;
 }
 
 nav.prods {
-  margin-top: 4px;
   font-size: 0.8rem;
   opacity: 0.9;
 }
@@ -69,7 +75,7 @@ a:hover, a:focus-visible { text-decoration: underline; }
 
 footer {
   bottom: 0;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   text-align: right;
   opacity: 0.85;
 }
