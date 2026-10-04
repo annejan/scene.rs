@@ -228,6 +228,11 @@ const move = (x, y, z) => [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1];
 const size = (k) => [k, 0, 0, 0, 0, k, 0, 0, 0, 0, k, 0, 0, 0, 0, 1];
 const normalOf = (m) => [m[0], m[1], m[2], m[4], m[5], m[6], m[8], m[9], m[10]];   // uniform scale only
 
+// Where Bawl-E is on screen (for clicks), and when it was last clicked: then it hops,
+// spins and shouts BAWL!
+const bawl = { x: -1, y: -1, r: 0, hit: -10 };
+const now = () => performance.now() / 1000;
+
 function startGL() {
   const gl = logos.getContext('webgl', { alpha: true, antialias: true, premultipliedAlpha: false });
   if (!gl) return null;
@@ -320,9 +325,17 @@ function startGL() {
     const a = s * (0.9 + 0.6 * demo);
     const room = 0.9 * dist * Math.tan(fov / 2) * aspect - 0.3;
     const tilt = Math.acos(Math.min(1, Math.max(0, room / ORBIT)));
-    const bawle = mul(move(Math.cos(a) * Math.cos(tilt) * ORBIT, lift + Math.cos(a) * Math.sin(tilt) * ORBIT, Math.sin(a) * ORBIT),
-      mul(size(0.36 * pulse), mul(rotY(-s * 1.6), rotX(0.2 * Math.sin(s)))));
-    draw('bawle', bawle, view, eye, 1, climax * 0.8, s + 1, flash);
+    const hop = now() - bawl.hit;
+    const jump = hop < 1 ? Math.sin(Math.PI * hop) * 0.35 : 0;
+    const twirl = hop < 1 ? hop * Math.PI * 4 : 0;
+    const bawle = mul(move(Math.cos(a) * Math.cos(tilt) * ORBIT, lift + jump + Math.cos(a) * Math.sin(tilt) * ORBIT, Math.sin(a) * ORBIT),
+      mul(size(0.36 * pulse), mul(rotY(-s * 1.6 + twirl), rotX(0.2 * Math.sin(s)))));
+    draw('bawle', bawle, view, eye, 1, climax * 0.8, s + 1, flash + (hop < 0.3 ? 0.3 * (1 - hop / 0.3) : 0));
+    // Its centre on screen, and roughly how big it looks there.
+    const clip = mul(view, bawle).slice(12, 16);
+    bawl.x = (clip[0] / clip[3] + 1) / 2 * W;
+    bawl.y = (1 - clip[1] / clip[3]) / 2 * H;
+    bawl.r = 0.36 * 0.8 / clip[3] / Math.tan(fov / 2) * H / 2;
   };
 }
 
@@ -350,6 +363,26 @@ function drawScroller(t, demo, kick) {
     }
     x += w;
   }
+}
+
+// BAWL!, popping up over Bawl-E when it's clicked.
+function drawBawl() {
+  const hop = now() - bawl.hit;
+  if (hop > 1.2) return;
+  const size = Math.max(24, bawl.r * 0.9) * (1 + 0.4 * Math.exp(-8 * hop));
+  fx.save();
+  fx.globalAlpha = Math.min(1, (1.2 - hop) / 0.3);
+  fx.font = `900 ${size}px Impact, 'Arial Black', sans-serif`;
+  fx.textAlign = 'center';
+  fx.textBaseline = 'middle';
+  fx.lineJoin = 'round';
+  fx.lineWidth = size * 0.16;
+  fx.strokeStyle = '#000';
+  const y = Math.max(size * 0.7, bawl.y - bawl.r * 1.3 - hop * size * 0.5);   // never off the top
+  fx.strokeText('BAWL!', bawl.x, y);
+  fx.fillStyle = '#fdf05a';
+  fx.fillText('BAWL!', bawl.x, y);
+  fx.restore();
 }
 
 function drawGlitch(amount) {
@@ -418,7 +451,12 @@ function start() {
     if (music.paused) music.currentTime = Math.max(0, clock() - mt0) % SONG;
     music.play().catch((e) => { if (e.name === 'NotAllowedError') showHint(true); });
   }
-  front.addEventListener('click', () => { if (needSound) sound(); });
+  const onBawl = (event) => Math.hypot(event.clientX - bawl.x, event.clientY - bawl.y) < bawl.r * 1.2;
+  front.addEventListener('click', (event) => {
+    if (needSound) sound();
+    if (onBawl(event)) bawl.hit = now();
+  });
+  front.addEventListener('pointermove', (event) => { front.style.cursor = onBawl(event) ? 'pointer' : ''; });
   addEventListener('keydown', (e) => {
     if (e.target.closest && e.target.closest('a')) return;
     if (needSound) sound();
@@ -453,6 +491,7 @@ function start() {
     fx.clearRect(0, 0, W, H);
     drawGlitch(st.glitch);
     drawScroller(t, st.demo, kick);
+    drawBawl();
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
