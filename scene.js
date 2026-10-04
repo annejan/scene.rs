@@ -21,6 +21,7 @@ const sky = document.getElementById('sky');
 const logos = document.getElementById('logos');
 const front = document.getElementById('front');
 const hint = document.getElementById('hint');
+const pauseButton = document.getElementById('pause');
 
 const ease = (a, b, t) => Math.min(1, Math.max(0, (t - a) / (b - a)));
 const smooth = (u) => u * u * (3 - 2 * u);
@@ -385,17 +386,20 @@ function drawBawl() {
   fx.restore();
 }
 
-function drawGlitch(amount) {
+// Slices of the background torn sideways, with thin bars of RGB. The slices are fixed for
+// each switch (seeded by it) and slide smoothly, and the bars fade in and out with the
+// glitch: motion, not flicker.
+function drawGlitch(amount, near, s) {
   if (amount <= 0) return;
-  // Slices of the background, torn sideways, and a few bars of solid RGB.
-  const n = 8 + Math.floor(amount * 10);
-  for (let i = 0; i < n; i += 1) {
-    const y = Math.random() * H;
-    const h = 4 + Math.random() * H * 0.06;
-    const dx = (Math.random() - 0.5) * W * 0.25 * amount;
+  let seed = 7 + near * 101;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  for (let i = 0; i < 14; i += 1) {
+    const y = rnd() * H;
+    const h = 4 + rnd() * H * 0.06;
+    const dx = Math.sin(s * (6 + rnd() * 6) + rnd() * 6) * W * 0.12 * amount;
     fx.drawImage(sky, 0, y * dpr, sky.width, h * dpr, dx, y, W, h);
-    if (Math.random() < 0.3) {
-      fx.fillStyle = ['rgba(255,0,80,0.5)', 'rgba(0,255,200,0.5)', 'rgba(60,80,255,0.5)'][i % 3];
+    if (rnd() < 0.3) {
+      fx.fillStyle = ['rgba(255,0,80,', 'rgba(0,255,200,', 'rgba(60,80,255,'][i % 3] + (0.45 * amount).toFixed(3) + ')';
       fx.fillRect(0, y, W, h * 0.3);
     }
   }
@@ -423,11 +427,13 @@ function layout() {
 function state(s) {
   const switches = [SECTIONS.drop, SECTIONS.breakdown, SECTIONS.climax, SECTIONS.outro];
   const demo = (s >= SECTIONS.drop && s < SECTIONS.breakdown) || (s >= SECTIONS.climax && s < SECTIONS.outro) ? 1 : 0;
-  const glitch = Math.max(0, ...switches.map((w) => 1 - Math.abs(s - w) / GLITCH));
+  const near = switches.reduce((best, w, i) => (Math.abs(s - w) < Math.abs(s - switches[best]) ? i : best), 0);
+  const from = s - switches[near];                     // seconds from the nearest switch
+  const glitch = Math.max(0, 1 - Math.abs(from) / GLITCH);
   const night = s < SECTIONS.drop ? 0 : s < SECTIONS.climax ? 1 : 1 - smooth(ease(SECTIONS.outro, SONG - BAR, s));
   const climax = s >= SECTIONS.climax && s < SECTIONS.outro ? 1 : 0;
   const drums = s >= SECTIONS.build && !(s >= SECTIONS.breakdown && s < SECTIONS.climax) && s < SECTIONS.outro + 4 * BAR;
-  return { demo, glitch, night, climax, drums };
+  return { demo, glitch, near, from, night, climax, drums };
 }
 
 function start() {
@@ -445,7 +451,26 @@ function start() {
 
   const t0 = performance.now();
   let mt0 = 0, latched = false;
-  const clock = () => (performance.now() - t0) / 1000;
+  // Paused, the clock stands still (and the music with it).
+  let pausedAt = null, pausedFor = 0, playing = false;
+  const clock = () => ((pausedAt ?? performance.now()) - t0 - pausedFor) / 1000;
+  function setPaused(on) {
+    if (on === (pausedAt !== null)) return;
+    if (on) {
+      pausedAt = performance.now();
+      playing = !music.paused;
+      music.pause();
+    } else {
+      pausedFor += performance.now() - pausedAt;
+      pausedAt = null;
+      if (playing) music.play().catch(() => {});
+      requestAnimationFrame(frame);
+    }
+    pauseButton.setAttribute('aria-pressed', String(on));
+    pauseButton.textContent = on ? 'Play' : 'Pause';
+  }
+  pauseButton.hidden = false;
+  pauseButton.addEventListener('click', () => setPaused(pausedAt === null));
   function sound() {
     showHint(false);
     if (music.paused) music.currentTime = Math.max(0, clock() - mt0) % SONG;
@@ -453,13 +478,14 @@ function start() {
   }
   const onBawl = (event) => Math.hypot(event.clientX - bawl.x, event.clientY - bawl.y) < bawl.r * 1.2;
   front.addEventListener('click', (event) => {
-    if (needSound) sound();
+    if (needSound && pausedAt === null) sound();
     if (onBawl(event)) bawl.hit = now();
   });
   front.addEventListener('pointermove', (event) => { front.style.cursor = onBawl(event) ? 'pointer' : ''; });
   addEventListener('keydown', (e) => {
-    if (e.target.closest && e.target.closest('a')) return;
-    if (needSound) sound();
+    if (e.target.closest && e.target.closest('a, button')) return;
+    if (e.key === 'p' || e.key === 'P') return setPaused(pausedAt === null);
+    if (needSound && pausedAt === null) sound();
     if (e.key === 'm' || e.key === 'M') music.muted = !music.muted;
     if (e.key === 'f' || e.key === 'F') {
       if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
@@ -468,6 +494,7 @@ function start() {
   });
 
   function frame() {
+    if (pausedAt !== null) return;
     const t = clock();
     // Follow the music: latch on when it starts, and when they drift apart by more than 80 ms.
     if (!music.paused && music.currentTime > 0) {
@@ -481,15 +508,16 @@ function start() {
     const kick = st.drums ? Math.exp(-9 * (s % BEAT)) : 0;
     const flash = st.demo && s % (4 * BAR) < BEAT ? 0.25 * Math.exp(-6 * (s % (4 * BAR))) : 0;
 
-    // A glitch flickers between the two worlds.
-    const showDemo = st.glitch > 0 && Math.random() < st.glitch * 0.6 ? !st.demo : st.demo;
+    // The glitch: one 80 ms glimpse of the other world just before the switch. No more:
+    // fast full-screen flicker can trigger seizures (WCAG 2.3.1: at most 3 flashes a second).
+    const showDemo = st.from > -0.25 && st.from < -0.17 ? !st.demo : st.demo;
     if (showDemo) drawDemo(s, st.climax, kick);
     else drawHill(s, st.night, s < SECTIONS.drop ? 1 + 2 * ease(SECTIONS.build, SECTIONS.drop, s) : 1);
 
     if (render) render(s, st.demo, st.climax, kick, flash);
 
     fx.clearRect(0, 0, W, H);
-    drawGlitch(st.glitch);
+    drawGlitch(st.glitch, st.near, s);
     drawScroller(t, st.demo, kick);
     drawBawl();
     requestAnimationFrame(frame);

@@ -30,7 +30,12 @@ header, footer, .hint {
   text-shadow: 0 1px 3px var(--shade), 0 0 8px var(--shade);
 }
 
-header { top: 0; }
+/* A dark wash behind the links, so they stay readable when a white cloud drifts by. */
+header {
+  top: 0;
+  padding-bottom: 28px;
+  background: linear-gradient(to bottom, rgba(0, 10, 40, 0.7), rgba(0, 10, 40, 0.6) 70%, rgba(0, 10, 40, 0));
+}
 
 h1 {
   margin: 0 0 4px;
@@ -72,6 +77,24 @@ a:hover, a:focus-visible { text-decoration: underline; }
   text-transform: uppercase;
   pointer-events: none;
 }
+
+/* Pause and play, for everything that moves (WCAG 2.2.2); P does the same. */
+.pause {
+  position: fixed;
+  left: 16px;
+  bottom: 10px;
+  z-index: 1;
+  min-height: 24px;
+  padding: 2px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  background: rgba(0, 10, 40, 0.6);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.pause:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 
 footer {
   bottom: 0;
