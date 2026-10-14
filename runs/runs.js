@@ -119,6 +119,12 @@ async function showRun(id) {
       el('td', { class: 'num', text: c.exit ? clock(c.time) : '–' }), el('td', { text: c.exit ? 'yes' : c.why || 'no' })));
     $('detail-note').hidden = !r.note;
     $('detail-note').textContent = r.note || '';
+    current = r;
+    $('detail-status').textContent = '';
+    // A ghost file (its version: the physics and the chamber's signature) of one chamber: raceable.
+    $('to-ghost').hidden = !(r.runs.length === 1 && /^\d+\.\d+\.\d+ L[0-9a-f]+$/.test(r.version || '') &&
+      !String(r.runs[0].chamber || '').includes('/'));
+    $('to-badge').disabled = $('to-ghost').disabled = !('usb' in navigator);
     $('detail-download').href = DATA + r.recording;
     $('detail-download').setAttribute('download', `portals-run-${id}.txt`);
     box.hidden = false;
@@ -127,6 +133,51 @@ async function showRun(id) {
     box.hidden = true;
   }
 }
+
+// --- Onto the badge -----------------------------------------------------------
+
+let current = null;  // the run shown
+
+// A name for a file or a folder on the card: letters, digits, - and _.
+function safe(s, max) {
+  return (String(s).replace(/[^A-Za-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '') || 'run').slice(0, max);
+}
+
+async function toBadge(asGhost) {
+  const r = current;
+  const say2 = (t, kind) => { $('detail-status').className = 'status' + (kind ? ' ' + kind : ''); $('detail-status').textContent = t; };
+  if (!r) return;
+  let bl = null;
+  try {
+    say2('Fetching the recording…');
+    const text = await (await fetch(DATA + r.recording, { cache: 'no-cache' })).text();
+    say2('Connecting to the badge…');
+    bl = (await BadgeLink.reconnect()) || (await BadgeLink.request());
+    await bl.sync();
+    await bl.version();
+    let dirs, path;
+    if (asGhost) {
+      const who = safe(r.nick, 23);
+      dirs = ['/sd/portals', '/sd/portals/ghosts', '/sd/portals/ghosts/rivals', `/sd/portals/ghosts/rivals/${who}`];
+      path = `/sd/portals/ghosts/rivals/${who}/${r.runs[0].chamber}.txt`;
+    } else {
+      dirs = ['/sd/portals', '/sd/portals/recordings'];
+      path = `/sd/portals/recordings/${safe(r.nick, 30)}-${r.id.slice(0, 6)}.txt`;
+    }
+    for (const d of dirs) await bl.mkdir(d);
+    say2('Writing it…');
+    await bl.upload(path, new TextEncoder().encode(text));
+    say2(asGhost ? `On the badge: ${r.nick}'s ghost races you in ${short(r.runs[0].name)}.`
+      : 'On the badge: Portals, Esc → Watch a recording.', 'ok');
+  } catch (e) {
+    say2(e && e.name === 'NotFoundError' ? 'No badge picked. Is it in BadgeLink mode (the purple diamond)?' : `It did not go: ${e.message || e}`, 'error');
+  } finally {
+    if (bl) try { await bl.close(); } catch (_) { /* gone */ }
+  }
+}
+
+$('to-badge').addEventListener('click', () => toBadge(false));
+$('to-ghost').addEventListener('click', () => toBadge(true));
 
 function route() {
   const h = new URLSearchParams(location.hash.slice(1));

@@ -58,8 +58,13 @@
         <tbody id="detail-rows"></tbody>
       </table>
       <p id="detail-note" class="note" hidden></p>
-      <p class="actions"><a id="detail-download" class="button" download>Download the recording</a>
-        <span class="note">Put it in <code>/sd/portals/recordings/</code> and use Esc → Watch a recording.</span></p>
+      <p class="actions">
+        <button type="button" id="to-badge" class="install">Put it on my Tanmatsu</button>
+        <button type="button" id="to-ghost" class="install" hidden>Race it as a ghost</button>
+        <a id="detail-download" class="button" download>Download</a></p>
+      <p id="detail-status" class="status" role="status"></p>
+      <p class="note">On the badge: Esc → Watch a recording plays it, timed. Raced as a ghost it runs beside you in
+        that chamber, among your rivals (Settings → Ghost races), on the same Portals physics only.</p>
     </section>
 
     <section class="recent" aria-labelledby="recent-title">
