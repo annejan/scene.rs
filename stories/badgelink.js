@@ -1,5 +1,5 @@
 // badgelink.js: a small BadgeLink client for the browser (WebUSB), to put files on a Tanmatsu
-// badge's SD card. BadgeLink is the badge's own file and app protocol (badge.team's
+// badge: files on its SD card and flash, and apps. BadgeLink is the badge's own file and app protocol (badge.team's
 // esp32-component-badgelink, the same one tools/badgelink.py speaks). No libraries: the bits of
 // protobuf, COBS and CRC32 it needs are written out here. Works as a browser global
 // (`BadgeLink`, `BadgeLinkError`) and as a Node module, so the tests can run it against the
@@ -10,6 +10,10 @@
 //   await bl.version();
 //   await bl.mkdir('/sd/portals');
 //   await bl.upload('/sd/portals/x.json', bytes, (sent, total) => ...);
+//   const bytes = await bl.download('/int/apps/com.example/metadata.json');
+//   await bl.appfsUpload({ slug, title, version }, bytes, (sent, total) => ...);   // an app binary
+//   await bl.appfsList();                     // [{ slug, title, version, size }]
+//   await bl.startApp(slug, arg);
 //   await bl.close();
 //
 // On the wire: each packet is a protobuf `Packet` (badgelink.proto), then its CRC32 (4 bytes,
@@ -25,7 +29,8 @@
 
   // Defaults, in milliseconds. tools/badgelink.py uses 250 / 500 / 10000 over pyusb; a browser
   // and an SD card that stops to allocate a cluster want more room.
-  const DEFAULTS = { syncTimeout: 500, timeout: 1000, chunkTimeout: 2000, xferTimeout: 10000, tries: 3 };
+  // eraseTimeout: an app upload starts by erasing flash for the whole binary, which takes a while.
+  const DEFAULTS = { syncTimeout: 500, timeout: 1000, chunkTimeout: 2000, xferTimeout: 10000, eraseTimeout: 30000, tries: 3 };
 
   // StatusCode from badgelink.proto, by number.
   const STATUS = ['StatusOk', 'StatusNotSupported', 'StatusNotFound', 'StatusMalformed',
@@ -37,8 +42,8 @@
   const OK = 0, NOT_SUPPORTED = 1, EXISTS = 10;
 
   // FsActionType and XferReq from badgelink.proto.
-  const FS_LIST = 0, FS_MKDIR = 2, FS_UPLOAD = 3, FS_STAT = 5;
-  const XFER_ABORT = 1, XFER_FINISH = 2;
+  const FS_LIST = 0, FS_MKDIR = 2, FS_UPLOAD = 3, FS_DOWNLOAD = 4, FS_STAT = 5;
+  const XFER_CONTINUE = 0, XFER_ABORT = 1, XFER_FINISH = 2;
 
   // An error from the badge (`code` is its StatusCode, `status` the name), or from this side
   // (`code` -1, `status` 'Timeout', 'Disconnected' or 'BadResponse').
@@ -169,9 +174,28 @@
     if (extra.size) a.uint(5, extra.size);
     return new Writer().message(3, a);
   }
+  // AppfsActionReq { type = 1; oneof { AppfsMetadata metadata = 2; string slug = 3; } crc32 = 4; list_offset = 5 }
+  function appfsAction(type, extra = {}) {
+    const a = new Writer().uint(1, type);
+    if (extra.metadata) {   // AppfsMetadata { slug, title, version, size }
+      const m = extra.metadata;
+      a.message(2, new Writer().string(1, m.slug).string(2, m.title).uint(3, m.version).uint(4, m.size));
+    }
+    if (extra.slug) a.string(3, extra.slug);
+    if (extra.crc32) a.uint(4, extra.crc32);
+    if (extra.offset) a.uint(5, extra.offset);
+    return new Writer().message(2, a);
+  }
+  const startAppReq = (slug, arg) => new Writer().message(5, new Writer().string(1, slug).string(2, arg || ''));
   const uploadChunk = (position, data) => new Writer().message(1, new Writer().uint(2, position).raw(3, data));
   const xferCtrl = (what) => new Writer().uint(6, what);   // in a oneof: written even when 0
   const versionReq = (v) => new Writer().message(7, new Writer().uint(1, v));
+
+  function appfsMetadata(bytes) {   // AppfsMetadata { slug = 1; title = 2; version = 3; size = 4 }
+    const m = readMessage(bytes);
+    const str = (f) => fromUtf8.decode(one(m, f, new Uint8Array(0)));
+    return { slug: str(1), title: str(2), version: one(m, 3), size: one(m, 4) };
+  }
 
   // The parts of a Packet the client reads: serial, sync, and the Response.
   function decodePacket(payload) {
@@ -196,6 +220,19 @@
             }),
             total: one(l, 2),
           };
+        }
+      }
+      if (r[2]) {   // Chunk { position = 2; data = 3 }: a download's next piece
+        const c = readMessage(one(r, 2));
+        resp.chunk = { position: one(c, 2), data: one(c, 3, new Uint8Array(0)) };
+      }
+      if (r[3]) {   // AppfsActionResp { metadata = 1; crc32 = 2; list = 3; usage = 4; size = 5 }
+        const a = readMessage(one(r, 3));
+        resp.appfs = { crc32: one(a, 2), size: one(a, 5) };
+        if (a[1]) resp.appfs.metadata = appfsMetadata(one(a, 1));
+        if (a[3]) {   // AppfsList { repeated AppfsMetadata list = 1; total_size = 2 }
+          const l = readMessage(one(a, 3));
+          resp.appfs.list = { entries: (l[1] || []).map(appfsMetadata), total: one(l, 2) };
         }
       }
       if (r[6]) {   // VersionResp { server_version = 1; negotiated_version = 2 }
@@ -325,24 +362,90 @@
     // Write a file: announce size and CRC32, send 4 KB chunks, then finish. The badge checks the
     // CRC32 at the end and deletes the file if it does not match.
     upload(path, data, onProgress) {
+      return this._serialize(() => this._sendFile(
+        fsAction(FS_UPLOAD, path, { crc32: crc32(data), size: data.length }), this.options.xferTimeout, data, onProgress, path));
+    }
+
+    // Write an app binary to AppFS, the badge's flash for apps, as `slug` (replacing it). The
+    // launcher shows `title`; `version` is the app's revision number. Same CRC check as upload().
+    appfsUpload({ slug, title, version }, data, onProgress) {
+      const metadata = { slug, title: title || slug, version: version || 0, size: data.length };
+      return this._serialize(() => this._sendFile(
+        appfsAction(FS_UPLOAD, { metadata, crc32: crc32(data) }), this.options.eraseTimeout, data, onProgress, slug));
+    }
+
+    // The apps in AppFS: [{ slug, title, version, size }].
+    appfsList() {
       return this._serialize(async () => {
-        const total = data.length;
-        await this._request(fsAction(FS_UPLOAD, path, { crc32: crc32(data), size: total }), this.options.xferTimeout, path);
+        const out = [];
+        for (let offset = 0; ;) {
+          const resp = await this._request(appfsAction(FS_LIST, { offset }), this.options.chunkTimeout, 'AppFS');
+          const list = resp.appfs && resp.appfs.list;
+          if (!list) throw badResponse('no app list');
+          out.push(...list.entries);
+          offset += list.entries.length;
+          if (offset >= list.total || list.entries.length === 0) break;
+        }
+        return out;
+      });
+    }
+
+    // Read a file: its size first, then piece by piece. CRC32 checked: up front in v1, at the end in v2.
+    download(path, onProgress) {
+      return this._serialize(async () => {
+        const first = await this._request(fsAction(FS_DOWNLOAD, path), this.options.xferTimeout, path);
+        if (!first.fs) throw badResponse('no download size');
+        const total = first.fs.size || 0;
+        let expected = this.protocol === 1 ? first.fs.crc32 || 0 : null;
+        const out = new Uint8Array(total);
+        let pos = 0;
         try {
           if (onProgress) onProgress(0, total);
-          for (let pos = 0; pos < total; pos += CHUNK) {
-            const piece = data.subarray(pos, Math.min(total, pos + CHUNK));
-            await this._request(uploadChunk(pos, piece), this.options.chunkTimeout, path);
-            if (onProgress) onProgress(pos + piece.length, total);
+          while (pos < total) {
+            const resp = await this._request(xferCtrl(XFER_CONTINUE), this.options.chunkTimeout, path);
+            const c = resp.chunk;
+            if (!c || (c.position || 0) !== pos || !c.data.length || pos + c.data.length > total) throw badResponse('bad download chunk');
+            out.set(c.data, pos);
+            pos += c.data.length;
+            if (onProgress) onProgress(pos, total);
           }
-          await this._request(xferCtrl(XFER_FINISH), this.options.xferTimeout, path);
+          const end = await this._request(xferCtrl(XFER_FINISH), this.options.xferTimeout, path);
+          if (expected === null) expected = end.fs ? end.fs.crc32 || 0 : null;
         } catch (e) {
-          // Tell the badge to drop the half file. It does not answer an abort.
           this.serial = (this.serial + 1) >>> 0;
           await this._send(encodeRequest(this.serial, xferCtrl(XFER_ABORT))).catch(() => {});
           throw e;
         }
+        if (expected !== null && crc32(out) !== expected >>> 0) throw badResponse('download CRC32 does not match');
+        return out;
       });
+    }
+
+    // Start an installed app (an AppFS slug), with an argument for it (a script's path, say).
+    // The badge leaves BadgeLink to run it.
+    startApp(slug, arg) {
+      return this._serialize(() => this._request(startAppReq(slug, arg), this.options.timeout, slug));
+    }
+
+    // An upload's start (`first`), its 4 KB chunks, then finish. On a failure, the badge is told to
+    // drop the half file.
+    async _sendFile(first, firstTimeout, data, onProgress, what) {
+      const total = data.length;
+      await this._request(first, firstTimeout, what);
+      try {
+        if (onProgress) onProgress(0, total);
+        for (let pos = 0; pos < total; pos += CHUNK) {
+          const piece = data.subarray(pos, Math.min(total, pos + CHUNK));
+          await this._request(uploadChunk(pos, piece), this.options.chunkTimeout, what);
+          if (onProgress) onProgress(pos + piece.length, total);
+        }
+        await this._request(xferCtrl(XFER_FINISH), this.options.xferTimeout, what);
+      } catch (e) {
+        // It does not answer an abort.
+        this.serial = (this.serial + 1) >>> 0;
+        await this._send(encodeRequest(this.serial, xferCtrl(XFER_ABORT))).catch(() => {});
+        throw e;
+      }
     }
 
     async close() {

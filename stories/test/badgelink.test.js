@@ -172,9 +172,49 @@ test('BadgeLink against badgemock', async (t) => {
     assert.strictEqual((await bl.stat(`${apps}/empty`)).size, 0);
   });
 
+  await t.test('download what was uploaded (v2: CRC at the end)', async () => {
+    const seen = [];
+    const got = await bl.download(file, (n, total) => seen.push([n, total]));
+    assert.ok(Buffer.from(data).equals(Buffer.from(got)));
+    assert.deepStrictEqual(seen[seen.length - 1], [data.length, data.length]);
+    assert.strictEqual((await bl.download(`${apps}/empty`)).length, 0);
+    await assert.rejects(bl.download(`${sd}/nope`), (e) => e.status === 'StatusNotFound');
+  });
+
+  // An app binary: 300 KB, past several flash pages.
+  const app = new Uint8Array(300 * 1024 + 7);
+  for (let i = 0; i < app.length; i++) app[i] = (i * 31 + (i >> 9)) & 0xff;
+
+  await t.test('appfsUpload, then appfsList shows it', async () => {
+    const seen = [];
+    await bl.appfsUpload({ slug: 'com.example.app', title: 'Example', version: 7 }, app, (n, total) => seen.push([n, total]));
+    assert.deepStrictEqual(seen[seen.length - 1], [app.length, app.length]);
+    const entry = (await bl.appfsList()).find((a) => a.slug === 'com.example.app');
+    assert.deepStrictEqual(entry, { slug: 'com.example.app', title: 'Example', version: 7, size: app.length });
+  });
+
+  await t.test('appfsUpload again replaces it', async () => {
+    await bl.appfsUpload({ slug: 'com.example.app', title: 'Example', version: 8 }, app.subarray(0, 5000));
+    const entries = (await bl.appfsList()).filter((a) => a.slug === 'com.example.app');
+    assert.strictEqual(entries.length, 1);
+    assert.strictEqual(entries[0].version, 8);
+    assert.strictEqual(entries[0].size, 5000);
+  });
+
+  await t.test('startApp: the mock cannot, and says so', async () => {
+    await assert.rejects(bl.startApp('com.example.app', ''), (e) => e.status === 'StatusNotSupported');
+  });
+
   await t.test('sync again resets to v1; version gets v2 back', async () => {
     await bl.sync();
     assert.strictEqual(bl.protocol, 1);
     assert.strictEqual(await bl.version(), 2);
+  });
+
+  await t.test('download in v1: CRC up front', async () => {
+    await bl.sync();
+    assert.strictEqual(bl.protocol, 1);
+    assert.ok(Buffer.from(data).equals(Buffer.from(await bl.download(file))));
+    await bl.version();
   });
 });
