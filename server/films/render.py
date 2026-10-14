@@ -154,9 +154,14 @@ def film(run):
         info["v"] = int(time.time())  # this make of the film: the pages ask for <id>.mp4?v=
         with open(chapters, "w") as f:
             json.dump(info, f, separators=(",", ":"))
+        # The poster: the first chamber in play, past its title card and the ride down.
+        first = (info.get("chapters") or [{}])[0]
+        at = 3.0
+        if "start" in first and "end" in first:
+            at = float(first["start"]) + min(6.0, (float(first["end"]) - float(first["start"])) / 2)
         poster = os.path.join(work, "poster.jpg")
-        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", "3", "-i", tmp, "-frames:v", "1", "-q:v", "4",
-                        poster], check=True, timeout=120)
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", "%.2f" % at, "-i", tmp, "-frames:v", "1",
+                        "-q:v", "4", poster], check=True, timeout=120)
         for src, name in ((poster, id_ + ".jpg"), (tmp, id_ + ".mp4"), (chapters, id_ + ".json")):  # .json says
             os.chmod(src, 0o644)                                                                     # it is all there
             os.replace(src, out(name))
