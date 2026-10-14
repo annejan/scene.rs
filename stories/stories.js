@@ -5,6 +5,7 @@
 'use strict';
 
 const DLC = '/sd/portals/dlc';
+const SAVES = '/sd/portals/saves';   // a desk story's save: SAVES/<story>.txt (the game's pack.h)
 let badge = null;   // the badge while an install runs: opened for it, closed after
 let busy = false;   // one install at a time: they share the badge
 
@@ -167,6 +168,58 @@ function inside(card, pack) {
   return fork === null ? n : Math.max(longest, n);
 }
 
+// Start a desk story over: its save off the badge, so Stories opens it at its start.
+// The first press asks; a second within a few seconds does it.
+async function restart(pack, card) {
+  const button = el(card, '.restart');
+  const status = el(card, '.status');
+  if (busy) return;
+  if (!button.dataset.armed) {
+    button.dataset.armed = '1';
+    button.textContent = 'Really start over?';
+    status.className = 'status';
+    status.textContent = 'This forgets where you are in ' + pack.name + ' on your badge. Press again to start over.';
+    setTimeout(() => {
+      if (!button.dataset.armed) return;
+      delete button.dataset.armed;
+      button.textContent = 'Start over';
+      if (status.textContent.startsWith('This forgets')) status.textContent = '';
+    }, 6000);
+    return;
+  }
+  delete button.dataset.armed;
+  button.textContent = 'Start over';
+  busy = true;
+  button.disabled = true;
+  status.className = 'status';
+  status.textContent = 'Connecting to the badge…';
+  try {
+    const bl = await connect();
+    const path = SAVES + '/' + pack.id + '.txt';
+    let had = true;
+    try {
+      await bl.delete(path);
+    } catch (e) {
+      if (!(e && e.status === 'StatusNotFound')) throw e;
+      had = false;
+    }
+    status.className = 'status ok';
+    status.textContent = had
+      ? 'Done. On the badge: Portals, Stories, ' + pack.name + ': it starts from the beginning.'
+      : 'There was no save on this badge: ' + pack.name + ' starts from the beginning already.';
+  } catch (e) {
+    status.className = 'status error';
+    status.textContent = explain(e);
+  } finally {
+    if (badge) {
+      try { await badge.close(); } catch (_) { /* gone already */ }
+      badge = null;
+    }
+    button.disabled = false;
+    busy = false;
+  }
+}
+
 function show(packs, usb) {
   const list = document.getElementById('packs');
   const tpl = document.getElementById('pack-card');
@@ -211,6 +264,12 @@ function show(packs, usb) {
     const button = el(card, '.install');
     if (usb) button.addEventListener('click', () => install(pack, card));
     else button.disabled = true;
+    // A desk story remembers where you were (the game saves it): it can start over.
+    const again = el(card, '.restart');
+    if (pack.desk && usb) {
+      again.hidden = false;
+      again.addEventListener('click', () => restart(pack, card));
+    }
     list.appendChild(card);
   });
   const chambers = packs.reduce((sum, p) => sum + playable(p), 0);

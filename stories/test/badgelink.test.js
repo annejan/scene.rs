@@ -144,6 +144,8 @@ test('BadgeLink against badgemock', async (t) => {
     await assert.rejects(bl.upload(`${sd}/no/such.zip`, data), (e) => e.status === 'StatusNotFound');
     await assert.rejects(bl.mkdir(file), (e) => e.status === 'StatusIsFile');   // a file is in the way
     await assert.rejects(bl.list(`${sd}/nope`), (e) => e.status === 'StatusNotFound');
+    // A story's save that is not there (stories.js: Start over): not found, not a failure.
+    await assert.rejects(bl.delete(`${sd}/nope.txt`), (e) => e.status === 'StatusNotFound');
     await bl.stat(file);   // and the line still works
   });
 

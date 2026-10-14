@@ -267,6 +267,19 @@ button.install {
 }
 button.install:hover { background: #ffa04a; }
 button.install:disabled { background: #8a8f99; color: #2a2d33; cursor: not-allowed; }
+button.restart {
+  min-height: 40px;
+  padding: 6px 14px;
+  border: 2px solid var(--blue);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  font: 700 0.95rem Tahoma, Verdana, system-ui, sans-serif;
+  cursor: pointer;
+}
+button.restart:hover { background: var(--blue); }
+button.restart[data-armed] { border-color: var(--orange); background: var(--orange); color: #1a0d00; }
+button.restart:disabled { border-color: #8a8f99; color: #8a8f99; background: transparent; cursor: not-allowed; }
 
 .progress { height: 8px; background: rgba(0, 0, 0, 0.35); border-radius: 4px; overflow: hidden; }
 .progress .bar { height: 100%; width: 0; background: linear-gradient(to right, var(--blue), var(--orange)); transition: width 0.15s; }
