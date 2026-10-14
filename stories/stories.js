@@ -117,7 +117,7 @@ function playable(pack) {
 }
 
 function shortDate(iso) {
-  return new Date(iso + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  return new Date(iso.slice(0, 10) + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
 function chip(list, text, cls) {
@@ -198,8 +198,8 @@ function show(packs, usb) {
     const chips = el(card, '.chips');
     const routes = (pack.contents || []).filter((c) => c.route).length;
     if (!pack.desk) chip(chips, pack.chambers + ' chambers');
-    else if (routes) chip(chips, played + ' rounds at the terminal, ' + pack.rounds + ' in all');
-    else chip(chips, pack.rounds + ' rounds at the terminal');
+    else if (routes) chip(chips, played + ' chambers per playthrough, ' + pack.rounds + ' in all');
+    else chip(chips, pack.rounds + ' chambers');
     if (routes) chip(chips, routes + ' ways to get there');
     if (pack.music && pack.music !== 'calm') chip(chips, '♪ ' + pack.music, 'music');
     chip(chips, kb(pack.bytes));

@@ -5,6 +5,71 @@
  "poster": "packs/trailer.jpg",
  "packs": [
   {
+   "id": "human-in-the-loop",
+   "name": "Human in the loop",
+   "author": "annejan",
+   "about": "Aperture's test generator needs a human to break its drafts. You are the human.",
+   "music": "office",
+   "desk": true,
+   "rounds": 9,
+   "chambers": 10,
+   "files": 37,
+   "bytes": 58050,
+   "zip": "packs/human-in-the-loop.zip",
+   "bundle": "packs/human-in-the-loop.json",
+   "still": "packs/human-in-the-loop.jpg",
+   "clip": "packs/human-in-the-loop.mp4",
+   "contents": [
+    {
+     "name": "Hold the door",
+     "hint": "A draft: find a way she did not mean. The final draft: the way she did."
+    },
+    {
+     "name": "Pressure",
+     "hint": "The ferry sails when every button is down, and not a second longer."
+    },
+    {
+     "name": "Light work",
+     "hint": "The cube is in the right place. It is facing the wrong way."
+    },
+    {
+     "name": "Wet floor",
+     "hint": "The mop water is in the cupboard. The floor that needs it is out in the hall."
+    },
+    {
+     "route": "The break room"
+    },
+    {
+     "name": "Break room",
+     "hint": "A panel is missing low in the far wall. Somebody lives behind it. Bring a cube."
+    },
+    {
+     "route": "Stay at your desk"
+    },
+    {
+     "name": "Second opinion",
+     "hint": "Two faults. One is in the pipe. The other is where you would aim."
+    },
+    {
+     "route": null
+    },
+    {
+     "name": "Observation",
+     "hint": "Portals bring the beam down to you. Only a cube turns it the last corner."
+    },
+    {
+     "name": "Momentum",
+     "hint": "Nothing in here gives you speed. Make your own, then pass it on."
+    },
+    {
+     "name": "The last draft",
+     "hint": "The plate aims at the turret. Give it something to throw."
+    }
+   ],
+   "updated": "2026-10-14T10:04:16+02:00",
+   "sha256": "384fa39d51bbd13cf0ce648e17b1caf1b6c100a1cbb3ffc74b9a08e9c97bda84"
+  },
+  {
    "id": "after-hours",
    "name": "After hours",
    "author": "annejan",
@@ -14,7 +79,7 @@
    "rounds": 0,
    "chambers": 14,
    "files": 16,
-   "bytes": 502212,
+   "bytes": 502198,
    "zip": "packs/after-hours.zip",
    "bundle": "packs/after-hours.json",
    "still": "packs/after-hours.jpg",
@@ -77,8 +142,8 @@
      "hint": "A fall keeps its speed through a portal. Only the top is high enough."
     }
    ],
-   "updated": "2026-10-14",
-   "sha256": "bb9572bafa45c61dad28c85be9c2430e5ccf7130dd1754dd9a1ed7b7d0f97917"
+   "updated": "2026-10-14T06:24:40+02:00",
+   "sha256": "24af75b355283e466877f05969da38f76e76af6a5c6265f9f31601af6e092811"
   },
   {
    "id": "hackfest",
@@ -90,7 +155,7 @@
    "rounds": 12,
    "chambers": 13,
    "files": 27,
-   "bytes": 45280,
+   "bytes": 45266,
    "zip": "packs/hackfest.zip",
    "bundle": "packs/hackfest.json",
    "still": "packs/hackfest.jpg",
@@ -157,44 +222,8 @@
      "hint": "Daisy-chain the beam through both power strips to the stage. Meet the bridge."
     }
    ],
-   "updated": "2026-10-14",
-   "sha256": "7feb68bd23f47e93dfe24f146cfb8854557bb9a8606ce25b5990a272b119ce48"
-  },
-  {
-   "id": "human-in-the-loop",
-   "name": "Human in the loop",
-   "author": "annejan",
-   "about": "Aperture's test generator needs a human to break its drafts. You are the human.",
-   "music": "office",
-   "desk": true,
-   "rounds": 4,
-   "chambers": 5,
-   "files": 24,
-   "bytes": 26957,
-   "zip": "packs/human-in-the-loop.zip",
-   "bundle": "packs/human-in-the-loop.json",
-   "still": "packs/human-in-the-loop.jpg",
-   "clip": "packs/human-in-the-loop.mp4",
-   "contents": [
-    {
-     "name": "Hold the door",
-     "hint": "A draft: find a way she did not mean. The final draft: the way she did."
-    },
-    {
-     "name": "Pressure",
-     "hint": "The ferry sails when every button is down, and not a second longer."
-    },
-    {
-     "name": "Light work",
-     "hint": "The cube is in the right place. It is facing the wrong way."
-    },
-    {
-     "name": "Momentum",
-     "hint": "Nothing in here gives you speed. Make your own, then pass it on."
-    }
-   ],
-   "updated": "2026-10-14",
-   "sha256": "4c59798170f615d7005a3a8e21f6118d90aa0dcb2546f8f98d69d639cffffb58"
+   "updated": "2026-10-14T01:53:45+02:00",
+   "sha256": "7ce46712eacd252c415620ff8ea559450b082d3345ac1d1b86d8df2ec5f509d9"
   }
  ]
 }
