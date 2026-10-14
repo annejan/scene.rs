@@ -42,7 +42,7 @@ DB = os.path.join(DATA, "runs.db")
 
 # Which build replays a recording: by its version line's first word (a
 # release, or a ghost's physics), the newest physics it is at least.
-PHYSICS = [((0, 12, 8), "0.12.8"), ((0, 12, 0), "0.12.0")]
+PHYSICS = [((0, 13, 0), "0.13.0"), ((0, 12, 8), "0.12.8"), ((0, 12, 0), "0.12.0")]
 
 # The twenty test chambers, in order: a run through all of them is "the twenty".
 TWENTY = ["01-gap", "02-ledge", "03-fling", "04-button", "05-delivery", "06-faith-plate", "07-the-grill",
@@ -245,6 +245,10 @@ def board(con):
         out["recent"].append(dict(base, physics=physics, tas=bool(tas), complete=bool(complete),
                                   total=round(total, 3), chambers=len(runs),
                                   first=(runs[0].get("name") if runs else "")))
+    # Every listed run, for the films (server/films/render.py fetches this).
+    write_json(os.path.join(PUBLIC, "index.json"),
+               {"runs": [{"id": r["id"], "physics": r["physics"], "total": r["total"], "chambers": r["chambers"]}
+                         for r in out["recent"]]})
     out["recent"] = out["recent"][::-1][:30]
     for (physics, key, side, _), entry in best.items():
         b = out["boards"].setdefault(physics, {}).setdefault(key, {"real": [], "tas": []})
