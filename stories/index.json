@@ -5,69 +5,80 @@
  "poster": "packs/trailer.jpg",
  "packs": [
   {
-   "id": "human-in-the-loop",
-   "name": "Human in the loop",
-   "author": "annejan, story by Renze",
-   "about": "Aperture's test generator needs a human to break its drafts. You are the human.",
-   "music": "office",
-   "desk": true,
-   "rounds": 9,
-   "chambers": 10,
-   "files": 37,
-   "bytes": 58069,
-   "zip": "packs/human-in-the-loop.zip",
-   "bundle": "packs/human-in-the-loop.json",
-   "still": "packs/human-in-the-loop.jpg",
-   "clip": "packs/human-in-the-loop.mp4",
+   "id": "after-hours",
+   "name": "After hours",
+   "author": "annejan",
+   "about": "The tests are over. The testing is not.",
+   "music": "overtime",
+   "desk": false,
+   "rounds": 0,
+   "chambers": 14,
+   "files": 16,
+   "bytes": 502212,
+   "zip": "packs/after-hours.zip",
+   "bundle": "packs/after-hours.json",
+   "still": "packs/after-hours.jpg",
+   "clip": "packs/after-hours.mp4",
    "contents": [
     {
-     "name": "Hold the door",
-     "hint": "A draft: find a way she did not mean. The final draft: the way she did."
-    },
-    {
-     "name": "Pressure",
-     "hint": "The ferry sails when every button is down, and not a second longer."
-    },
-    {
-     "name": "Light work",
-     "hint": "The cube is in the right place. It is facing the wrong way."
-    },
-    {
-     "name": "Wet floor",
-     "hint": "The mop water is in the cupboard. The floor that needs it is out in the hall."
-    },
-    {
-     "route": "The break room"
-    },
-    {
-     "name": "Break room",
-     "hint": "A panel is missing low in the far wall. Somebody lives behind it. Bring a cube."
-    },
-    {
-     "route": "Stay at your desk"
-    },
-    {
-     "name": "Second opinion",
-     "hint": "Two faults. One is in the pipe. The other is where you would aim."
-    },
-    {
-     "route": null
-    },
-    {
-     "name": "Observation",
-     "hint": "Portals bring the beam down to you. Only a cube turns it the last corner."
+     "name": "Overtime",
+     "hint": "Everything you have learned, in the right order."
     },
     {
      "name": "Momentum",
      "hint": "Nothing in here gives you speed. Make your own, then pass it on."
     },
     {
-     "name": "The last draft",
-     "hint": "The plate aims at the turret. Give it something to throw."
+     "name": "Rush hour",
+     "hint": "Walk in, and a floor portal is a step. Run in, and it is an escalator."
+    },
+    {
+     "name": "Cleaning crew",
+     "hint": "Gel only ever falls. A portal decides which way is down."
+    },
+    {
+     "name": "Courier",
+     "hint": "Do not handle the parcel. That is what the funnel is for."
+    },
+    {
+     "name": "Two-way street",
+     "hint": "The funnel runs both ways. Not at the same time, and not for long."
+    },
+    {
+     "name": "Reflections",
+     "hint": "Portals move a beam. Only a cube turns one. Take a moment for reflection."
+    },
+    {
+     "name": "Bowling night",
+     "hint": "Gravity bowls harder than you do. The second ball learns from the first."
+    },
+    {
+     "name": "Lights out",
+     "hint": "Two portals will not get it there. The pellet will not wait while you think."
+    },
+    {
+     "name": "Night shift",
+     "hint": "The night watch only looks one way. Send the bridge the other way."
+    },
+    {
+     "name": "Crunch time",
+     "hint": "The deadline is six seconds away. The commute is eight. Work from home."
+    },
+    {
+     "name": "Shop Floor",
+     "hint": "Too far to walk, too far to shoot. Plan it from the gallery."
+    },
+    {
+     "name": "Canyon",
+     "hint": "Everything worth reaching is far away. Make the far things come to you."
+    },
+    {
+     "name": "Spire",
+     "hint": "A fall keeps its speed through a portal. Only the top is high enough."
     }
    ],
-   "updated": "2026-10-14T13:40:22+02:00",
-   "sha256": "f25b198fe02257cfb82644fd25296d91912f4c9f84ee742d7f727b649c2173a6"
+   "updated": "2026-10-14T17:07:10+02:00",
+   "sha256": "8133948f5d8a5fa3368291b6e3dadf9168047c170a46bc6ea285d2cd36269d1d"
   },
   {
    "id": "hackfest",
@@ -79,7 +90,7 @@
    "rounds": 12,
    "chambers": 13,
    "files": 28,
-   "bytes": 45653,
+   "bytes": 45661,
    "zip": "packs/hackfest.zip",
    "bundle": "packs/hackfest.json",
    "still": "packs/hackfest.jpg",
@@ -146,84 +157,73 @@
      "hint": "Daisy-chain the beam through both power strips to the stage. Meet the bridge."
     }
    ],
-   "updated": "2026-10-14T13:01:26+02:00",
-   "sha256": "82a494c64cfcce7f984b9a4ff6d3871c3c3626f8c1f10b3075a11e8d100af9e1"
+   "updated": "2026-10-14T17:07:10+02:00",
+   "sha256": "418eee5063fc142259f8c89cdc8ff5a9ec101ef001302972b40a53d65a3fdd51"
   },
   {
-   "id": "after-hours",
-   "name": "After hours",
-   "author": "annejan",
-   "about": "The tests are over. The testing is not.",
-   "music": "overtime",
-   "desk": false,
-   "rounds": 0,
-   "chambers": 14,
-   "files": 16,
-   "bytes": 502204,
-   "zip": "packs/after-hours.zip",
-   "bundle": "packs/after-hours.json",
-   "still": "packs/after-hours.jpg",
-   "clip": "packs/after-hours.mp4",
+   "id": "human-in-the-loop",
+   "name": "Human in the loop",
+   "author": "annejan, story by Renze",
+   "about": "Aperture's test generator needs a human to break its drafts. You are the human.",
+   "music": "office",
+   "desk": true,
+   "rounds": 9,
+   "chambers": 10,
+   "files": 37,
+   "bytes": 58071,
+   "zip": "packs/human-in-the-loop.zip",
+   "bundle": "packs/human-in-the-loop.json",
+   "still": "packs/human-in-the-loop.jpg",
+   "clip": "packs/human-in-the-loop.mp4",
    "contents": [
     {
-     "name": "Overtime",
-     "hint": "Everything you have learned, in the right order."
+     "name": "Hold the door",
+     "hint": "A draft: find a way she did not mean. The final draft: the way she did."
+    },
+    {
+     "name": "Pressure",
+     "hint": "The ferry sails when every button is down, and not a second longer."
+    },
+    {
+     "name": "Light work",
+     "hint": "The cube is in the right place. It is facing the wrong way."
+    },
+    {
+     "name": "Wet floor",
+     "hint": "The mop water is in the cupboard. The floor that needs it is out in the hall."
+    },
+    {
+     "route": "The break room"
+    },
+    {
+     "name": "Break room",
+     "hint": "A panel is missing low in the far wall. Somebody lives behind it. Bring a cube."
+    },
+    {
+     "route": "Stay at your desk"
+    },
+    {
+     "name": "Second opinion",
+     "hint": "Two faults. One is in the pipe. The other is where you would aim."
+    },
+    {
+     "route": null
+    },
+    {
+     "name": "Observation",
+     "hint": "Portals bring the beam down to you. Only a cube turns it the last corner."
     },
     {
      "name": "Momentum",
      "hint": "Nothing in here gives you speed. Make your own, then pass it on."
     },
     {
-     "name": "Rush hour",
-     "hint": "Walk in, and a floor portal is a step. Run in, and it is an escalator."
-    },
-    {
-     "name": "Cleaning crew",
-     "hint": "Gel only ever falls. A portal decides which way is down."
-    },
-    {
-     "name": "Courier",
-     "hint": "Do not handle the parcel. That is what the funnel is for."
-    },
-    {
-     "name": "Two-way street",
-     "hint": "The funnel runs both ways. Not at the same time, and not for long."
-    },
-    {
-     "name": "Reflections",
-     "hint": "Portals move a beam. Only a cube turns one. Take a moment for reflection."
-    },
-    {
-     "name": "Bowling night",
-     "hint": "Gravity bowls harder than you do. The second ball learns from the first."
-    },
-    {
-     "name": "Lights out",
-     "hint": "Two portals will not get it there. The pellet will not wait while you think."
-    },
-    {
-     "name": "Night shift",
-     "hint": "The night watch only looks one way. Send the bridge the other way."
-    },
-    {
-     "name": "Crunch time",
-     "hint": "The deadline is six seconds away. The commute is eight. Work from home."
-    },
-    {
-     "name": "Shop Floor",
-     "hint": "Too far to walk, too far to shoot. Plan it from the gallery."
-    },
-    {
-     "name": "Canyon",
-     "hint": "Everything worth reaching is far away. Make the far things come to you."
-    },
-    {
-     "name": "Spire",
-     "hint": "A fall keeps its speed through a portal. Only the top is high enough."
+     "name": "The last draft",
+     "hint": "The plate aims at the turret. Give it something to throw."
     }
    ],
-   "updated": "2026-10-14T06:24:40+02:00",
-   "sha256": "7ca0bfadc4b4450548db10942232192133acca143c0a22c49ba2617e6d763767"
+   "updated": "2026-10-14T17:07:10+02:00",
+   "sha256": "97a35fc64eede63460176c7b92537d41e951b48475a7b7955edc4dc6ffc75002"
   }
  ]
 }
