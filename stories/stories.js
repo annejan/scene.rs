@@ -173,6 +173,7 @@ function show(packs, usb) {
   list.textContent = '';
   packs.forEach((pack, n) => {
     const card = tpl.content.firstElementChild.cloneNode(true);
+    card.id = pack.id;
     card.dataset.pack = pack.id;
     const still = el(card, '.still');
     const clip = el(card, '.clip');

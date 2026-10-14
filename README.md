@@ -37,6 +37,10 @@ game for the Tanmatsu badge, with a button that writes a pack onto the badge ove
   and a looping clip, and the trailer at the top): made by the game's `tools/stories_site.py`
   (`make dlc-zip`, then `python3 tools/stories_site.py ~/Projects/scene.rs/stories`).
   `stories/test/` is not served.
+- Then `tools/stories_static.py`: the cards, the counts and the structured data (JSON-LD) written
+  into `stories/index.html` itself, and `stories/share.jpg` for link previews, so search engines
+  and browsers without JavaScript see the stories too; `stories.js` draws the cards again.
+- `robots.txt` and `sitemap.xml`: for search engines, the site's pages.
 
 ## Licence
 

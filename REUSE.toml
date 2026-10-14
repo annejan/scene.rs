@@ -4,7 +4,7 @@ SPDX-PackageDownloadLocation = "https://github.com/annejan/scene.rs"
 
 # The page, its style and script, the server config and the model tool.
 [[annotations]]
-path = ["index.html", "scene.css", "scene.js", ".htaccess", "tools/**", "README.md", "REUSE.toml", ".gitignore"]
+path = ["index.html", "scene.css", "scene.js", ".htaccess", "robots.txt", "sitemap.xml", "tools/**", "README.md", "REUSE.toml", ".gitignore"]
 SPDX-FileCopyrightText = "Anne Jan Brouwer"
 SPDX-License-Identifier = "MIT"
 

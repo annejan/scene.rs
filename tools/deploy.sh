@@ -13,7 +13,7 @@ DEPLOY_ROOT=${DEPLOY_ROOT:-sceners}
 
 cd "$(dirname "$0")/.."
 
-FILES="index.html scene.css scene.js .htaccess favicon.ico models music"
+FILES="index.html scene.css scene.js .htaccess favicon.ico robots.txt sitemap.xml models music"
 [ -d stories ] && FILES="$FILES stories"
 
 if [ "${1:-}" = "--go" ]; then
