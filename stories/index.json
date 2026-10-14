@@ -12,11 +12,11 @@
    "rounds": 0,
    "chambers": 5,
    "files": 7,
-   "bytes": 452937,
+   "bytes": 452922,
    "zip": "packs/after-hours.zip",
    "bundle": "packs/after-hours.json",
    "still": "packs/after-hours.png",
-   "sha256": "d2080a68acd4374185a41627d020b4fd27fa23212004853babe5be10bc158fff"
+   "sha256": "2486a7fdcdda59ea2545ece165ac3c5811a719e6d7f3d41c7a85fbd3cf2ca43a"
   },
   {
    "id": "hackfest",
@@ -28,11 +28,11 @@
    "rounds": 12,
    "chambers": 13,
    "files": 27,
-   "bytes": 45281,
+   "bytes": 45266,
    "zip": "packs/hackfest.zip",
    "bundle": "packs/hackfest.json",
    "still": "packs/hackfest.png",
-   "sha256": "daad8ca0b85787fd656b3362c2b499222bbd2edb12add7b1621799c00a30c895"
+   "sha256": "e1c2cfa31ff48d5ad3c9f534d3b2b1b1fa03d55c8cc50db7fc551d16603500da"
   },
   {
    "id": "human-in-the-loop",
@@ -44,11 +44,11 @@
    "rounds": 4,
    "chambers": 5,
    "files": 24,
-   "bytes": 26959,
+   "bytes": 26929,
    "zip": "packs/human-in-the-loop.zip",
    "bundle": "packs/human-in-the-loop.json",
    "still": "packs/human-in-the-loop.png",
-   "sha256": "682763e76080e70eb3b09f1048f5cab42f8d34cf502cba4fef6d9206114653cb"
+   "sha256": "03636eb1c9ce25d70d3091e2587955f940b84e0f6e1ef274bb8d79525abe3a36"
   }
  ]
 }
