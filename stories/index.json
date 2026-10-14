@@ -1,0 +1,54 @@
+{
+ "game": "Portals",
+ "install_to": "/sd/portals/dlc",
+ "packs": [
+  {
+   "id": "after-hours",
+   "name": "After hours",
+   "author": "annejan",
+   "about": "The tests are over. The testing is not.",
+   "music": "overtime",
+   "desk": false,
+   "rounds": 0,
+   "chambers": 3,
+   "files": 5,
+   "bytes": 141140,
+   "zip": "packs/after-hours.zip",
+   "bundle": "packs/after-hours.json",
+   "still": "packs/after-hours.png",
+   "sha256": "7131c48bed880b72e243576bfcece36a427c28b3262281824f1d50a916ac2fd4"
+  },
+  {
+   "id": "hackfest",
+   "name": "Off to Hackfest",
+   "author": "annejan",
+   "about": "Hackfest is on Saturday, from noon, at Sickhouse in Enschede. A few things first. Geeky things.",
+   "music": "hackfest",
+   "desk": true,
+   "rounds": 12,
+   "chambers": 13,
+   "files": 27,
+   "bytes": 45281,
+   "zip": "packs/hackfest.zip",
+   "bundle": "packs/hackfest.json",
+   "still": "packs/hackfest.png",
+   "sha256": "8a672f2c51dd94d411c8c19bddf605b75a592e944857c67300e35ce1b4dc4ec7"
+  },
+  {
+   "id": "human-in-the-loop",
+   "name": "Human in the loop",
+   "author": "annejan",
+   "about": "Aperture's test generator needs a human to break its drafts. You are the human.",
+   "music": "office",
+   "desk": true,
+   "rounds": 4,
+   "chambers": 5,
+   "files": 24,
+   "bytes": 26959,
+   "zip": "packs/human-in-the-loop.zip",
+   "bundle": "packs/human-in-the-loop.json",
+   "still": "packs/human-in-the-loop.png",
+   "sha256": "c1d8ea892f8fde51ea5b9b24b307874d8cb3f9c97de5042b2153f3dec0525fbe"
+  }
+ ]
+}

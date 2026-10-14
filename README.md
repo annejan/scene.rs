@@ -21,6 +21,21 @@ stands still.
 
 Deploy: copy `index.html`, `scene.css`, `scene.js`, `.htaccess`, `models/` and `music/` to
 the web root. No build step. `collada/` and `tools/` are the sources, not served.
+`tools/deploy.sh` does this with rsync over ssh (dry run first, `--go` to copy).
+
+## /stories
+
+Story packs for [Portals](https://github.com/annejan/tanmatsu-portals-grace), the Portal-like
+game for the Tanmatsu badge, with a button that writes a pack onto the badge over USB
+(WebUSB, Chrome or Edge, the badge in BadgeLink mode) and a zip to download.
+
+- `stories/index.html`, `stories.css`, `stories.js`: the page.
+- `stories/badgelink.js`: BadgeLink over WebUSB, no libraries: COBS-framed protobuf packets
+  with a CRC32, as `badgelink.py` speaks it. `node --test stories/test/badgelink.test.js`
+  tests it against the badge's own BadgeLink code built on the host (`stories/test/mock.sh`).
+- `stories/index.json` and `stories/packs/`: made by the game's `tools/stories_site.py`
+  (`make dlc-zip`, then `python3 tools/stories_site.py ~/Projects/scene.rs/stories`).
+  `stories/test/` is not served.
 
 ## Licence
 

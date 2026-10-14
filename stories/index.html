@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portals stories</title>
+  <meta name="description" content="Story packs for Portals, the Portal-like puzzle game for the Tanmatsu badge: put them on your badge straight from the browser, over USB.">
+  <link rel="canonical" href="https://scene.rs/stories/">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/stories/stories.css">
+  <script src="/stories/badgelink.js" defer></script>
+  <script src="/stories/stories.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Portals stories</h1>
+    <p class="lede">Story packs for <a href="https://github.com/annejan/tanmatsu-portals-grace">Portals</a>,
+      the Portal-like puzzle game for the <a href="https://nicolaielectronics.nl/tanmatsu/">Tanmatsu</a>.
+      Put one on your badge straight from here, over USB, or download it.</p>
+    <nav aria-label="Links">
+      <a href="/">scene.rs</a>
+      <a href="https://tanmatsu.cloud/">Get Portals (tanmatsu.cloud)</a>
+      <a href="https://github.com/annejan/tanmatsu-portals-grace/blob/main/dlc/README.md">Write your own story</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="howto" aria-labelledby="howto-title">
+      <h2 id="howto-title">On your badge in three steps</h2>
+      <ol>
+        <li>Connect the Tanmatsu to this computer with USB.</li>
+        <li>On the badge's launcher, press the purple diamond: a USB icon shows in the top right. That is BadgeLink mode.</li>
+        <li>Press <strong>Put it on my Tanmatsu</strong> under a story and pick the badge. Then on the badge: Portals, Stories.</li>
+      </ol>
+      <p id="usb-note" class="note" hidden></p>
+    </section>
+
+    <section id="packs" class="packs" aria-label="Story packs">
+      <p class="loading">Loading the stories…</p>
+    </section>
+
+    <section class="manual" aria-labelledby="manual-title">
+      <h2 id="manual-title">By hand</h2>
+      <p>Unzip a story into <code>/sd/portals/dlc/</code> on the badge's SD card, so that its
+        <code>pack.txt</code> ends up in <code>/sd/portals/dlc/&lt;story&gt;/</code>, or copy it there with
+        badgelink's <code>fs upload</code> from a terminal.</p>
+      <p>Portals 0.12.4 or later plays every story here; older versions play them without their own music.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Portals is a fan game in honour of Valve's Portal. Portal, Aperture Science and GLaDOS are Valve's.
+      Runs under <a href="https://github.com/nullislandspace/tanmatsu-graceloader">Graceloader</a>, built on
+      <a href="https://github.com/nullislandspace/synthengine3D">SynthEngine 3D</a>.</p>
+  </footer>
+
+  <template id="pack-card">
+    <article class="pack">
+      <img class="still" alt="" width="400" height="240" loading="lazy">
+      <div class="body">
+        <h2 class="name"></h2>
+        <p class="by"></p>
+        <p class="about"></p>
+        <p class="facts"></p>
+        <div class="actions">
+          <button type="button" class="install">Put it on my Tanmatsu</button>
+          <a class="zip" download>Download zip</a>
+        </div>
+        <div class="progress" hidden><div class="bar"></div></div>
+        <p class="status" role="status"></p>
+      </div>
+    </article>
+  </template>
+</body>
+</html>
