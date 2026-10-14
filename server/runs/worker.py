@@ -103,6 +103,8 @@ def replay(path, physics):
 
 def db():
     con = sqlite3.connect(DB)
+    if os.stat(DB).st_uid == os.getuid():
+        os.chmod(DB, 0o664)  # the maintainer's admin.py writes it too (group runs)
     con.execute("""create table if not exists runs (
         id text primary key, created text, nick text, tas integer, video text, note text, source text,
         filename text, version text, physics text, rkind text, complete integer, total real, runs text,
