@@ -6,7 +6,7 @@
 'use strict';
 
 const DATA = '/runs/data/';
-const FILMS = 'https://annejan.com/portals/runs/';  // each run's film, when made (server/films)
+const FILMS = 'https://vidr.nl/portals/';  // each run's film, when made (server/films), and the queue
 const ON_BADGE = ['/sd/portals/recordings', '/sd/portals/ghosts'];
 let boardData = null;
 let side = 'real';
@@ -106,11 +106,15 @@ function showRecent() {
   if (!list.children.length) list.append(el('li', { text: 'Nothing yet.' }));
 }
 
+let asked = 0;  // the latest run asked for: an answer for an older one is let go
+
 async function showRun(id) {
   const box = $('detail');
-  if (!/^[0-9a-f]{16}$/.test(id)) { box.hidden = true; return; }
+  const me = ++asked;
+  if (!/^[0-9a-f]{16}$/.test(id)) { box.hidden = true; current = null; stopFilm(); return; }
   try {
     const r = await json(`${DATA}run/${id}.json`);
+    if (me !== asked) return;
     $('detail-title').textContent = `${r.nick}: ${clock(r.total)}${r.tas ? ' (TAS)' : ''}`;
     $('detail-head').textContent = `${r.date}, made on Portals ${r.version || '?'}, replayed on the ${r.physics} physics; ` +
       (r.kind === 'frames' ? 'recorded on a badge, frame by frame.' : 'a script.') + (r.complete ? '' : ' It does not reach every exit.');
@@ -121,14 +125,7 @@ async function showRun(id) {
     $('detail-note').hidden = !r.note;
     $('detail-note').textContent = r.note || '';
     current = r;
-    // Its film, if the renderer has made it (server/films: annejan.com/portals/runs/).
-    const film = $('detail-film');
-    film.hidden = true;
-    film.onloadedmetadata = () => { film.hidden = false; };
-    film.onerror = () => { film.hidden = true; };
-    film.poster = `${FILMS}${id}.jpg`;
-    film.src = `${FILMS}${id}.mp4`;
-    film.preload = 'metadata';
+    showFilm(r);
     $('detail-status').textContent = '';
     // A ghost file (its version: the physics and the chamber's signature) of one chamber: raceable.
     $('to-ghost').hidden = !(r.runs.length === 1 && /^\d+\.\d+\.\d+ L[0-9a-f]+$/.test(r.version || '') &&
@@ -139,7 +136,171 @@ async function showRun(id) {
     box.hidden = false;
     box.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (e) {
-    box.hidden = true;
+    if (me === asked) { box.hidden = true; current = null; stopFilm(); }
+  }
+}
+
+// --- Its film -----------------------------------------------------------------
+
+// Made on vidr.nl (server/films/render.py) for the best few on each board, and for
+// any run on request (want.php), kept while people watch them. With each film,
+// <id>.json: where each run is in it ("chapters") and which make of it this is
+// ("v", to ask for the film by, so a film made again is never an old one from a
+// cache). Films from before there were chapters have only their poster to say so.
+let filmAsk = 0;    // the latest look for a film: an answer for an older one is let go
+let chapters = [];  // [{start, end, row}] of the film shown
+
+const sleep = (ms) => new Promise((ok) => setTimeout(ok, ms));
+
+function stopFilm() {
+  filmAsk++;
+  const film = $('detail-film');
+  film.pause();
+  film.removeAttribute('src');
+  film.removeAttribute('poster');
+  film.load();  // removing src alone does not stop it
+  film.hidden = true;
+  for (const ch of chapters) ch.row.classList.remove('playing');
+  chapters = [];
+  $('film-none').hidden = true;
+}
+
+// The film's make ("?v=…"), or null when there is none yet.
+async function filmThere(r) {
+  try {
+    const res = await fetch(`${FILMS}${r.id}.json`, { cache: 'no-cache' });
+    if (res.ok) {
+      const info = await res.json();
+      return { v: `?v=${info.v || 0}`, chapters: info.chapters };
+    }
+  } catch (e) { /* no answer: as if none */ }
+  const poster = await new Promise((ok) => {  // a film from before the chapters
+    const probe = new Image();
+    probe.onload = () => ok(true);
+    probe.onerror = () => ok(false);
+    probe.src = `${FILMS}${r.id}.jpg?t=${Date.now()}`;
+  });
+  return poster ? { v: `?t=${Date.now()}`, chapters: null } : null;
+}
+
+async function showFilm(r) {
+  if (r !== current) return;
+  stopFilm();
+  const me = filmAsk;
+  const got = await filmThere(r);
+  if (me !== filmAsk) return;
+  if (!got) {
+    const where = await whereFilm(r, 0);
+    if (me !== filmAsk) return;
+    if (where.at === 'failed') return noFilm(r, where.say, false);
+    if (where.at === 'making' || where.at === 'queued') {
+      noFilm(r, where.say, false);
+      return waitFilm(r, Date.now());
+    }
+    return noFilm(r, 'No film of this run yet.', true);
+  }
+  const film = $('detail-film');
+  film.onerror = () => { if (me === filmAsk) noFilm(r, 'No film of this run yet.', true); };
+  film.poster = `${FILMS}${r.id}.jpg${got.v}`;
+  film.preload = 'metadata';
+  film.src = `${FILMS}${r.id}.mp4${got.v}`;
+  film.hidden = false;
+  if (got.chapters) seekable(r, got.chapters);
+}
+
+function noFilm(r, say, button) {
+  if (r !== current) return;
+  $('detail-film').hidden = true;
+  $('film-none').hidden = false;
+  $('film-say').textContent = say;
+  $('film-make').hidden = !button;
+}
+
+// Each split's time a button to its chamber in the film, matched by name in order
+// (a run the film does not have is passed over); the chamber playing marked.
+function seekable(r, got) {
+  if (r !== current || !Array.isArray(got)) return;
+  const rows = [...$('detail-rows').children];
+  chapters = [];
+  let k = 0;
+  r.runs.forEach((c, i) => {
+    let j = k;
+    while (j < got.length && got[j].name !== c.name) j++;
+    if (j >= got.length) return;
+    k = j + 1;
+    const ch = { start: +got[j].start, end: +got[j].end, row: rows[i] };
+    chapters.push(ch);
+    const cell = rows[i].children[1];
+    const b = el('button', { type: 'button', class: 'seek', text: cell.textContent,
+      'aria-label': `${cell.textContent}: watch ${short(c.name)} in the film` });
+    b.addEventListener('click', () => {
+      const film = $('detail-film');
+      film.currentTime = ch.start;
+      film.play().catch(() => {});
+      film.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+    cell.textContent = '';
+    cell.append(b);
+  });
+}
+
+$('detail-film').addEventListener('timeupdate', () => {
+  const t = $('detail-film').currentTime;
+  for (const ch of chapters) ch.row.classList.toggle('playing', t >= ch.start && t < ch.end);
+});
+
+// Where the run is at the renderer (vidr.nl/portals/queue.json): 'making', 'queued', 'failed',
+// 'absent' (the queue, newer than the ask, does not have it), or 'unknown'.
+async function whereFilm(r, since) {
+  try {
+    const q = await (await fetch(`${FILMS}queue.json`, { cache: 'no-cache' })).json();
+    const failed = (q.failed || []).find((f) => f.id === r.id);
+    if (failed) return { at: 'failed', say: `This run could not be filmed: ${failed.why}.` };
+    if (q.making && q.making.id === r.id) return { at: 'making', say: 'Filming it right now: it shows here when it is ready.' };
+    const n = (q.queue || []).findIndex((f) => f.id === r.id);
+    if (n >= 0) return { at: 'queued', say: `Number ${n + 1} in the queue (vidr.nl): it shows here when it is ready.` };
+    if (Date.parse(q.updated) > since + 60000) return { at: 'absent' };
+  } catch (e) { /* the queue is only a nicety */ }
+  return { at: 'unknown', say: 'The film is being made: a few minutes. It shows here when it is ready.' };
+}
+
+async function makeFilm() {
+  const r = current;
+  if (!r) return;
+  const say = $('film-say');
+  say.focus();  // the button goes: the status keeps the place
+  $('film-make').hidden = true;
+  say.textContent = 'Asking…';
+  const since = Date.now();
+  try {
+    const form = new FormData();
+    form.append('id', r.id);
+    const res = await (await fetch('/runs/want.php', { method: 'POST', body: form })).json();
+    if (!res.ok) throw new Error(res.error || 'no');
+  } catch (e) {
+    return noFilm(r, `That did not work: ${e.message}.`, true);
+  }
+  if (r !== current) return;
+  say.textContent = 'Asked: the film is being made, in a few minutes. It shows here when it is ready.';
+  waitFilm(r, since);
+}
+
+// Asked after every 30 s while the renderer has it (two hours at most), and shown when made.
+async function waitFilm(r, since) {
+  const say = $('film-say');
+  const me = filmAsk;
+  let absent = 0;
+  for (let i = 0; i < 240; i++) {
+    await sleep(30000);
+    if (me !== filmAsk || r !== current) return;
+    if (document.hidden) continue;
+    if (await filmThere(r)) { if (me === filmAsk) showFilm(r); return; }
+    const where = await whereFilm(r, since);
+    if (me !== filmAsk || r !== current) return;
+    if (where.at === 'failed') return noFilm(r, where.say, false);
+    absent = where.at === 'absent' ? absent + 1 : 0;
+    if (absent >= 2) return noFilm(r, 'No film came of it: try again later.', true);
+    if (where.say) say.textContent = where.say;
   }
 }
 
@@ -187,6 +348,7 @@ async function toBadge(asGhost) {
 
 $('to-badge').addEventListener('click', () => toBadge(false));
 $('to-ghost').addEventListener('click', () => toBadge(true));
+$('film-make').addEventListener('click', makeFilm);
 
 function route() {
   const h = new URLSearchParams(location.hash.slice(1));

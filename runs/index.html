@@ -25,6 +25,7 @@
       <a href="/">scene.rs</a>
       <a href="/stories/">Portals stories</a>
       <a href="https://annejan.com/portals/">Get Portals</a>
+      <a href="https://vidr.nl/">The films</a>
     </nav>
     <h1>Portals speedruns</h1>
     <p class="lede">Every run here was replayed by the game's own code, frame by frame, as the badge
@@ -54,6 +55,8 @@
       <h2 id="detail-title">A run</h2>
       <p id="detail-head"></p>
       <video id="detail-film" class="film" controls preload="none" playsinline hidden></video>
+      <p id="film-none" class="film-none" hidden><span id="film-say" role="status" tabindex="-1">No film of this run yet.</span>
+        <button type="button" id="film-make" class="install">Make a film of it</button></p>
       <table class="board splits">
         <thead><tr><th scope="col">Chamber</th><th scope="col" class="num">Time</th><th scope="col">Exit</th></tr></thead>
         <tbody id="detail-rows"></tbody>

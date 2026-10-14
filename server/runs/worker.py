@@ -51,6 +51,13 @@ TWENTY = ["01-gap", "02-ledge", "03-fling", "04-button", "05-delivery", "06-fait
           "20-excursion"]
 
 TOP = 25  # entries kept on each board
+# Films (server/films/render.py, on vidr.nl): the best few on each board are always kept,
+# on the newest physics more than on older ones; and up to WANTED asked for on a run's page
+# (runs/want.php), each wanted for WANT_KEEP.
+PIN_NEWEST, PIN_OLDER = 3, 1
+WANTED = 20
+WANT_KEEP = 2 * 86400
+FILM_CHAMBER_CAP = 300.0  # seconds of one chamber a film shows at most (render.py's CHAMBER_CAP)
 
 
 def version_tuple(text):
@@ -201,6 +208,45 @@ def take(con, meta_path):
     os.remove(meta_path)
 
 
+def wants(listed):
+    """The listed runs whose film someone asked for (runs/want.php leaves SPOOL/want-<id>),
+    the latest ask first, each wanted for WANT_KEEP."""
+    path = os.path.join(DATA, "wanted.json")
+    try:
+        with open(path) as f:
+            wanted = json.load(f)
+    except (OSError, ValueError):
+        wanted = {}
+    now = time.time()
+    for name in os.listdir(SPOOL):
+        if name.startswith("want-"):
+            if re.fullmatch(r"[0-9a-f]{16}", name[5:]):
+                wanted[name[5:]] = now
+            os.remove(os.path.join(SPOOL, name))
+    wanted = {k: t for k, t in wanted.items() if k in listed and now - t < WANT_KEEP}
+    wanted = dict(sorted(wanted.items(), key=lambda kv: -kv[1])[:WANTED])  # the latest asks only
+    write_json(path, wanted)
+    return list(wanted)
+
+
+def film_length(rkind, runs):
+    """How long a run's film is, about, and its longest chamber: what the film tool plays of
+    each run (to its exit; without one, to where its frames end or, for a script, the cap),
+    and the badge's pauses between chambers. Not the run's total: that counts exits only."""
+    length, longest = 0.0, 0.0
+    for r in runs:
+        t = float(r.get("time") or 0.0)
+        if r.get("exit"):
+            shown = t  # render.py films a chamber this long whole
+        elif rkind == "frames":
+            shown = min(t + 2.0, FILM_CHAMBER_CAP)
+        else:
+            shown = FILM_CHAMBER_CAP
+        longest = max(longest, shown)
+        length += shown + 6.0
+    return round(length, 1), round(longest, 1)
+
+
 def summary(result):
     if not result.get("ok"):
         return {"ok": False, "error": result.get("error")}
@@ -242,14 +288,12 @@ def board(con):
         write_json(os.path.join(PUBLIC, "run", id_ + ".json"),
                    dict(base, note=note, physics=physics, tas=bool(tas), kind=rkind, complete=bool(complete),
                         total=round(total, 3), runs=runs, recording="rec/%s.txt" % id_))
+        length, longest = film_length(rkind, runs)
         out["recent"].append(dict(base, physics=physics, tas=bool(tas), complete=bool(complete),
                                   total=round(total, 3), chambers=len(runs),
-                                  first=(runs[0].get("name") if runs else "")))
-    # Every listed run, for the films (server/films/render.py fetches this).
-    write_json(os.path.join(PUBLIC, "index.json"),
-               {"runs": [{"id": r["id"], "physics": r["physics"], "total": r["total"], "chambers": r["chambers"]}
-                         for r in out["recent"]]})
-    out["recent"] = out["recent"][::-1][:30]
+                                  first=(runs[0].get("name") if runs else ""), length=length, longest=longest))
+    listed = out["recent"]
+    out["recent"] = [{k: v for k, v in r.items() if k not in ("length", "longest")} for r in out["recent"][::-1][:30]]
     for (physics, key, side, _), entry in best.items():
         b = out["boards"].setdefault(physics, {}).setdefault(key, {"real": [], "tas": []})
         b[side].append(entry)
@@ -264,6 +308,16 @@ def board(con):
             else:
                 b["name"] = "The twenty test chambers"
     write_json(os.path.join(PUBLIC, "board.json"), out)
+    # Every listed run, for the films (server/films/render.py fetches this): the best few on each
+    # board pinned, and the ones someone asked a film of.
+    newest = next((p for _, p in PHYSICS if p in out["boards"]), None)  # the newest with runs on it
+    pinned = {e["id"] for physics, boards in out["boards"].items() for b in boards.values()
+              for side in ("real", "tas") for e in b[side][:PIN_NEWEST if physics == newest else PIN_OLDER]}
+    write_json(os.path.join(PUBLIC, "index.json"),
+               {"runs": [{"id": r["id"], "physics": r["physics"], "total": r["total"], "chambers": r["chambers"],
+                          "length": r["length"], "longest": r["longest"], "pin": r["id"] in pinned,
+                          "nick": r["nick"], "tas": r["tas"], "first": r["first"]} for r in listed],
+                "wanted": wants({r["id"] for r in listed})})
 
 
 def main():

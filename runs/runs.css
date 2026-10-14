@@ -90,3 +90,24 @@ a.button {
 
 .detail video.film { display: block; width: 100%; max-width: 800px; height: auto; aspect-ratio: 5 / 3; margin: 8px 0 12px; background: #000; border-radius: 6px; image-rendering: pixelated; }
 .detail video.film[hidden] { display: none; }
+.detail .film-none { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin: 8px 0 12px; color: var(--soft); }
+.detail .film-none[hidden] { display: none; }
+.detail .film-none button[hidden] { display: none; }
+table.splits button.seek {
+  min-height: 30px;
+  padding: 2px 6px;
+  margin: -2px -6px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--link);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+table.splits button.seek::after { content: " ▸"; text-decoration: none; display: inline-block; margin-left: 2px; }
+table.splits button.seek:hover { background: rgba(255, 255, 255, 0.1); }
+table.splits button.seek:focus-visible { outline: 3px solid var(--link); outline-offset: 1px; }
+table.splits tr.playing td { background: rgba(255, 138, 28, 0.18); }

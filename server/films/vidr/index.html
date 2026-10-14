@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>vidr</title>
+  <meta name="description" content="The video platform nobody can upload to: films of Portals speedruns, made by the game's own code from the runners' button presses.">
+  <meta name="theme-color" content="#101116">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/vidr.css">
+  <script src="/vidr.js" defer></script>
+</head>
+<body>
+  <header>
+    <a class="mark" href="/" aria-label="vidr, home"><span class="play" aria-hidden="true"></span>vidr</a>
+    <p class="tag">The video platform nobody can upload to.</p>
+    <nav aria-label="Not here">
+      <button type="button" disabled title="Nobody can">Sign in</button>
+      <button type="button" disabled title="Nobody can">Upload</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="theatre" class="theatre" aria-labelledby="theatre-title" hidden>
+      <video id="player" controls playsinline preload="metadata"></video>
+      <div class="about">
+        <h1 id="theatre-title"></h1>
+        <p id="theatre-meta" class="meta"></p>
+        <ol id="chapters" class="chapters" aria-label="Chambers in the film"></ol>
+        <p><a id="theatre-run" href="https://scene.rs/runs/">The splits, the recording, and onto your badge, on scene.rs →</a></p>
+      </div>
+    </section>
+
+    <section class="now" aria-labelledby="now-title">
+      <h2 id="now-title">Now filming</h2>
+      <div id="making" class="making"><p class="quiet">Loading…</p></div>
+      <h3>Up next</h3>
+      <ol id="queue" class="queue"></ol>
+      <p id="queue-empty" class="quiet" hidden>Nothing waiting. The renderer is having a coffee.</p>
+    </section>
+
+    <section aria-labelledby="fresh-title">
+      <h2 id="fresh-title">Fresh</h2>
+      <ul id="fresh" class="grid"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>No accounts. No uploads. No comments. No algorithm. No ads.</strong></p>
+    <p>Every video here is a speedrun of <a href="https://annejan.com/portals/">Portals</a>, the Portal-like
+      game for the Tanmatsu badge, filmed by the game's own code from the button presses the runner
+      uploaded to <a href="https://scene.rs/runs/">the speedrun board</a>: what the badge showed, frame by frame.
+      The best few on each board are always here; any other run gets filmed when someone asks for it on its page,
+      and the ones nobody has watched in a while make room again.</p>
+    <p id="stats" class="quiet"></p>
+    <p class="quiet">Made with Claude: this page and the renderer behind it were written with an AI.</p>
+  </footer>
+</body>
+</html>

@@ -1,11 +1,11 @@
-# scene.rs/runs: only the upload runs PHP; data/ (a symlink to /srv/runs/public,
+# scene.rs/runs: only the upload and the ask for a film run PHP; data/ (a symlink to /srv/runs/public,
 # the worker's) is the board, fresh each time it is asked for.
 <FilesMatch "\.php$">
   Require all denied
 </FilesMatch>
-<Files "submit.php">
+<FilesMatch "^(submit|want)\.php$">
   Require all granted
-</Files>
+</FilesMatch>
 <If "%{REQUEST_URI} =~ m#^/runs/data/#">
   Header always set Cache-Control "no-cache"
 </If>
