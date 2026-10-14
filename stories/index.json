@@ -14,7 +14,7 @@
    "rounds": 9,
    "chambers": 10,
    "files": 37,
-   "bytes": 58050,
+   "bytes": 58081,
    "zip": "packs/human-in-the-loop.zip",
    "bundle": "packs/human-in-the-loop.json",
    "still": "packs/human-in-the-loop.jpg",
@@ -66,8 +66,8 @@
      "hint": "The plate aims at the turret. Give it something to throw."
     }
    ],
-   "updated": "2026-10-14T10:04:16+02:00",
-   "sha256": "384fa39d51bbd13cf0ce648e17b1caf1b6c100a1cbb3ffc74b9a08e9c97bda84"
+   "updated": "2026-10-14T11:44:34+02:00",
+   "sha256": "326ccc0a86da11d65512a89dd97ff79295c8b0860272259c5d45678ca1f8293a"
   },
   {
    "id": "after-hours",
@@ -79,7 +79,7 @@
    "rounds": 0,
    "chambers": 14,
    "files": 16,
-   "bytes": 502198,
+   "bytes": 502218,
    "zip": "packs/after-hours.zip",
    "bundle": "packs/after-hours.json",
    "still": "packs/after-hours.jpg",
@@ -143,7 +143,7 @@
     }
    ],
    "updated": "2026-10-14T06:24:40+02:00",
-   "sha256": "24af75b355283e466877f05969da38f76e76af6a5c6265f9f31601af6e092811"
+   "sha256": "f8b308dc99cc2f76fd24d4eadf64bfd1b3e6bec97fd996ed2f999e8896474f59"
   },
   {
    "id": "hackfest",
@@ -155,7 +155,7 @@
    "rounds": 12,
    "chambers": 13,
    "files": 27,
-   "bytes": 45266,
+   "bytes": 45286,
    "zip": "packs/hackfest.zip",
    "bundle": "packs/hackfest.json",
    "still": "packs/hackfest.jpg",
@@ -223,7 +223,7 @@
     }
    ],
    "updated": "2026-10-14T01:53:45+02:00",
-   "sha256": "7ce46712eacd252c415620ff8ea559450b082d3345ac1d1b86d8df2ec5f509d9"
+   "sha256": "aea37629310cf9b3dc313f1e35172cff9f77618ed328f77f96ec2f7c847f8a44"
   }
  ]
 }
