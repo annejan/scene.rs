@@ -112,10 +112,14 @@ def ld(index):
                "gamePlatform": "Tanmatsu (Konsool)"}
     packs = []
     for i, p in enumerate(index["packs"]):
+        # pack.txt's author: "annejan", or "annejan, story by Renze".
+        author, _, story_by = (p.get("author") or "annejan").partition(", story by ")
         item = {"@type": "CreativeWork", "@id": SITE + "#" + p["id"], "name": p["name"], "description": p["about"],
                 "url": SITE + "#" + p["id"], "genre": "Puzzle", "isAccessibleForFree": True, "isPartOf": portals,
-                "author": {"@type": "Person", "name": p.get("author") or "annejan"},
+                "author": {"@type": "Person", "name": author},
                 "encodingFormat": "application/zip", "contentUrl": SITE + p["zip"]}
+        if story_by:
+            item["contributor"] = {"@type": "Person", "name": story_by}  # the story's brief
         if p.get("still"):
             item["image"] = SITE + p["still"]
         if p.get("updated"):
