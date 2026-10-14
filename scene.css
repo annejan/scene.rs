@@ -37,6 +37,23 @@ header {
   background: linear-gradient(to bottom, rgba(0, 10, 40, 0.7), rgba(0, 10, 40, 0.6) 70%, rgba(0, 10, 40, 0));
 }
 
+/* Room on the right for the monogram. */
+header { padding-right: 72px; }
+
+/* Anne Jan's AJB monogram, top right: a signature rather than one more link. */
+.ajb {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  display: block;
+  line-height: 0;
+  opacity: 0.85;
+  transition: opacity 0.2s, filter 0.2s;
+}
+.ajb img { width: 37px; height: 48px; }
+.ajb:hover, .ajb:focus-visible { opacity: 1; filter: drop-shadow(0 0 6px var(--link)); }
+.ajb:focus-visible { outline: 2px solid var(--link); outline-offset: 4px; }
+
 h1 {
   margin: 0 0 4px;
   font: 900 clamp(1.6rem, 5vw, 2.6rem)/1 Impact, 'Arial Black', sans-serif;

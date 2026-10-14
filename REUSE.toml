@@ -41,3 +41,9 @@ SPDX-License-Identifier = "MIT"
 path = ["runs/**", "server/**"]
 SPDX-FileCopyrightText = "Anne Jan Brouwer"
 SPDX-License-Identifier = "MIT"
+
+# Anne Jan Brouwer's AJB monogram, as on annejan.com.
+[[annotations]]
+path = "ajb.svg"
+SPDX-FileCopyrightText = "2010-2026 Anne Jan Brouwer"
+SPDX-License-Identifier = "CC-BY-4.0"
