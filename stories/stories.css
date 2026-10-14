@@ -4,41 +4,49 @@
   --soft: #dbe6ff;
   --link: #fdf05a;
   --bg: #1d63d8;
+  --deep: #0a2564;
   --panel: rgba(0, 10, 40, 0.55);
   --line: rgba(255, 255, 255, 0.18);
   --blue: #2c8cff;
   --orange: #ff8a1c;
+  --accent: var(--orange);
 }
 
 * { box-sizing: border-box; }
 
+html { scroll-behavior: smooth; }
+
 html, body {
   margin: 0;
-  background: var(--bg);
   color: var(--text);
   font: 15px/1.5 Tahoma, Verdana, system-ui, sans-serif;
 }
 
+/* scene.rs's sky, going down into the facility: test chamber panels, faintly. */
+body {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 64px 64px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 64px 64px,
+    linear-gradient(to bottom, var(--bg) 0, #1650b8 900px, var(--deep) 2200px);
+  background-color: var(--deep);
+  min-height: 100vh;
+}
+
 a { color: var(--link); }
-a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
 code { background: rgba(0, 0, 0, 0.25); padding: 0 4px; border-radius: 3px; }
 
-header, main, footer {
+main, footer {
   max-width: 1100px;
   margin: 0 auto;
   padding: 16px;
 }
 
-header {
-  padding-top: 28px;
-  border-bottom: 4px solid;
-  border-image: linear-gradient(to right, var(--blue) 50%, var(--orange) 50%) 1;
-}
-
 h1 {
-  margin: 0 0 8px;
-  font: 900 clamp(2rem, 6vw, 3.2rem)/1 Impact, 'Arial Black', sans-serif;
-  letter-spacing: 0.03em;
+  margin: 0 0 12px;
+  font: 900 clamp(2.6rem, 9vw, 5.2rem)/0.95 Impact, 'Arial Black', sans-serif;
+  letter-spacing: 0.02em;
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.35), 0 0 30px rgba(44, 140, 255, 0.45);
 }
 
 h2 {
@@ -47,55 +55,209 @@ h2 {
   letter-spacing: 0.02em;
 }
 
-.lede { max-width: 60ch; color: var(--soft); }
+/* The top: the films, looping under the title, between a blue and an orange portal. */
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(420px, 68vh, 620px);
+  display: flex;
+  flex-direction: column;
+  background: #000 url(/stories/packs/trailer.jpg) center / cover no-repeat;
+  border-bottom: 4px solid;
+  border-image: linear-gradient(to right, var(--blue) 50%, var(--orange) 50%) 1;
+}
+.trailer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Dark enough for the text, at any frame: darkest on the left, where the text is. */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(0, 8, 30, 0.88) 0, rgba(0, 8, 30, 0.6) 55%, rgba(0, 8, 30, 0.25) 100%),
+    linear-gradient(to top, rgba(0, 8, 30, 0.7), transparent 40%);
+}
+.hero > nav, .hero > .hero-text { position: relative; z-index: 1; }
+.portal { z-index: 1; }
 
-nav { display: flex; flex-wrap: wrap; gap: 4px 18px; }
-nav a { display: inline-block; min-height: 24px; line-height: 24px; }
+.portal {
+  position: absolute;
+  top: 50%;
+  width: 90px;
+  height: 170px;
+  border-radius: 50%;
+  border: 6px solid;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55), transparent 70%);
+  animation: glow 3.2s ease-in-out infinite;
+}
+.portal.blue { left: -30px; color: var(--blue); border-color: var(--blue); transform: translateY(-50%) rotate(-8deg); }
+.portal.orange { right: -30px; color: var(--orange); border-color: var(--orange); transform: translateY(-50%) rotate(8deg); animation-delay: -1.6s; }
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 18px 2px currentColor, inset 0 0 14px currentColor; }
+  50% { box-shadow: 0 0 34px 8px currentColor, inset 0 0 24px currentColor; }
+}
 
-.howto, .manual {
+nav.top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 16px 0;
+}
+nav.top a { display: inline-block; min-height: 24px; line-height: 24px; text-shadow: 0 1px 3px #000; }
+
+.hero-text {
+  width: 100%;
+  max-width: 1100px;
+  margin: auto auto 0;
+  padding: 40px 16px 36px;
+}
+.kicker {
+  margin: 0 0 8px;
+  color: var(--orange);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.lede { max-width: 56ch; margin: 0 0 12px; color: var(--soft); font-size: 1.05rem; }
+.stats { margin: 0 0 18px; min-height: 1.5em; color: var(--text); font-weight: 700; letter-spacing: 0.04em; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+.cta a {
+  display: inline-block;
+  min-height: 44px;
+  padding: 11px 20px;
+  border-radius: 6px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.cta .button { background: var(--orange); color: #1a0d00; }
+.cta .button:hover { background: #ffa04a; }
+.cta .ghost { border: 2px solid var(--blue); color: var(--text); background: rgba(0, 10, 40, 0.5); padding: 9px 18px; }
+.cta .ghost:hover { background: var(--blue); }
+
+/* Three steps, numbered in portal rings. */
+.howto, .manual, .write {
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 14px 18px;
-  margin: 18px 0;
+  padding: 16px 18px;
+  margin: 22px 0;
 }
-.howto ol { margin: 0; padding-left: 1.4em; }
-.note { margin: 10px 0 0; padding: 8px 10px; border-left: 4px solid var(--orange); background: rgba(0, 0, 0, 0.2); }
-
-.packs {
+.steps {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px 22px;
 }
+.steps li { display: flex; gap: 12px; align-items: flex-start; }
+.steps p { margin: 0; }
+.ring {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 52px;
+  border-radius: 50%;
+  border: 4px solid;
+  font: 900 1.3rem/1 Impact, 'Arial Black', sans-serif;
+}
+.ring.blue { border-color: var(--blue); box-shadow: 0 0 12px var(--blue); }
+.ring.orange { border-color: var(--orange); box-shadow: 0 0 12px var(--orange); }
+.note { margin: 14px 0 0; padding: 8px 10px; border-left: 4px solid var(--orange); background: rgba(0, 0, 0, 0.2); }
+
+/* The stories: one wide card each, the film on one side, the story on the other. */
+.packs { display: grid; gap: 26px; margin: 30px 0; }
 .loading { color: var(--soft); }
 
 .pack {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
   background: var(--panel);
   border: 1px solid var(--line);
+  border-top: 4px solid var(--accent);
   border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 20, 0.35);
 }
-.pack .still {
+.pack:nth-child(even) .media { order: 2; }
+.pack[data-pack="after-hours"] { --accent: #ff4fa8; }
+.pack[data-pack="hackfest"] { --accent: #3ddc84; }
+.pack[data-pack="human-in-the-loop"] { --accent: #ffc933; }
+
+/* The film keeps its shape, and stays in view while the chamber list below "What's inside" opens. */
+.media { position: sticky; top: 0; align-self: start; background: #000; }
+.media .still, .media .clip {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 5 / 3;
   object-fit: cover;
-  image-rendering: pixelated;
-  background: #000;
 }
-.pack .body { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
-.pack .by { margin: 0; color: var(--soft); font-size: 0.9rem; }
-.pack .about { margin: 0; }
-.pack .facts { margin: 0; color: var(--soft); font-size: 0.85rem; }
+.media .clip { position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s; }
+.media .clip.playing { opacity: 1; }
+.flag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: var(--accent);
+  color: #120010;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pack .body { padding: 18px 20px 18px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.pack .kind {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.pack .name { margin: 0; font-size: clamp(1.7rem, 3.4vw, 2.3rem); }
+.pack .about { margin: 0; font-size: 1.05rem; font-style: italic; color: var(--soft); }
+
+.chips { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 0; padding: 0; }
+.chips li {
+  padding: 2px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.25);
+  font-size: 0.8rem;
+  color: var(--soft);
+}
+.chips li.music { border-color: var(--accent); color: var(--text); }
+
+.inside summary {
+  min-height: 24px;
+  color: var(--link);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.chambers { margin: 8px 0 0; padding-left: 1.6em; font-size: 0.88rem; }
+.chambers li { margin: 0 0 4px; }
+.chambers li span { display: block; color: var(--soft); font-size: 0.8rem; }
+.chambers li.route { list-style: none; margin: 10px 0 4px -1.6em; color: var(--accent); font-weight: 700; }
 
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: auto; padding-top: 8px; }
 
 button.install {
-  min-height: 36px;
-  padding: 6px 14px;
+  min-height: 40px;
+  padding: 8px 16px;
   border: 0;
   border-radius: 6px;
   background: var(--orange);
@@ -113,9 +275,36 @@ button.install:disabled { background: #8a8f99; color: #2a2d33; cursor: not-allow
 .status.ok { color: #9dffb0; }
 .status.error { color: #ffb4a0; }
 
+/* By hand, and writing one: side by side. */
+.more { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0 22px; }
+.write pre {
+  margin: 10px 0;
+  padding: 12px 14px;
+  overflow-x: auto;
+  border-radius: 6px;
+  border-left: 4px solid var(--blue);
+  background: rgba(0, 0, 0, 0.45);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+.write pre code { background: none; padding: 0; }
+
 footer { color: var(--soft); font-size: 0.85rem; padding-bottom: 32px; }
 footer .made { font-style: italic; opacity: 0.85; }
 
+@media (max-width: 760px) {
+  .pack { grid-template-columns: 1fr; }
+  .pack:nth-child(even) .media { order: 0; }
+  .media { position: relative; }
+  .portal { top: 30%; width: 54px; height: 104px; border-width: 4px; }
+  .portal.blue { left: -26px; }
+  .portal.orange { right: -26px; }
+  .hero::after { background: linear-gradient(to top, rgba(0, 8, 30, 0.9) 0, rgba(0, 8, 30, 0.55) 100%); }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .portal { animation: none; box-shadow: 0 0 22px 4px currentColor; }
+  .media .clip { transition: none; }
   .progress .bar { transition: none; }
 }

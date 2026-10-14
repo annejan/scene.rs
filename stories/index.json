@@ -1,6 +1,8 @@
 {
  "game": "Portals",
  "install_to": "/sd/portals/dlc",
+ "trailer": "packs/trailer.mp4",
+ "poster": "packs/trailer.jpg",
  "packs": [
   {
    "id": "after-hours",
@@ -15,7 +17,67 @@
    "bytes": 502212,
    "zip": "packs/after-hours.zip",
    "bundle": "packs/after-hours.json",
-   "still": "packs/after-hours.png",
+   "still": "packs/after-hours.jpg",
+   "clip": "packs/after-hours.mp4",
+   "contents": [
+    {
+     "name": "Overtime",
+     "hint": "Everything you have learned, in the right order."
+    },
+    {
+     "name": "Momentum",
+     "hint": "Nothing in here gives you speed. Make your own, then pass it on."
+    },
+    {
+     "name": "Rush hour",
+     "hint": "Walk in, and a floor portal is a step. Run in, and it is an escalator."
+    },
+    {
+     "name": "Cleaning crew",
+     "hint": "Gel only ever falls. A portal decides which way is down."
+    },
+    {
+     "name": "Courier",
+     "hint": "Do not handle the parcel. That is what the funnel is for."
+    },
+    {
+     "name": "Two-way street",
+     "hint": "The funnel runs both ways. Not at the same time, and not for long."
+    },
+    {
+     "name": "Reflections",
+     "hint": "Portals move a beam. Only a cube turns one. Take a moment for reflection."
+    },
+    {
+     "name": "Bowling night",
+     "hint": "Gravity bowls harder than you do. The second ball learns from the first."
+    },
+    {
+     "name": "Lights out",
+     "hint": "Two portals will not get it there. The pellet will not wait while you think."
+    },
+    {
+     "name": "Night shift",
+     "hint": "The night watch only looks one way. Send the bridge the other way."
+    },
+    {
+     "name": "Crunch time",
+     "hint": "The deadline is six seconds away. The commute is eight. Work from home."
+    },
+    {
+     "name": "Shop Floor",
+     "hint": "Too far to walk, too far to shoot. Plan it from the gallery."
+    },
+    {
+     "name": "Canyon",
+     "hint": "Everything worth reaching is far away. Make the far things come to you."
+    },
+    {
+     "name": "Spire",
+     "hint": "A fall keeps its speed through a portal. Only the top is high enough."
+    }
+   ],
+   "updated": "2026-10-14",
    "sha256": "bb9572bafa45c61dad28c85be9c2430e5ccf7130dd1754dd9a1ed7b7d0f97917"
   },
   {
@@ -31,7 +93,71 @@
    "bytes": 45280,
    "zip": "packs/hackfest.zip",
    "bundle": "packs/hackfest.json",
-   "still": "packs/hackfest.png",
+   "still": "packs/hackfest.jpg",
+   "clip": "packs/hackfest.mp4",
+   "contents": [
+    {
+     "name": "Pull request",
+     "hint": "The merge button wants a cube. The cube is on the shelf."
+    },
+    {
+     "name": "Reflow the badge",
+     "hint": "The hot air is up on the shelf. The badge is down on the plate."
+    },
+    {
+     "name": "Power banks",
+     "hint": "One launcher per power bank. Both banks full, or the front door stays shut."
+    },
+    {
+     "name": "Pack the bag",
+     "hint": "Two gadgets, two pockets. One sits up high, one down in the drawer."
+    },
+    {
+     "route": "By train"
+    },
+    {
+     "name": "Platform 11b",
+     "hint": "The train runs while the cube is on its button. The cube is on the rack."
+    },
+    {
+     "name": "Change at Amersfoort",
+     "hint": "Check in at the pole. The doors close in two and a half seconds."
+    },
+    {
+     "route": "By bike"
+    },
+    {
+     "name": "160 km of headwind",
+     "hint": "Orange gel makes you fast. Pour a run-up on the path, and jump at its end."
+    },
+    {
+     "name": "The dyke",
+     "hint": "Bikes cannot climb a dyke. Bring the blue gel to its foot, and bounce."
+    },
+    {
+     "route": "A lift"
+    },
+    {
+     "name": "Loading the van",
+     "hint": "The gear is in the attic. The gap in the van is too high. The plate is not."
+    },
+    {
+     "name": "Speed cameras",
+     "hint": "They watch the road, not the sky. Your cargo can take the scenic route."
+    },
+    {
+     "route": null
+    },
+    {
+     "name": "The Wi-Fi",
+     "hint": "The funnel goes where the portals send it. The truss is six metres up."
+    },
+    {
+     "name": "Daisy chain",
+     "hint": "Daisy-chain the beam through both power strips to the stage. Meet the bridge."
+    }
+   ],
+   "updated": "2026-10-14",
    "sha256": "7feb68bd23f47e93dfe24f146cfb8854557bb9a8606ce25b5990a272b119ce48"
   },
   {
@@ -47,7 +173,27 @@
    "bytes": 26957,
    "zip": "packs/human-in-the-loop.zip",
    "bundle": "packs/human-in-the-loop.json",
-   "still": "packs/human-in-the-loop.png",
+   "still": "packs/human-in-the-loop.jpg",
+   "clip": "packs/human-in-the-loop.mp4",
+   "contents": [
+    {
+     "name": "Hold the door",
+     "hint": "A draft: find a way she did not mean. The final draft: the way she did."
+    },
+    {
+     "name": "Pressure",
+     "hint": "The ferry sails when every button is down, and not a second longer."
+    },
+    {
+     "name": "Light work",
+     "hint": "The cube is in the right place. It is facing the wrong way."
+    },
+    {
+     "name": "Momentum",
+     "hint": "Nothing in here gives you speed. Make your own, then pass it on."
+    }
+   ],
+   "updated": "2026-10-14",
    "sha256": "4c59798170f615d7005a3a8e21f6118d90aa0dcb2546f8f98d69d639cffffb58"
   }
  ]

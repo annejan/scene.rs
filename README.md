@@ -33,7 +33,8 @@ game for the Tanmatsu badge, with a button that writes a pack onto the badge ove
 - `stories/badgelink.js`: BadgeLink over WebUSB, no libraries: COBS-framed protobuf packets
   with a CRC32, as `badgelink.py` speaks it. `node --test stories/test/badgelink.test.js`
   tests it against the badge's own BadgeLink code built on the host (`stories/test/mock.sh`).
-- `stories/index.json` and `stories/packs/`: made by the game's `tools/stories_site.py`
+- `stories/index.json` and `stories/packs/` (each pack's zip, its bundle for the badge, a still
+  and a looping clip, and the trailer at the top): made by the game's `tools/stories_site.py`
   (`make dlc-zip`, then `python3 tools/stories_site.py ~/Projects/scene.rs/stories`).
   `stories/test/` is not served.
 

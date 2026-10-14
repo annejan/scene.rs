@@ -27,3 +27,11 @@ SPDX-License-Identifier = "LicenseRef-AllRightsReserved"
 path = ["collada/bawl-e.dae", "models/bawl-e.bin"]
 SPDX-FileCopyrightText = "M42D (BawlSec)"
 SPDX-License-Identifier = "LicenseRef-AllRightsReserved"
+
+# /stories: the page, its BadgeLink client and tests, and the packs, their stills, clips and
+# trailer, made from Portals (https://github.com/annejan/tanmatsu-portals-grace, MIT) by its
+# tools/stories_site.py.
+[[annotations]]
+path = ["stories/**"]
+SPDX-FileCopyrightText = "Anne Jan Brouwer"
+SPDX-License-Identifier = "MIT"

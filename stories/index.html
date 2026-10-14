@@ -12,25 +12,37 @@
   <script src="/stories/stories.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>Portals stories</h1>
-    <p class="lede">Story packs for <a href="https://annejan.com/portals/">Portals</a>,
-      the Portal-like puzzle game for the <a href="https://nicolaielectronics.nl/tanmatsu/">Tanmatsu</a>.
-      Put them on your Konsool straight from here, over USB, or download them.</p>
-    <nav aria-label="Links">
+  <header class="hero">
+    <video id="trailer" class="trailer" muted loop playsinline preload="none" poster="/stories/packs/trailer.jpg" aria-hidden="true"></video>
+    <div class="portal blue" aria-hidden="true"></div>
+    <div class="portal orange" aria-hidden="true"></div>
+    <nav class="top" aria-label="Links">
       <a href="/">scene.rs</a>
       <a href="https://annejan.com/portals/">Get Portals</a>
       <a href="https://github.com/annejan/tanmatsu-portals-grace/blob/main/dlc/README.md">Write your own story</a>
     </nav>
+    <div class="hero-text">
+      <p class="kicker">Aperture Science after dark, on a badge</p>
+      <h1>Portals stories</h1>
+      <p class="lede">Story packs for <a href="https://annejan.com/portals/">Portals</a>,
+        the Portal-like puzzle game for the <a href="https://nicolaielectronics.nl/tanmatsu/">Tanmatsu</a>.
+        Put them on your Konsool straight from here, over USB, or download them.</p>
+      <p id="stats" class="stats"></p>
+      <p class="cta"><a class="button" href="#packs">Pick a story</a>
+        <a class="ghost" href="https://annejan.com/portals/">Get the game</a></p>
+    </div>
   </header>
 
   <main>
     <section class="howto" aria-labelledby="howto-title">
       <h2 id="howto-title">On your badge in three steps</h2>
-      <ol>
-        <li>Connect the Tanmatsu to this computer with USB.</li>
-        <li>On the badge's launcher, press the purple diamond: a USB icon shows in the top right. That is BadgeLink mode.</li>
-        <li>Press <strong>Put it on my Tanmatsu</strong> under a story and pick <strong>Tanmatsu</strong> in the list. Then on the badge: Portals, Stories.</li>
+      <ol class="steps">
+        <li><span class="ring blue" aria-hidden="true">1</span>
+          <p><strong>Plug in.</strong> Connect the Tanmatsu to this computer with USB.</p></li>
+        <li><span class="ring orange" aria-hidden="true">2</span>
+          <p><strong>BadgeLink mode.</strong> On the badge's launcher, press the purple diamond: a USB icon shows in the top right.</p></li>
+        <li><span class="ring blue" aria-hidden="true">3</span>
+          <p><strong>Put it on.</strong> Press <em>Put it on my Tanmatsu</em> under a story and pick <strong>Tanmatsu</strong> in the list. Then on the badge: Portals, Stories.</p></li>
       </ol>
       <p id="usb-note" class="note" hidden></p>
     </section>
@@ -39,13 +51,30 @@
       <p class="loading">Loading the stories…</p>
     </section>
 
-    <section class="manual" aria-labelledby="manual-title">
-      <h2 id="manual-title">By hand</h2>
-      <p>Unzip a story into <code>/sd/portals/dlc/</code> on the badge's SD card, so that its
-        <code>pack.txt</code> ends up in <code>/sd/portals/dlc/&lt;story&gt;/</code>, or copy it there with
-        badgelink's <code>fs upload</code> from a terminal.</p>
-      <p>Portals 0.12.4 or later plays every story here; 0.12.5 or later plays each with its own music.</p>
-    </section>
+    <div class="more">
+      <section class="manual" aria-labelledby="manual-title">
+        <h2 id="manual-title">By hand</h2>
+        <p>Unzip a story into <code>/sd/portals/dlc/</code> on the badge's SD card, so that its
+          <code>pack.txt</code> ends up in <code>/sd/portals/dlc/&lt;story&gt;/</code>, or copy it there with
+          badgelink's <code>fs upload</code> from a terminal.</p>
+        <p>Portals 0.12.4 or later plays every story here; 0.12.5 or later plays each with its own music.</p>
+      </section>
+
+      <section class="write" aria-labelledby="write-title">
+        <h2 id="write-title">Write your own</h2>
+        <p>A story is a folder of text files: a <code>pack.txt</code> that names it and lists its chambers,
+          and a file for each chamber, drawn in letters. No compiler, no SDK.</p>
+        <pre><code>name: After hours
+about: The tests are over. The testing is not.
+music: overtime bpm=110 key=D seed=42
+chamber: overtime
+chamber: momentum
+chamber: rush-hour
+…</code></pre>
+        <p><a href="https://github.com/annejan/tanmatsu-portals-grace/blob/main/dlc/README.md">How to write a story</a>,
+          with desk stories, mail, calendars and routes.</p>
+      </section>
+    </div>
   </main>
 
   <footer>
@@ -57,12 +86,20 @@
 
   <template id="pack-card">
     <article class="pack">
-      <img class="still" alt="" width="400" height="240" loading="lazy">
+      <div class="media">
+        <img class="still" alt="" width="800" height="480" loading="lazy">
+        <video class="clip" muted loop playsinline preload="none" aria-hidden="true"></video>
+        <span class="flag" hidden></span>
+      </div>
       <div class="body">
+        <p class="kind"></p>
         <h2 class="name"></h2>
-        <p class="by"></p>
         <p class="about"></p>
-        <p class="facts"></p>
+        <ul class="chips"></ul>
+        <details class="inside">
+          <summary>What's inside</summary>
+          <ol class="chambers"></ol>
+        </details>
         <div class="actions">
           <button type="button" class="install">Put it on my Tanmatsu</button>
           <a class="zip" download>Download zip</a>

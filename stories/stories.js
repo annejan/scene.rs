@@ -111,27 +111,99 @@ async function install(pack, card) {
   }
 }
 
+// Chambers a player plays: a desk story's rounds, else its chamber files.
+function playable(pack) {
+  return pack.desk ? pack.rounds : pack.chambers;
+}
+
+function shortDate(iso) {
+  return new Date(iso + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function chip(list, text, cls) {
+  const li = document.createElement('li');
+  li.textContent = text;
+  if (cls) li.className = cls;
+  list.appendChild(li);
+}
+
+// What is in it, in order: each chamber with its hint, and a desk story's routes.
+// Returns how many of them one playthrough plays.
+function inside(card, pack) {
+  const details = el(card, '.inside');
+  const ol = el(card, '.chambers');
+  if (!pack.contents || !pack.contents.length) {
+    details.remove();
+    return playable(pack);
+  }
+  // Numbered as played: each route's rounds count on from the fork, and after
+  // the routes join, on from the longest route.
+  let n = 0, fork = null, longest = 0;
+  for (const c of pack.contents) {
+    const li = document.createElement('li');
+    if ('route' in c) {
+      if (fork !== null) longest = Math.max(longest, n);
+      if (!c.route) {
+        n = longest;
+        fork = null;
+        continue;
+      }
+      if (fork === null) longest = fork = n;
+      n = fork;
+      li.className = 'route';
+      li.textContent = c.route;
+    } else {
+      n++;
+      li.value = n;
+      li.textContent = c.name;
+      if (c.hint) {
+        const hint = document.createElement('span');
+        hint.textContent = c.hint;
+        li.appendChild(hint);
+      }
+    }
+    ol.appendChild(li);
+  }
+  return fork === null ? n : Math.max(longest, n);
+}
+
 function show(packs, usb) {
   const list = document.getElementById('packs');
   const tpl = document.getElementById('pack-card');
   list.textContent = '';
-  for (const pack of packs) {
+  packs.forEach((pack, n) => {
     const card = tpl.content.firstElementChild.cloneNode(true);
+    card.dataset.pack = pack.id;
     const still = el(card, '.still');
+    const clip = el(card, '.clip');
     if (pack.still) {
       still.src = pack.still;
       still.alt = 'A still from ' + pack.name;
     } else {
-      still.remove();
+      el(card, '.media').remove();
     }
+    if (pack.clip) clip.dataset.src = pack.clip;
+    else clip.remove();
+    if (n === 0 && packs.length > 1) {
+      const flag = el(card, '.flag');
+      flag.textContent = 'Newest';
+      flag.hidden = false;
+    }
+    const kind = [pack.desk ? 'A desk story' : 'A chamber run'];
+    if (pack.author) kind.push('by ' + pack.author);
+    el(card, '.kind').textContent = kind.join(' · ');
     el(card, '.name').textContent = pack.name;
-    el(card, '.by').textContent = pack.author ? 'by ' + pack.author : '';
     el(card, '.about').textContent = pack.about;
-    const facts = [pack.chambers + ' chambers'];
-    if (pack.desk) facts.push('a story told from a desk');
-    if (pack.music && pack.music !== 'calm') facts.push('its own music: ' + pack.music);
-    facts.push(kb(pack.bytes));
-    el(card, '.facts').textContent = facts.join(' · ');
+    const played = inside(card, pack);
+    const chips = el(card, '.chips');
+    const routes = (pack.contents || []).filter((c) => c.route).length;
+    if (!pack.desk) chip(chips, pack.chambers + ' chambers');
+    else if (routes) chip(chips, played + ' rounds at the terminal, ' + pack.rounds + ' in all');
+    else chip(chips, pack.rounds + ' rounds at the terminal');
+    if (routes) chip(chips, routes + ' ways to get there');
+    if (pack.music && pack.music !== 'calm') chip(chips, '♪ ' + pack.music, 'music');
+    chip(chips, kb(pack.bytes));
+    if (pack.updated) chip(chips, 'updated ' + shortDate(pack.updated));
     const zip = el(card, '.zip');
     zip.href = pack.zip;
     zip.setAttribute('download', pack.id + '.zip');
@@ -139,6 +211,35 @@ function show(packs, usb) {
     if (usb) button.addEventListener('click', () => install(pack, card));
     else button.disabled = true;
     list.appendChild(card);
+  });
+  const chambers = packs.reduce((sum, p) => sum + playable(p), 0);
+  document.getElementById('stats').textContent =
+    packs.length + ' stories · ' + chambers + ' chambers · free to play';
+}
+
+// The films: the trailer at the top and each story's clip play while they are on screen,
+// not with reduced motion or a data saver on. They load only when they first show.
+function motion(index) {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (navigator.connection && navigator.connection.saveData) return;
+  if (!('IntersectionObserver' in window)) return;
+  const trailer = document.getElementById('trailer');
+  if (index.trailer) trailer.dataset.src = '/stories/' + index.trailer;
+  const videos = [trailer, ...document.querySelectorAll('.pack .clip')].filter((v) => v.dataset.src);
+  const seen = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      const v = e.target;
+      if (e.isIntersecting) {
+        if (!v.src) v.src = v.dataset.src;
+        v.play().catch(() => { /* no autoplay here: the still stays */ });
+      } else if (v.src) {
+        v.pause();
+      }
+    }
+  }, { threshold: 0.5 });
+  for (const v of videos) {
+    v.addEventListener('playing', () => v.classList.add('playing'));
+    seen.observe(v);
   }
 }
 
@@ -147,6 +248,7 @@ async function main() {
   try {
     const index = await (await fetch('/stories/index.json', { cache: 'no-cache' })).json();
     show(index.packs, usb);
+    motion(index);
   } catch (e) {
     document.getElementById('packs').textContent = 'The stories could not be loaded: ' + explain(e);
   }
