@@ -87,3 +87,6 @@ a.button {
   text-decoration: none;
 }
 .detail .actions { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-top: 12px; }
+
+.detail video.film { display: block; width: 100%; max-width: 800px; height: auto; aspect-ratio: 5 / 3; margin: 8px 0 12px; background: #000; border-radius: 6px; image-rendering: pixelated; }
+.detail video.film[hidden] { display: none; }

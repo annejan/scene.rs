@@ -6,6 +6,7 @@
 'use strict';
 
 const DATA = '/runs/data/';
+const FILMS = 'https://annejan.com/portals/runs/';  // each run's film, when made (server/films)
 const ON_BADGE = ['/sd/portals/recordings', '/sd/portals/ghosts'];
 let boardData = null;
 let side = 'real';
@@ -120,6 +121,14 @@ async function showRun(id) {
     $('detail-note').hidden = !r.note;
     $('detail-note').textContent = r.note || '';
     current = r;
+    // Its film, if the renderer has made it (server/films: annejan.com/portals/runs/).
+    const film = $('detail-film');
+    film.hidden = true;
+    film.onloadedmetadata = () => { film.hidden = false; };
+    film.onerror = () => { film.hidden = true; };
+    film.poster = `${FILMS}${id}.jpg`;
+    film.src = `${FILMS}${id}.mp4`;
+    film.preload = 'metadata';
     $('detail-status').textContent = '';
     // A ghost file (its version: the physics and the chamber's signature) of one chamber: raceable.
     $('to-ghost').hidden = !(r.runs.length === 1 && /^\d+\.\d+\.\d+ L[0-9a-f]+$/.test(r.version || '') &&

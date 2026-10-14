@@ -7,5 +7,9 @@ Header always set Content-Security-Policy "default-src 'self'; img-src 'self' da
 <If "%{REQUEST_URI} =~ m#^/pets/#">
   Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; img-src 'self' data: blob:; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
 </If>
+# /runs shows each run's film, made and served on annejan.com (server/films).
+<If "%{REQUEST_URI} =~ m#^/runs/#">
+  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: blob: https://annejan.com; media-src 'self' https://annejan.com; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
+</If>
 # No HTTP compression (BREACH)
 SetEnv no-gzip 1
