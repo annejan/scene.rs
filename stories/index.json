@@ -10,13 +10,13 @@
    "music": "overtime",
    "desk": false,
    "rounds": 0,
-   "chambers": 11,
-   "files": 13,
-   "bytes": 489011,
+   "chambers": 14,
+   "files": 16,
+   "bytes": 502212,
    "zip": "packs/after-hours.zip",
    "bundle": "packs/after-hours.json",
    "still": "packs/after-hours.png",
-   "sha256": "d2dbf64da8bfb60e252d64934725239f00790d7cdbadece16e03d49113671b1b"
+   "sha256": "bb9572bafa45c61dad28c85be9c2430e5ccf7130dd1754dd9a1ed7b7d0f97917"
   },
   {
    "id": "hackfest",
@@ -32,7 +32,7 @@
    "zip": "packs/hackfest.zip",
    "bundle": "packs/hackfest.json",
    "still": "packs/hackfest.png",
-   "sha256": "adb93e586698462af8c0501c09ecc3febfa889c22939a6395b07027955933b9d"
+   "sha256": "7feb68bd23f47e93dfe24f146cfb8854557bb9a8606ce25b5990a272b119ce48"
   },
   {
    "id": "human-in-the-loop",
@@ -48,7 +48,7 @@
    "zip": "packs/human-in-the-loop.zip",
    "bundle": "packs/human-in-the-loop.json",
    "still": "packs/human-in-the-loop.png",
-   "sha256": "0df7f6fc6c8ad1400dacfee8fec4faebabcf083248033e5ab53f084d1dd8d8be"
+   "sha256": "4c59798170f615d7005a3a8e21f6118d90aa0dcb2546f8f98d69d639cffffb58"
   }
  ]
 }
