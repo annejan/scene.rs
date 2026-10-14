@@ -201,6 +201,24 @@ test('BadgeLink against badgemock', async (t) => {
     assert.strictEqual(entries[0].size, 5000);
   });
 
+  await t.test('appfsDelete', async () => {
+    await bl.appfsDelete('com.example.app');
+    assert.ok(!(await bl.appfsList()).some((a) => a.slug === 'com.example.app'));
+    await assert.rejects(bl.appfsDelete('com.example.app'), (e) => e.status === 'StatusNotFound');
+  });
+
+  await t.test('remove: a folder and everything in it', async () => {
+    await bl.mkdir(`${apps}/tree`);
+    await bl.mkdir(`${apps}/tree/sub`);
+    await bl.upload(`${apps}/tree/a`, Uint8Array.of(1));
+    await bl.upload(`${apps}/tree/sub/b`, Uint8Array.of(2));
+    await bl.remove(`${apps}/tree`);
+    assert.ok(!fs.existsSync(`${apps}/tree`));
+    await bl.upload(`${apps}/one`, Uint8Array.of(3));
+    await bl.remove(`${apps}/one`);
+    assert.ok(!fs.existsSync(`${apps}/one`));
+  });
+
   await t.test('startApp: the mock cannot, and says so', async () => {
     await assert.rejects(bl.startApp('com.example.app', ''), (e) => e.status === 'StatusNotSupported');
   });

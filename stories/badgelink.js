@@ -14,6 +14,8 @@
 //   await bl.appfsUpload({ slug, title, version }, bytes, (sent, total) => ...);   // an app binary
 //   await bl.appfsList();                     // [{ slug, title, version, size }]
 //   await bl.startApp(slug, arg);
+//   await bl.remove('/int/apps/com.example');   // a file, or a folder and all in it
+//   await bl.appfsDelete(slug);
 //   await bl.close();
 //
 // On the wire: each packet is a protobuf `Packet` (badgelink.proto), then its CRC32 (4 bytes,
@@ -42,7 +44,7 @@
   const OK = 0, NOT_SUPPORTED = 1, EXISTS = 10;
 
   // FsActionType and XferReq from badgelink.proto.
-  const FS_LIST = 0, FS_MKDIR = 2, FS_UPLOAD = 3, FS_DOWNLOAD = 4, FS_STAT = 5;
+  const FS_LIST = 0, FS_DELETE = 1, FS_MKDIR = 2, FS_UPLOAD = 3, FS_DOWNLOAD = 4, FS_STAT = 5, FS_RMDIR = 8;
   const XFER_CONTINUE = 0, XFER_ABORT = 1, XFER_FINISH = 2;
 
   // An error from the badge (`code` is its StatusCode, `status` the name), or from this side
@@ -419,6 +421,27 @@
         if (expected !== null && crc32(out) !== expected >>> 0) throw badResponse('download CRC32 does not match');
         return out;
       });
+    }
+
+    // Delete a file. rmdir() deletes an empty folder; remove() a file, or a folder with all in it.
+    delete(path) {
+      return this._serialize(() => this._request(fsAction(FS_DELETE, path), this.options.timeout, path));
+    }
+
+    rmdir(path) {
+      return this._serialize(() => this._request(fsAction(FS_RMDIR, path), this.options.timeout, path));
+    }
+
+    async remove(path) {
+      const stat = await this.stat(path);
+      if (!stat.isDir) return this.delete(path);
+      for (const e of await this.list(path)) await this.remove(path + '/' + e.name);
+      return this.rmdir(path);
+    }
+
+    // Delete an app binary from AppFS.
+    appfsDelete(slug) {
+      return this._serialize(() => this._request(appfsAction(FS_DELETE, { slug }), this.options.xferTimeout, slug));
     }
 
     // Start an installed app (an AppFS slug), with an argument for it (a script's path, say).
