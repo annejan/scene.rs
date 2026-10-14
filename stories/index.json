@@ -5,6 +5,86 @@
  "poster": "packs/trailer.jpg",
  "packs": [
   {
+   "id": "hackfest",
+   "name": "Off to Hackfest",
+   "author": "annejan",
+   "about": "Hackfest is on Saturday, from noon, at Sickhouse in Enschede. A few things first. Geeky things.",
+   "music": "hackfest",
+   "desk": true,
+   "rounds": 12,
+   "chambers": 13,
+   "files": 28,
+   "bytes": 45667,
+   "zip": "packs/hackfest.zip",
+   "bundle": "packs/hackfest.json",
+   "still": "packs/hackfest.jpg",
+   "clip": "packs/hackfest.mp4",
+   "contents": [
+    {
+     "name": "Pull request",
+     "hint": "The merge button wants a cube. The cube is on the shelf."
+    },
+    {
+     "name": "Reflow the badge",
+     "hint": "The hot air is up on the shelf. The badge is down on the plate."
+    },
+    {
+     "name": "Power banks",
+     "hint": "One launcher per power bank. Both banks full, or the front door stays shut."
+    },
+    {
+     "name": "Pack the bag",
+     "hint": "Two gadgets, two pockets. One sits up high, one down in the drawer."
+    },
+    {
+     "route": "By train"
+    },
+    {
+     "name": "Platform 11b",
+     "hint": "The train runs while the cube is on its button. The cube is on the rack."
+    },
+    {
+     "name": "Change at Amersfoort",
+     "hint": "Check in at the pole. The doors close in two and a half seconds."
+    },
+    {
+     "route": "By bike"
+    },
+    {
+     "name": "160 km of headwind",
+     "hint": "Orange gel makes you fast. Pour a run-up on the path, and jump at its end."
+    },
+    {
+     "name": "The dyke",
+     "hint": "Bikes cannot climb a dyke. Bring the blue gel to its foot, and bounce."
+    },
+    {
+     "route": "A lift"
+    },
+    {
+     "name": "Loading the van",
+     "hint": "The gear is in the attic. The gap in the van is too high. The plate is not."
+    },
+    {
+     "name": "Speed cameras",
+     "hint": "They watch the road, not the sky. Your cargo can take the scenic route."
+    },
+    {
+     "route": null
+    },
+    {
+     "name": "The Wi-Fi",
+     "hint": "The funnel goes where the portals send it. The truss is six metres up."
+    },
+    {
+     "name": "Daisy chain",
+     "hint": "Daisy-chain the beam through both power strips to the stage. Meet the bridge."
+    }
+   ],
+   "updated": "2026-10-14T13:01:26+02:00",
+   "sha256": "d67f843227d17f0dcd847f58c4727fb6b2eb9572749404d29b92c74abdfff79c"
+  },
+  {
    "id": "human-in-the-loop",
    "name": "Human in the loop",
    "author": "annejan",
@@ -67,7 +147,7 @@
     }
    ],
    "updated": "2026-10-14T11:44:34+02:00",
-   "sha256": "326ccc0a86da11d65512a89dd97ff79295c8b0860272259c5d45678ca1f8293a"
+   "sha256": "037ded020fe1d1b829b11228934336a6460a0b8266797408efdb34cdfbe1040a"
   },
   {
    "id": "after-hours",
@@ -143,87 +223,7 @@
     }
    ],
    "updated": "2026-10-14T06:24:40+02:00",
-   "sha256": "f8b308dc99cc2f76fd24d4eadf64bfd1b3e6bec97fd996ed2f999e8896474f59"
-  },
-  {
-   "id": "hackfest",
-   "name": "Off to Hackfest",
-   "author": "annejan",
-   "about": "Hackfest is on Saturday, from noon, at Sickhouse in Enschede. A few things first. Geeky things.",
-   "music": "hackfest",
-   "desk": true,
-   "rounds": 12,
-   "chambers": 13,
-   "files": 27,
-   "bytes": 45286,
-   "zip": "packs/hackfest.zip",
-   "bundle": "packs/hackfest.json",
-   "still": "packs/hackfest.jpg",
-   "clip": "packs/hackfest.mp4",
-   "contents": [
-    {
-     "name": "Pull request",
-     "hint": "The merge button wants a cube. The cube is on the shelf."
-    },
-    {
-     "name": "Reflow the badge",
-     "hint": "The hot air is up on the shelf. The badge is down on the plate."
-    },
-    {
-     "name": "Power banks",
-     "hint": "One launcher per power bank. Both banks full, or the front door stays shut."
-    },
-    {
-     "name": "Pack the bag",
-     "hint": "Two gadgets, two pockets. One sits up high, one down in the drawer."
-    },
-    {
-     "route": "By train"
-    },
-    {
-     "name": "Platform 11b",
-     "hint": "The train runs while the cube is on its button. The cube is on the rack."
-    },
-    {
-     "name": "Change at Amersfoort",
-     "hint": "Check in at the pole. The doors close in two and a half seconds."
-    },
-    {
-     "route": "By bike"
-    },
-    {
-     "name": "160 km of headwind",
-     "hint": "Orange gel makes you fast. Pour a run-up on the path, and jump at its end."
-    },
-    {
-     "name": "The dyke",
-     "hint": "Bikes cannot climb a dyke. Bring the blue gel to its foot, and bounce."
-    },
-    {
-     "route": "A lift"
-    },
-    {
-     "name": "Loading the van",
-     "hint": "The gear is in the attic. The gap in the van is too high. The plate is not."
-    },
-    {
-     "name": "Speed cameras",
-     "hint": "They watch the road, not the sky. Your cargo can take the scenic route."
-    },
-    {
-     "route": null
-    },
-    {
-     "name": "The Wi-Fi",
-     "hint": "The funnel goes where the portals send it. The truss is six metres up."
-    },
-    {
-     "name": "Daisy chain",
-     "hint": "Daisy-chain the beam through both power strips to the stage. Meet the bridge."
-    }
-   ],
-   "updated": "2026-10-14T01:53:45+02:00",
-   "sha256": "aea37629310cf9b3dc313f1e35172cff9f77618ed328f77f96ec2f7c847f8a44"
+   "sha256": "a897d97bc6425f80dee1c139c8852841f65a1e8f15149d67a543c3a49f6a3348"
   }
  ]
 }
