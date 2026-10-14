@@ -114,6 +114,7 @@ button.install:disabled { background: #8a8f99; color: #2a2d33; cursor: not-allow
 .status.error { color: #ffb4a0; }
 
 footer { color: var(--soft); font-size: 0.85rem; padding-bottom: 32px; }
+footer .made { font-style: italic; opacity: 0.85; }
 
 @media (prefers-reduced-motion: reduce) {
   .progress .bar { transition: none; }
