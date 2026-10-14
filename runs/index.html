@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portals speedruns – scene.rs</title>
+  <meta name="description" content="Speedruns of Portals, the Portal-like puzzle game for the Tanmatsu badge: every run replayed by the game's own code, its time worked out, real runs and TAS apart. Upload yours straight from the badge.">
+  <link rel="canonical" href="https://scene.rs/runs/">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="theme-color" content="#1d63d8">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://scene.rs/runs/">
+  <meta property="og:site_name" content="scene.rs">
+  <meta property="og:title" content="Portals speedruns">
+  <meta property="og:description" content="Every run replayed by the game's own code: the times are the replay's. Real runs and TAS apart.">
+  <meta property="og:image" content="https://scene.rs/stories/share.jpg">
+  <link rel="stylesheet" href="/stories/stories.css">
+  <link rel="stylesheet" href="/runs/runs.css">
+  <script src="/stories/badgelink.js" defer></script>
+  <script src="/runs/runs.js" defer></script>
+</head>
+<body>
+  <header class="plain">
+    <nav class="top" aria-label="Links">
+      <a href="/">scene.rs</a>
+      <a href="/stories/">Portals stories</a>
+      <a href="https://annejan.com/portals/">Get Portals</a>
+    </nav>
+    <h1>Portals speedruns</h1>
+    <p class="lede">Every run here was replayed by the game's own code, frame by frame, as the badge
+      played it: the times are the replay's, not anyone's word. Real runs and tool-assisted ones (TAS)
+      apart, and each physics on its own, since a change to it changes the times.</p>
+  </header>
+
+  <main>
+    <section class="boards" aria-labelledby="boards-title">
+      <h2 id="boards-title">The boards</h2>
+      <div class="pickers">
+        <label>Board <select id="board"></select></label>
+        <label>Physics <select id="physics"></select></label>
+        <div class="sides" role="group" aria-label="Runs">
+          <button type="button" data-side="real" aria-pressed="true">Real runs</button>
+          <button type="button" data-side="tas" aria-pressed="false">TAS</button>
+        </div>
+      </div>
+      <table class="board" aria-live="polite">
+        <thead><tr><th scope="col">#</th><th scope="col">Runner</th><th scope="col" class="num">Time</th><th scope="col">Date</th><th scope="col">Video</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="5">Loading the boards…</td></tr></tbody>
+      </table>
+      <p id="empty" class="note" hidden>Nobody yet. Be the first: upload below.</p>
+    </section>
+
+    <section id="detail" class="detail" aria-labelledby="detail-title" hidden>
+      <h2 id="detail-title">A run</h2>
+      <p id="detail-head"></p>
+      <table class="board splits">
+        <thead><tr><th scope="col">Chamber</th><th scope="col" class="num">Time</th><th scope="col">Exit</th></tr></thead>
+        <tbody id="detail-rows"></tbody>
+      </table>
+      <p id="detail-note" class="note" hidden></p>
+      <p class="actions"><a id="detail-download" class="button" download>Download the recording</a>
+        <span class="note">Put it in <code>/sd/portals/recordings/</code> and use Esc → Watch a recording.</span></p>
+    </section>
+
+    <section class="recent" aria-labelledby="recent-title">
+      <h2 id="recent-title">Latest</h2>
+      <ul id="recent" class="recent-list"></ul>
+    </section>
+
+    <section class="upload" aria-labelledby="upload-title">
+      <h2 id="upload-title">Upload a run, or a bug</h2>
+      <p>On the badge, <strong>Record a run</strong> (on the title screen) or Esc → <strong>Record from here</strong>
+        records what you press, frame by frame, to <code>/sd/portals/recordings/</code>. Your best time in each
+        chamber is in <code>/sd/portals/ghosts/</code> too, when Ghost races is on.</p>
+      <form id="form" novalidate>
+        <fieldset class="pick">
+          <legend>The recording</legend>
+          <div class="from-badge">
+            <button type="button" id="connect" class="install">From my Tanmatsu</button>
+            <span class="note">Chrome or Edge, the badge in BadgeLink mode (the purple diamond).</span>
+          </div>
+          <ul id="files" class="files" hidden></ul>
+          <label class="file">Or a file: <input type="file" id="file" accept=".txt,text/plain"></label>
+          <p id="picked" class="note" role="status"></p>
+        </fieldset>
+        <fieldset>
+          <legend>What it is</legend>
+          <label class="radio"><input type="radio" name="kind" value="run" checked> A run, for the board</label>
+          <label class="radio"><input type="radio" name="kind" value="bug"> Something went wrong in it: a bug report (not shown on the board)</label>
+        </fieldset>
+        <fieldset id="run-fields">
+          <label>Your name on the board <input type="text" id="nick" maxlength="24" autocomplete="nickname"></label>
+          <label class="check"><input type="checkbox" id="tas"> Tool-assisted (TAS): scripted, slowed down or edited</label>
+          <label>A video of it (optional) <input type="url" id="video" maxlength="300" placeholder="https://"></label>
+          <label>A note (optional) <textarea id="note-run" maxlength="500" rows="2"></textarea></label>
+        </fieldset>
+        <fieldset id="bug-fields" hidden>
+          <label>What went wrong, and where <textarea id="note-bug" maxlength="2000" rows="4"></textarea></label>
+          <label>Your name (optional) <input type="text" id="bug-nick" maxlength="24"></label>
+          <label>How to reach you about it (optional) <input type="text" id="contact" maxlength="200"></label>
+          <p class="note">Only the maintainer sees a bug report. The recording lets them play your run
+            back exactly as it went, so record from just before it goes wrong.</p>
+        </fieldset>
+        <label class="hp" aria-hidden="true">Leave this empty <input type="text" id="website" tabindex="-1" autocomplete="off"></label>
+        <p class="actions"><button type="submit" id="send" class="install" disabled>Upload</button></p>
+        <p id="status" class="status" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>The replay is Portals' own code (<code>tests/host_runcheck.c</code>), one build for each physics.
+      A run that does not reach every exit it names, or was made on another physics, is said so and not listed.
+      A badge-recorded run counts as a real run on trust and its video; scripted ones are always TAS.</p>
+    <p class="made">Made with Claude: this page and the board behind it were written with an AI.</p>
+  </footer>
+</body>
+</html>

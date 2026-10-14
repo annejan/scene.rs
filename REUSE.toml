@@ -35,3 +35,9 @@ SPDX-License-Identifier = "LicenseRef-AllRightsReserved"
 path = ["stories/**"]
 SPDX-FileCopyrightText = "Anne Jan Brouwer"
 SPDX-License-Identifier = "MIT"
+
+# /runs: the speedrun board's page and its server side.
+[[annotations]]
+path = ["runs/**", "server/**"]
+SPDX-FileCopyrightText = "Anne Jan Brouwer"
+SPDX-License-Identifier = "MIT"

@@ -42,6 +42,23 @@ game for the Tanmatsu badge, with a button that writes a pack onto the badge ove
   and browsers without JavaScript see the stories too; `stories.js` draws the cards again.
 - `robots.txt` and `sitemap.xml`: for search engines, the site's pages.
 
+## /runs
+
+A speedrun board for Portals, with bug reports: a recording uploaded (picked
+from the badge over WebUSB, or a file) is replayed by the game's own code and
+its times are the replay's. Real runs and TAS apart, each physics on its own.
+
+- `runs/index.html`, `runs.js`, `runs.css`: the page; `runs/submit.php` takes
+  an upload into the spool, and nothing else (the only PHP that runs).
+- `server/runs/`: the rest, on beehive under its own user `runs`
+  (`setup.sh`, once, as root): `worker.py` replays the spool every half
+  minute (a systemd timer, sandboxed, no network) and writes the board to
+  `/srv/runs/public`, served at `runs/data/` by a symlink; `admin.py` hides,
+  deletes and lists the bug reports; `build-replayers.sh` builds the
+  replays, one per physics, from Portals' `tests/host_runcheck.c`.
+- `tools/deploy.sh` sends the page and the worker; the replays go to
+  `/srv/runs/bin/` and the story packs to `/srv/runs/packs/` by hand.
+
 ## Licence
 
 The code is MIT, and so is the music. The deFEEST logo and Bawl-E (BawlSec's mascot, by
