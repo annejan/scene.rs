@@ -31,5 +31,5 @@ fi
 rsync -rltv --checksum --chmod=D775,F664 --exclude=test/ --exclude=runs/data $DRY $FILES "$DEPLOY_HOST:$DEPLOY_ROOT/"
 # The board's worker and its tools, into /srv/runs/app (the group runs may write there).
 if [ -d server/runs ]; then
-	rsync -rltvO --checksum --chmod=D2775,F664 $DRY server/runs/worker.py server/runs/admin.py "$DEPLOY_HOST:/srv/runs/app/"
+	rsync -rltvO --checksum --chmod=D2775,F664 $DRY server/runs/worker.py server/runs/admin.py server/runs/notify.py "$DEPLOY_HOST:/srv/runs/app/"
 fi
