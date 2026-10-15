@@ -4,7 +4,10 @@
 The worker (worker.py) keeps each report in DATA/bugs/<id>/report.json,
 with its recording; it runs with no network, so this does the telling:
 from the maintainer's own crontab on the board's box, a few minutes
-apart, through the box's mail system (/usr/sbin/sendmail), once a report.
+apart, once a report: logged in to a mail account if
+~/.config/runs-notify/smtp.json says one ({"host", "port", "user",
+"password", "from"}: STARTTLS on the submission port; the maintainer's
+own, never in here), else through the box's own sendmail.
 
     RUNS_NOTIFY_TO=you@example.org notify.py           mail the new ones
     RUNS_NOTIFY_TO=you@example.org notify.py --test ID  mail that one again, to see it arrive
@@ -16,6 +19,8 @@ the first run tells none of the reports already there, only notes them.
 import email.message
 import json
 import os
+import smtplib
+import ssl
 import subprocess
 import sys
 
@@ -25,6 +30,15 @@ STATE = os.path.expanduser(os.environ.get("RUNS_NOTIFY_STATE", "~/.local/state/r
 TOLD = os.path.join(STATE, "told")
 FROM = os.environ.get("RUNS_NOTIFY_FROM", "scene.rs runs <runs@beehive42.org>")
 ENVELOPE = os.environ.get("RUNS_NOTIFY_ENVELOPE", "runs@beehive42.org")  # beehive42.org's SPF names this box
+ACCOUNT = os.path.expanduser(os.environ.get("RUNS_NOTIFY_SMTP", "~/.config/runs-notify/smtp.json"))
+
+
+def account():
+    try:
+        with open(ACCOUNT) as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return None
 
 
 def report(id_):
@@ -32,12 +46,12 @@ def report(id_):
         return json.load(f)
 
 
-def letter(id_, r, to):
+def letter(id_, r, to, sender=FROM):
     meta, replay = r.get("meta", {}), r.get("replay", {})
     who = meta.get("nick") or "someone"
     first = " ".join((meta.get("note") or "").split())
     m = email.message.EmailMessage()
-    m["From"] = FROM
+    m["From"] = sender
     m["To"] = to
     m["Subject"] = "Portals bug report from %s: %s" % (who, first[:60] + ("..." if len(first) > 60 else ""))
     lines = [
@@ -70,16 +84,24 @@ def letter(id_, r, to):
     return m
 
 
-def send(m):
-    subprocess.run(["/usr/sbin/sendmail", "-t", "-oi", "-f", ENVELOPE], input=m.as_bytes(), check=True, timeout=60)
+def send(m, acc):
+    if acc is None:
+        subprocess.run(["/usr/sbin/sendmail", "-t", "-oi", "-f", ENVELOPE], input=m.as_bytes(), check=True, timeout=60)
+        return
+    with smtplib.SMTP(acc["host"], int(acc.get("port", 587)), timeout=60) as s:
+        s.starttls(context=ssl.create_default_context())
+        s.login(acc["user"], acc["password"])
+        s.send_message(m)
 
 
 def main():
     to = os.environ.get("RUNS_NOTIFY_TO")
     if not to:
         sys.exit("RUNS_NOTIFY_TO: whom to tell")
+    acc = account()
+    sender = acc.get("from", acc["user"]) if acc else FROM
     if len(sys.argv) == 3 and sys.argv[1] == "--test":
-        send(letter(sys.argv[2], report(sys.argv[2]), to))
+        send(letter(sys.argv[2], report(sys.argv[2]), to, sender), acc)
         print("sent", sys.argv[2])
         return
     os.makedirs(STATE, exist_ok=True)
@@ -93,8 +115,8 @@ def main():
             continue
         if not first_time:
             try:
-                send(letter(id_, report(id_), to))
-            except (OSError, ValueError, subprocess.SubprocessError) as e:
+                send(letter(id_, report(id_), to, sender), acc)
+            except (OSError, ValueError, KeyError, subprocess.SubprocessError, smtplib.SMTPException) as e:
                 print(id_, "not told:", e)  # tried again next time
                 continue
             print(id_, "told")
