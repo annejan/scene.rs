@@ -95,6 +95,8 @@ h3 { font-size: 1rem; color: var(--soft); margin: 18px 0 8px; }
 }
 .theatre h1 { font-size: 1.35rem; margin: 0 0 6px; }
 .meta { color: var(--soft); margin: 0 0 12px; }
+/* a C64 film: the PAL screen and its border, 4:3 */
+.theatre.c64 video { aspect-ratio: 4 / 3; image-rendering: auto; }
 @media (max-width: 860px) { .theatre { grid-template-columns: 1fr; } }
 
 .now { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 4px 18px 16px; margin-top: 20px; }
@@ -135,6 +137,8 @@ h3 { font-size: 1rem; color: var(--soft); margin: 18px 0 8px; }
   font-size: 0.8rem;
   font-variant-numeric: tabular-nums;
 }
+.demo-grid .thumb { aspect-ratio: 4 / 3; }
+.demo-grid .thumb img { image-rendering: auto; }
 .grid a:hover .thumb, .grid a:focus-visible .thumb { outline: 2px solid var(--accent); }
 .title { font-weight: 600; }
 .chan { color: var(--soft); font-size: 0.88rem; }

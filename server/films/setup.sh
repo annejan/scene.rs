@@ -10,13 +10,14 @@
 #     packs/           the story packs                                      (the maintainer deploys)
 #     work/            a film being made: gone when it is done
 #     out/             the films: annejan.com/portals/runs/ (a symlink there)
+#     c64/             the C64 demos' films, disks and films.json: vidr.nl/c64/ (the maintainer copies them)
 set -eu
 
 WHO=${1:-annejan}
 apt-get install -y --no-install-recommends ffmpeg python3-pil fonts-dejavu-core
 id runfilm >/dev/null 2>&1 || useradd --system --home-dir /srv/runfilm --no-create-home --shell /usr/sbin/nologin runfilm
 usermod -aG runfilm "$WHO"
-install -d -o runfilm -g runfilm -m 2775 /srv/runfilm /srv/runfilm/app /srv/runfilm/bin /srv/runfilm/packs /srv/runfilm/out
+install -d -o runfilm -g runfilm -m 2775 /srv/runfilm /srv/runfilm/app /srv/runfilm/bin /srv/runfilm/packs /srv/runfilm/out /srv/runfilm/c64
 install -d -o runfilm -g runfilm -m 2770 /srv/runfilm/work
 
 cat > /etc/systemd/system/runfilm-render.service <<'EOF'

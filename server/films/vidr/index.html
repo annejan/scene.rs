@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>vidr</title>
-  <meta name="description" content="The video platform nobody can upload to: films of Portals speedruns, made by the game's own code from the runners' button presses.">
+  <meta name="description" content="The video platform nobody can upload to: films of Portals speedruns, made by the game's own code from the runners' button presses, and of Commodore 64 demos, filmed by an emulator straight off their disks.">
   <meta name="theme-color" content="#101116">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/vidr.css">
@@ -27,7 +27,7 @@
         <h1 id="theatre-title"></h1>
         <p id="theatre-meta" class="meta"></p>
         <ol id="chapters" class="chapters" aria-label="Chambers in the film"></ol>
-        <p><a id="theatre-run" href="https://scene.rs/runs/">The splits, the recording, and onto your badge, on scene.rs →</a></p>
+        <p><a id="theatre-link" href="https://scene.rs/runs/">The splits, the recording, and onto your badge, on scene.rs →</a></p>
       </div>
     </section>
 
@@ -43,15 +43,24 @@
       <h2 id="fresh-title">Fresh</h2>
       <ul id="fresh" class="grid"></ul>
     </section>
+
+    <section id="demos" aria-labelledby="demos-title" hidden>
+      <h2 id="demos-title">Commodore 64</h2>
+      <p class="quiet">Demos, filmed by the VICE emulator straight off their disk images: what a C64 shows, frame by frame.</p>
+      <ul id="demo-films" class="grid demo-grid"></ul>
+    </section>
   </main>
 
   <footer>
     <p><strong>No accounts. No uploads. No comments. No algorithm. No ads.</strong></p>
-    <p>Every video here is a speedrun of <a href="https://annejan.com/portals/">Portals</a>, the Portal-like
-      game for the Tanmatsu badge, filmed by the game's own code from the button presses the runner
-      uploaded to <a href="https://scene.rs/runs/">the speedrun board</a>: what the badge showed, frame by frame.
-      The best few on each board are always here; any other run gets filmed when someone asks for it on its page,
-      and the ones nobody has watched in a while make room again.</p>
+    <p>Every video here is made by a machine from what it was given, never uploaded. Most are speedruns of
+      <a href="https://annejan.com/portals/">Portals</a>, the Portal-like game for the Tanmatsu badge, filmed by
+      the game's own code from the button presses the runner uploaded to <a href="https://scene.rs/runs/">the
+      speedrun board</a>: what the badge showed, frame by frame. The best few on each board are always here; any
+      other run gets filmed when someone asks for it on its page, and the ones nobody has watched in a while make
+      room again.</p>
+    <p>The Commodore 64 demos are filmed by the VICE emulator, running each demo's own disk image; the disk is
+      there to take, for a real C64 or an emulator of your own.</p>
     <p id="stats" class="quiet"></p>
     <p class="quiet">Made with Claude: this page and the renderer behind it were written with an AI.</p>
   </footer>
