@@ -89,9 +89,20 @@ function render(q) {
   play();
 }
 
+// The footer's count: the runs' films and the demos', what the runs' take of the room they have,
+// and when the newest of them all was made (not when the renderer last looked: every two minutes).
+let lastStats = null;  // queue.json as last read
 function stats(q) {
-  const gb = (b) => (b / 2 ** 30).toFixed(b < 2 ** 30 ? 2 : 1);
-  $('stats').textContent = `${q.films} films, ${gb(q.bytes)} of ${gb(q.cache)} GB. Updated ${ago(q.updated)}.`;
+  if (q) lastStats = q;
+  q = lastStats;
+  if (!q) return;
+  const size = (b) => (b < 2 ** 30 ? `${Math.round(b / 2 ** 20)} MB` : `${+(b / 2 ** 30).toFixed(1)} GB`);
+  const n = (k, one, many) => `${k} ${k === 1 ? one : many}`;
+  const parts = [n(q.films, 'speedrun film', 'speedrun films')];
+  if (demos && demos.length) parts.push(n(demos.length, 'C64 demo', 'C64 demos'));
+  const times = [...(q.made || []), ...(demos || [])].map((f) => Date.parse(f.at)).filter((t) => t > 0);
+  const newest = times.length ? ` The newest was filmed ${ago(new Date(Math.max(...times)).toISOString())}.` : '';
+  $('stats').textContent = `${parts.join(' and ')}. The speedruns take ${size(q.bytes)} of the ${size(q.cache)} they may use.${newest}`;
 }
 
 // The theatre: the film in the address (#<id> a run's, #c64/<id> a demo's), its chapters a list of jumps.
@@ -236,6 +247,7 @@ async function loadDemos() {
     demos = [];
   }
   shelf(demos);
+  stats();
   play();
 }
 
