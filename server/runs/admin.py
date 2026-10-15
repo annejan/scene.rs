@@ -9,6 +9,7 @@
     admin.py bugs              the bug reports not yet dealt with
     admin.py bug ID            one report, and where its recording is
     admin.py done ID           a report dealt with
+    admin.py replay ID...      replay runs again with the replayer there is now (bin/runcheck-<physics>)
     admin.py board             write the board again
 
 Each change writes the board again at once (worker.py --board).
@@ -69,6 +70,26 @@ def main():
     elif what == "done" and args:
         con.execute("update bugs set done = 1 where id = ?", (args[0],))
         con.commit()
+    elif what == "replay" and args:
+        # A new replayer for a physics (a script played as Watch plays it, say): its runs' times again.
+        for id_ in args:
+            row = con.execute("select physics, total from runs where id = ?", (id_,)).fetchone()
+            rec = os.path.join(ROOT, "public", "rec", id_ + ".txt")
+            if row is None or not os.path.exists(rec):
+                print(id_, "no such run")
+                continue
+            out = subprocess.run([os.path.join(ROOT, "bin", "runcheck-" + row[0]), rec, os.path.join(ROOT, "packs")],
+                                 capture_output=True, text=True, timeout=60).stdout
+            r = json.loads(out)
+            if not r.get("ok"):
+                print(id_, "does not replay now:", r.get("error"))
+                continue
+            con.execute("update runs set rkind = ?, complete = ?, total = ?, runs = ? where id = ?",
+                        (r.get("kind"), int(bool(r.get("complete"))), r.get("total") or 0.0,
+                         json.dumps(r.get("runs") or []), id_))
+            print("%s  %.3f -> %.3f%s" % (id_, row[1], r.get("total") or 0.0, "" if r.get("complete") else "  incomplete"))
+        con.commit()
+        board()
     elif what == "board":
         board()
     else:

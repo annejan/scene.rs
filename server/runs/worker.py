@@ -218,7 +218,11 @@ def wants(listed):
     except (OSError, ValueError):
         wanted = {}
     now = time.time()
-    for name in os.listdir(SPOOL):
+    try:
+        spooled = os.listdir(SPOOL)
+    except PermissionError:  # admin.py, as the maintainer: the asks wait for the worker's next pass
+        spooled = []
+    for name in spooled:
         if name.startswith("want-"):
             if re.fullmatch(r"[0-9a-f]{16}", name[5:]):
                 wanted[name[5:]] = now
