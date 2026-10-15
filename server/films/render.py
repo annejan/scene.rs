@@ -280,7 +280,7 @@ def made_v(id_):
 
 def publish(making, queue, by_id, keep):
     """queue.json, public (vidr.nl, and the run pages): the film being made, the ones waiting,
-    the kept ones that cannot be made and why, the latest made."""
+    the kept ones that cannot be made and why, the latest made, and every film there is."""
     have = films()
     when = {}
     for i in have:
@@ -302,6 +302,7 @@ def publish(making, queue, by_id, keep):
          "queue": [public(r) for r in queue if r is not making],
          "failed": failed,
          "made": [public(by_id[i], when[i], made_v(i)) for i in made],
+         "have": {i: made_v(i) or 0 for i in sorted(have) if i in by_id},  # every film: the board links them
          "films": len(have), "bytes": sum(b for _, b in have.values()), "cache": CACHE},
         ensure_ascii=False, separators=(",", ":")))
 

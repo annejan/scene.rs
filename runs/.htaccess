@@ -9,3 +9,8 @@
 <If "%{REQUEST_URI} =~ m#^/runs/data/#">
   Header always set Cache-Control "no-cache"
 </If>
+# The page's own script and style: asked after each time (a 304 when unchanged),
+# so a change to the board's page reaches everyone at once.
+<FilesMatch "\.(js|css)$">
+  Header set Cache-Control "no-cache"
+</FilesMatch>

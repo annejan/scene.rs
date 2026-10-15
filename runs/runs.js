@@ -9,6 +9,7 @@ const DATA = '/runs/data/';
 const FILMS = 'https://vidr.nl/portals/';  // each run's film, when made (server/films), and the queue
 const ON_BADGE = ['/sd/portals/recordings', '/sd/portals/ghosts'];
 let boardData = null;
+let films = {};  // the runs vidr.nl has a film of (its queue.json's "have")
 let side = 'real';
 let picked = null;  // {name, text, source}
 
@@ -88,9 +89,12 @@ function showBoard() {
   $('empty').hidden = b.length > 0;
   b.forEach((e, i) => {
     const who = el('a', { href: `#run=${e.id}`, text: e.nick });
+    // The runner's own video, and the film of it on vidr.nl.
     const video = e.video ? el('a', { href: e.video, rel: 'nofollow noopener noreferrer', text: 'watch' }) : '';
+    const film = e.id in films ? el('a', { href: `https://vidr.nl/#${e.id}`, text: 'film' }) : '';
     rows.append(el('tr', {}, el('td', { text: String(i + 1) }), el('td', {}, who),
-      el('td', { class: 'num', text: clock(e.time) }), el('td', { text: e.date }), el('td', {}, video)));
+      el('td', { class: 'num', text: clock(e.time) }), el('td', { text: e.date }),
+      el('td', { class: 'videos' }, video, video && film ? ' · ' : '', film)));
   });
   for (const btn of document.querySelectorAll('.sides button')) btn.setAttribute('aria-pressed', String(btn.dataset.side === side));
 }
@@ -483,7 +487,10 @@ $('form').addEventListener('submit', async (ev) => {
 // --- Start ------------------------------------------------------------------
 
 async function load() {
+  const have = fetch(`${FILMS}queue.json`, { cache: 'no-cache' }).then((r) => r.json()).then((q) => q.have || {})
+    .catch(() => ({}));  // no films: the board all the same
   boardData = await json(`${DATA}board.json`);
+  films = await have;
   fillPickers();
   showRecent();
 }
