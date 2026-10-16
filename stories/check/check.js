@@ -141,6 +141,12 @@
     return { missing, differ };
   }
 
+  // A few file names, for a line: "pack.txt, reflow.txt and 3 more".
+  function names(list) {
+    const shown = list.slice(0, 3).join(', ');
+    return list.length > 3 ? `${shown} and ${list.length - 3} more` : shown;
+  }
+
   function versionAtLeast(v, want) {
     const a = String(v || '').split('.').map((x) => parseInt(x, 10) || 0);
     const b = want.split('.').map(Number);
@@ -187,12 +193,13 @@
           const c = compare(bundle, node);
           if (c.missing.length) {
             s.state = 'incomplete';
-            s.line = `${c.missing.length} of its ${bundle.files.length} files ${c.missing.length === 1 ? 'is' : 'are'} missing` +
+            s.line = `${c.missing.length} of its ${bundle.files.length} files ${c.missing.length === 1 ? 'is' : 'are'} missing (${names(c.missing)})` +
               (c.missing.includes('pack.txt') ? ', pack.txt among them: the game plays what it finds, not the story.' : ': copied in part.');
             s.fix = install(c.missing.concat(c.differ));
           } else if (c.differ.length) {
             s.state = 'changed';
-            s.line = `On the card and complete, but ${c.differ.length} of its files ${c.differ.length === 1 ? 'differs' : 'differ'} from this site's: an older copy, or edited. It plays.`;
+            s.line = `On the card and complete. ${names(c.differ)} ${c.differ.length === 1 ? 'differs' : 'differ'} from this site's copy ` +
+              `(another version, or edited): it plays as it is.`;
             s.fix = install(c.differ);
           } else {
             s.state = 'ok';
@@ -358,7 +365,7 @@
   }
 
   const LABEL = {
-    ok: 'Fine', changed: 'Plays, older copy', incomplete: 'Copied in part', nested: 'A folder too deep',
+    ok: 'Fine', changed: 'Plays, not this site\'s copy', incomplete: 'Copied in part', nested: 'A folder too deep',
     zip: 'Still a zip', misplaced: 'In the wrong place', renamed: 'Fine, other folder', absent: 'Not on the card',
     empty: 'No story in it', other: 'Not from this site',
   };

@@ -68,7 +68,7 @@ test('copied in part: what is missing', () => {
   const d = Check.diagnose(card(whole('hackfest', 'hackfest', ['pack.txt', 'reflow.txt'])), index, bundles);
   const h = story(d, 'hackfest');
   assert.strictEqual(h.state, 'incomplete');
-  assert.match(h.line, /2 of its \d+ files are missing, pack\.txt among them/);
+  assert.match(h.line, /2 of its \d+ files are missing \(pack\.txt, reflow\.txt\), pack\.txt among them/);
   assert.deepStrictEqual(h.fix.upload.sort(), ['pack.txt', 'reflow.txt']);
 });
 
@@ -83,6 +83,7 @@ test('an older copy: plays, and can be brought up to date', () => {
   const files = whole('after-hours').map(([p, n]) => [p, p.endsWith('/pack.txt') ? n - 3 : n]);
   const a = story(Check.diagnose(card(files), index, bundles), 'after-hours');
   assert.strictEqual(a.state, 'changed');
+  assert.match(a.line, /pack\.txt differs from this site's copy/);
   assert.deepStrictEqual(a.fix.upload, ['pack.txt']);
 });
 
