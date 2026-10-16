@@ -1,0 +1,38 @@
+/* Check my card: the stories page's look, one column, a line per story. */
+main.check, main.check + footer { max-width: 860px; }
+main.check nav.top { padding: 0 0 18px; }
+main.check h1 { font-size: clamp(2.4rem, 8vw, 4rem); }
+.check .howto .actions { padding-top: 16px; }
+
+.result {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin: 22px 0;
+}
+.result h2 { margin-top: 18px; }
+
+.notes { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.notes li { padding: 6px 10px; border-left: 4px solid var(--blue); background: rgba(0, 0, 0, 0.2); }
+.notes li.warn { border-left-color: var(--orange); }
+
+.items { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 10px; }
+.item { padding: 10px 12px; border-radius: 6px; border: 1px solid var(--line); border-left: 5px solid var(--blue); background: rgba(0, 0, 0, 0.22); }
+.item.good { border-left-color: #4fd17a; }
+.item.meh { border-left-color: var(--blue); }
+.item.bad { border-left-color: var(--orange); }
+.item .head { margin: 0; overflow-wrap: anywhere; }
+.item .line { margin: 2px 0 0; color: var(--soft); overflow-wrap: anywhere; }
+.item .actions { margin-top: 6px; }
+.tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.14);
+}
+.item.good .tag { background: rgba(79, 209, 122, 0.25); }
+.item.bad .tag { background: rgba(255, 138, 28, 0.3); }

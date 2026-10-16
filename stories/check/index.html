@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Check my card: Portals stories – scene.rs</title>
+  <meta name="description" content="A story is not in Portals' Stories list? Check the Tanmatsu's SD card from the browser, over USB: what is there, what is not, and put it right.">
+  <link rel="canonical" href="https://scene.rs/stories/check/">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="theme-color" content="#1d63d8">
+  <link rel="stylesheet" href="/stories/stories.css">
+  <link rel="stylesheet" href="check.css?v=2">
+</head>
+<body>
+  <main class="check">
+    <nav class="top" aria-label="Links">
+      <a href="/">scene.rs</a>
+      <a href="../">Stories</a>
+      <a href="https://annejan.com/portals/">Get Portals</a>
+    </nav>
+    <p class="kicker">Portals stories</p>
+    <h1>Check my card</h1>
+    <p class="lede">A story you put on the badge is not in Portals' Stories list? This reads the
+      Tanmatsu's SD card over USB and says why: a story copied in part, unzipped a folder too deep,
+      still a zip, or somewhere the game does not look. Then it puts it right, if you ask.
+      Reading changes nothing on the card.</p>
+
+    <section class="howto" aria-labelledby="howto-title">
+      <h2 id="howto-title">Check it</h2>
+      <ol class="steps">
+        <li><span class="ring blue" aria-hidden="true">1</span>
+          <p><strong>Plug in.</strong> Connect the Tanmatsu to this computer with USB.</p></li>
+        <li><span class="ring orange" aria-hidden="true">2</span>
+          <p><strong>BadgeLink mode.</strong> On the badge's launcher, press the purple diamond: a USB icon shows in the top right.</p></li>
+        <li><span class="ring blue" aria-hidden="true">3</span>
+          <p><strong>Check.</strong> Press the button and pick <strong>Tanmatsu</strong> in the list.</p></li>
+      </ol>
+      <div class="actions">
+        <button id="check" type="button" class="install">Check my card</button>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </div>
+      <p id="usb-note" class="note" hidden></p>
+    </section>
+
+    <section id="result" class="result" hidden aria-label="What is on the card">
+      <ul id="notes" class="notes"></ul>
+      <h2>The stories</h2>
+      <ul id="stories" class="items"></ul>
+      <div id="others-box" hidden>
+        <h2>Also in dlc/</h2>
+        <ul id="others" class="items"></ul>
+      </div>
+    </section>
+
+    <section class="manual" aria-labelledby="where-title">
+      <h2 id="where-title">Where a story goes</h2>
+      <p>Each story is a folder in <code>/sd/portals/dlc/</code>, with its <code>pack.txt</code> straight
+        in it: <code>/sd/portals/dlc/hackfest/pack.txt</code>. Not the zip, and not a folder in a
+        folder: some computers unzip <code>hackfest.zip</code> into <code>hackfest/hackfest/</code>.
+        Portals 0.13.3 and later find a story a folder too deep, and list a folder they cannot play
+        under Stories, with why.</p>
+    </section>
+  </main>
+  <footer>
+    <p>Portals is a fan game in honour of Valve's Portal. Portal, Aperture Science and GLaDOS are Valve's.</p>
+  </footer>
+  <script src="/stories/badgelink.js"></script>
+  <script src="check.js?v=2"></script>
+</body>
+</html>
