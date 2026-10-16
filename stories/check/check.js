@@ -492,7 +492,10 @@
       row(others, o.name, o, actions);
     }
     const bad = d.stories.filter((s) => !GOOD.has(s.state) && s.state !== 'absent' && s.state !== 'changed').length;
-    setStatus(bad ? `${bad} stor${bad === 1 ? 'y needs' : 'ies need'} putting right: see below.` : 'Checked. Nothing on the card stops a story from showing.', bad ? '' : 'ok');
+    const odd = d.others.filter((o) => o.state !== 'other').length;
+    setStatus(bad ? `${bad} stor${bad === 1 ? 'y needs' : 'ies need'} putting right: see below.`
+      : odd ? `This site's stories are fine. ${odd} other thing${odd === 1 ? '' : 's'} in dlc/ the game cannot play: see below.`
+        : 'Checked. Nothing on the card stops a story from showing.', bad || odd ? '' : 'ok');
   }
 
   async function fix(pack, s) {
