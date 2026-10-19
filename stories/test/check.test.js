@@ -183,7 +183,7 @@ test('scan and put right, against badgemock', async (t) => {
   assert.strictEqual(c.loose, 1);
   assert.match(c.packTexts['hackfest/hackfest'], /^name: Off to Hackfest/m);
   let d = Check.diagnose(c, index, bundles);
-  assert.deepStrictEqual(d.stories.map((s) => s.state), ['ok', 'nested', 'incomplete']);
+  assert.deepStrictEqual(['after-hours', 'hackfest', 'human-in-the-loop'].map((id) => story(d, id).state), ['ok', 'nested', 'incomplete']);
   assert.deepStrictEqual(story(d, 'human-in-the-loop').fix.upload, ['pack.txt']);
   assert.deepStrictEqual(d.others.map((o) => o.name), ['stray.zip']);
 

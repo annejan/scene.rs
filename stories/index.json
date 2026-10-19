@@ -5,6 +5,71 @@
  "poster": "packs/trailer.jpg",
  "packs": [
   {
+   "id": "human-in-the-loop",
+   "name": "Human in the loop",
+   "author": "annejan, story by Renze",
+   "about": "Aperture's test generator needs a human to break its drafts. You are the human.",
+   "music": "office",
+   "desk": true,
+   "rounds": 9,
+   "chambers": 10,
+   "files": 38,
+   "bytes": 59342,
+   "zip": "packs/human-in-the-loop.zip",
+   "bundle": "packs/human-in-the-loop.json",
+   "still": "packs/human-in-the-loop.jpg",
+   "clip": "packs/human-in-the-loop.mp4",
+   "contents": [
+    {
+     "name": "Hold the door",
+     "hint": "A draft: find a way she did not mean. The final draft: the way she did."
+    },
+    {
+     "name": "Pressure",
+     "hint": "The ferry sails when every button is down, and not a second longer."
+    },
+    {
+     "name": "Light work",
+     "hint": "The cube is in the right place. It is facing the wrong way."
+    },
+    {
+     "name": "Wet floor",
+     "hint": "The mop water is in the cupboard. The floor that needs it is out in the hall."
+    },
+    {
+     "route": "The break room"
+    },
+    {
+     "name": "Break room",
+     "hint": "A panel is missing low in the far wall. Somebody lives behind it. Bring a cube."
+    },
+    {
+     "route": "Stay at your desk"
+    },
+    {
+     "name": "Second opinion",
+     "hint": "Two faults. One is in the pipe. The other is where you would aim."
+    },
+    {
+     "route": null
+    },
+    {
+     "name": "Observation",
+     "hint": "Portals bring the beam down to you. Only a cube turns it the last corner."
+    },
+    {
+     "name": "Momentum",
+     "hint": "Nothing in here gives you speed. Make your own, then pass it on."
+    },
+    {
+     "name": "The last draft",
+     "hint": "The plate aims at the turret. Give it something to throw."
+    }
+   ],
+   "updated": "2026-10-19T23:36:17+02:00",
+   "sha256": "c68d725377569119cd3559ba0400e0a8c0feab3075b901caf3c10427adb8f068"
+  },
+  {
    "id": "after-hours",
    "name": "After hours",
    "author": "annejan",
@@ -78,7 +143,7 @@
     }
    ],
    "updated": "2026-10-14T17:07:10+02:00",
-   "sha256": "8133948f5d8a5fa3368291b6e3dadf9168047c170a46bc6ea285d2cd36269d1d"
+   "sha256": "68177a025d6a322c64a117b0ebac8ea7a9a535a9cf1a6df10a8a5b674d2e4629"
   },
   {
    "id": "hackfest",
@@ -158,72 +223,7 @@
     }
    ],
    "updated": "2026-10-14T17:07:10+02:00",
-   "sha256": "418eee5063fc142259f8c89cdc8ff5a9ec101ef001302972b40a53d65a3fdd51"
-  },
-  {
-   "id": "human-in-the-loop",
-   "name": "Human in the loop",
-   "author": "annejan, story by Renze",
-   "about": "Aperture's test generator needs a human to break its drafts. You are the human.",
-   "music": "office",
-   "desk": true,
-   "rounds": 9,
-   "chambers": 10,
-   "files": 37,
-   "bytes": 58071,
-   "zip": "packs/human-in-the-loop.zip",
-   "bundle": "packs/human-in-the-loop.json",
-   "still": "packs/human-in-the-loop.jpg",
-   "clip": "packs/human-in-the-loop.mp4",
-   "contents": [
-    {
-     "name": "Hold the door",
-     "hint": "A draft: find a way she did not mean. The final draft: the way she did."
-    },
-    {
-     "name": "Pressure",
-     "hint": "The ferry sails when every button is down, and not a second longer."
-    },
-    {
-     "name": "Light work",
-     "hint": "The cube is in the right place. It is facing the wrong way."
-    },
-    {
-     "name": "Wet floor",
-     "hint": "The mop water is in the cupboard. The floor that needs it is out in the hall."
-    },
-    {
-     "route": "The break room"
-    },
-    {
-     "name": "Break room",
-     "hint": "A panel is missing low in the far wall. Somebody lives behind it. Bring a cube."
-    },
-    {
-     "route": "Stay at your desk"
-    },
-    {
-     "name": "Second opinion",
-     "hint": "Two faults. One is in the pipe. The other is where you would aim."
-    },
-    {
-     "route": null
-    },
-    {
-     "name": "Observation",
-     "hint": "Portals bring the beam down to you. Only a cube turns it the last corner."
-    },
-    {
-     "name": "Momentum",
-     "hint": "Nothing in here gives you speed. Make your own, then pass it on."
-    },
-    {
-     "name": "The last draft",
-     "hint": "The plate aims at the turret. Give it something to throw."
-    }
-   ],
-   "updated": "2026-10-14T17:07:10+02:00",
-   "sha256": "97a35fc64eede63460176c7b92537d41e951b48475a7b7955edc4dc6ffc75002"
+   "sha256": "a20d598215e2882dcf35a27da97dbabce0040c20b4d06ffa82fea46e08c526cf"
   }
  ]
 }
