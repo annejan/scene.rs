@@ -1,0 +1,11 @@
+from: Your supervisor
+subject: The queue
+after: done 4
+
+The queue is to be empty today. Today. Overtime is approved in advance,
+by which I mean it is not optional.
+
+Do not go to the break room until the queue is empty. There is nothing in
+the break room for you.
+
+Your supervisor

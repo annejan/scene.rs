@@ -1,0 +1,11 @@
+event: Leave for Hackfest (early, this time)
+at: 07:00
+moves: done 2 08:30
+moves: done 4 09:30
+moves: done 6 10:30
+
+event: Hackfest: makers' exposition, Sickhouse Enschede
+at: 12:00
+
+event: Soldering workshop (you have the irons)
+at: 13:30

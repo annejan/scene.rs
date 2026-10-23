@@ -1,0 +1,11 @@
+from: #hackfest
+subject: you're here? great. small thing.
+after: done 6
+
+you're here! great. small thing before the doors open:
+- the Wi-Fi is down. the access point is on the truss. you know the truss.
+- the stage has no power. the power strips need daisy-chaining.
+you're the only one who read the venue map. thanks <3
+
+also: free Club-Mate at the registration desk until it runs out.
+it will not run out. it never runs out.

@@ -1,0 +1,21 @@
+name: Human in the loop
+author: annejan, story by Renze
+about: Aperture's test generator needs a human to break its drafts. You are the human.
+ending: Review queue empty. Thank you for your feedback: all of it has been incorporated. You may go. There is nobody left to stop you.
+music: office push=5 lift=1
+frame: desk
+round: hold-the-door
+round: pressure
+round: light-work
+round: wet-floor
+choose: Henry's cake, in the break room. Or the queue.
+route: cake | The break room | Five minutes. It is cake. Real cake: Henry checked.
+round: break-room
+route: queue | Stay at your desk | The queue is to be empty today, says your boss.
+round: second-opinion
+join
+round: observation
+round: momentum
+round: last-draft
+outro: walkout
+chamber: needs-update

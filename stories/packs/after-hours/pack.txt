@@ -1,0 +1,19 @@
+name: After hours
+author: annejan
+about: The tests are over. The testing is not.
+ending: That concludes your overtime, [Subject-Name-here]. It was not paid. Neither, technically, were you.
+music: overtime bpm=110 key=D seed=42 push=6 lift=2
+chamber: overtime
+chamber: momentum
+chamber: rush-hour
+chamber: cleaning-crew
+chamber: courier
+chamber: two-way-street
+chamber: reflections
+chamber: bowling-night
+chamber: lights-out
+chamber: night-shift
+chamber: crunch-time
+chamber: shop-floor
+chamber: canyon
+chamber: spire

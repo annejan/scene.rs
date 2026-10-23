@@ -1,0 +1,127 @@
+name: Hackfest
+story: You made it. The hall smells of solder and Club-Mate.
+size: 20 7 16
+facing: north
+
+layer 0
+####################
+#WWWWWWWWEEWWWWWWWW#
+#WWWWWWWWWWWWWWWWWW#
+#WWWWWWWWWWWWWWWWWW#
+#WWWWWWWWWWWWWWWWWW#
+#WWWWWWWWWWWWWWWWWW#
+#WWWWWWWWWWWWWWWWWW#
+#WWWWWWWWWWWWWWWWWW#
+#WWWWWWWWWWWWWWWWWW#
+#WWWWWWWWWWWWWWWWWW#
+#WWWWWWWWWWWWWWWWWW#
+#WWWWWWWWWWWWWWWWWW#
+#WWWWWWWWWWWWWWWWWW#
+#WWWWWWWWWWWWWWWWWW#
+#WWWWWWWWWWWWWWWWWW#
+####################
+
+layer 1
+WWWWWWWWWWWWWWWWWWWW
+W..................W
+W..................W
+W.#######..#######.W
+W..................W
+W..................W
+W.######....######.W
+W.######....######.W
+W..................W
+W..................W
+W.######....######.W
+W.######....######.W
+W..................W
+W..................W
+W........S.........W
+WWWWWWWWWWWWWWWWWWWW
+
+layer 2
+WWWWWWWWWWWWWWWWWWWW
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..............C...W
+W.....o............W
+W..................W
+W..................W
+W............C.....W
+W..C...............W
+W..................W
+W..................W
+W..................W
+WWWWWWWWWWWWWWWWWWWW
+
+layer 3
+WWWWWWWWWWWWWWWWWWWW
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+WWWWWWWWWWWWWWWWWWWW
+
+layer 4
+WWWWWWWWWWWWWWWWWWWW
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+H..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+WWWWWWWWWWWWWWWWWWWW
+
+layer 5
+WWWWWWWWWWWWWWWWWWWW
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+W..................W
+WWWWWWWWWWWWWWWWWWWW
+
+solution
+// In, down the middle aisle, a look round at the tables, and on to
+// the registration desk.
+wait 1.2
+walk_to 9.5 3.5
+look 4.5 1.4 8.5
+wait 1.2
+look 15.5 1.4 5.5
+wait 1.2
+walk_to 9.8 10.5
+look 9.8 1.6 14.5
+wait 0.6
+walk_to 9.8 14.6
+

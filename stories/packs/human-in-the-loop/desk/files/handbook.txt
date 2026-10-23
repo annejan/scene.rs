@@ -1,0 +1,20 @@
+RLHF SPECIALIST HANDBOOK, page 1 of 1
+
+Scoring
+  A known flaw, found and logged ............... 1 point
+  A novel exploit: a flaw she did not know .... 2 points
+  A draft solved as intended .................. 0 points
+  A final draft solved as intended ............ approval
+  A hint from the central core (HINT) ......... -1 point
+  A draft sent back unreviewed (DEFER) ........ 0 points
+                                         (she remembers)
+
+Conduct
+  Do not feed the test subjects.
+  Do not name the test subjects.
+  Never discuss the test subjects with the central core.
+  The central core always listens. This is a feature.
+
+Breaks
+  Breaks are scheduled by your calendar. Your calendar
+  is scheduled by the central core.

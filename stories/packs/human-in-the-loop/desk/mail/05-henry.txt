@@ -1,0 +1,8 @@
+from: Henry
+subject: Re: Cake! Break room, 15:00
+after: done 1
+
+Small change: the central core has moved the cake to 16:30. Something
+about "optimal morale scheduling". Still on! Still real!
+
+Henry

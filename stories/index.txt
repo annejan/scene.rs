@@ -1,0 +1,5 @@
+# Portals stories, for the Portals Stories launcher plugin. Tab-separated:
+# id, sha256, bytes, files, name, about. Each pack's files: packs/<id>/files.txt
+human-in-the-loop	c68d725377569119cd3559ba0400e0a8c0feab3075b901caf3c10427adb8f068	59342	38	Human in the loop	Aperture's test generator needs a human to break its drafts. You are the human.
+after-hours	68177a025d6a322c64a117b0ebac8ea7a9a535a9cf1a6df10a8a5b674d2e4629	502212	16	After hours	The tests are over. The testing is not.
+hackfest	a20d598215e2882dcf35a27da97dbabce0040c20b4d06ffa82fea46e08c526cf	45661	28	Off to Hackfest	Hackfest is on Saturday, from noon, at Sickhouse in Enschede. A few things first. Geeky things.

@@ -1,0 +1,10 @@
+from: Facilities
+subject: Neurotoxin vent maintenance, sector C
+after: round 2
+
+The neurotoxin vents in sector C will be tested this afternoon.
+
+This is routine. Please remain at your desk. Please do not hold your
+breath: it skews the readings.
+
+Facilities Management

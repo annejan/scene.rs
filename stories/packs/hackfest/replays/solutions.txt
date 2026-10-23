@@ -1,0 +1,259 @@
+name: the solutions, Portals 0.13.5
+version: 0.13.5 v0.13.5
+
+chamber: pull-request
+// Blue by the start, orange behind the shelf: up to the cube.
+shoot blue 11.0 2.0 3.5
+shoot orange 0.0 4.0 7.0
+walk_to 10.2 3.5
+walk_to 12 3.5
+wait 0.6
+// Out on the shelf: take the cube, and drop down.
+walk_to 2.2 6.8
+grab
+wait 0.5
+walk_to 5.5 6.5
+wait 0.8
+// The cube on the merge button, and through the door.
+walk_to 8.5 5.2
+look 8.5 1.3 6.5
+wait 0.6
+use
+wait 1.0
+walk_to 6.0 5.2
+walk_to 6.0 7.8
+walk_to 6.0 11.5
+
+
+chamber: reflow
+// Fetch the reflection cube.
+walk_to 4.5 5.0
+grab
+// Put it down in the line of the beam (z 3.5), facing north, to the plate.
+walk_to 11.5 2.55
+look 11.5 1.3 4.0
+wait 0.4
+use
+wait 0.5
+// Out of the beam's way, east of the cube; then the portals.
+walk_to 13.5 2.0
+shoot blue 14.99 5.0 9.5
+shoot orange 0.99 2.0 3.5
+wait 1.0
+walk_to 16.5 2.5
+
+chamber: power-banks
+// Launcher 1 (east wall, z = 3) into the west wall, out of the north wall,
+// down onto the bank at x = 3.
+shoot blue 1.0 1.8 3.5
+shoot orange 3.5 2.5 12.0
+wait 4.5
+// Launcher 2 (north wall, x = 10) into the south wall, out of the east
+// wall, onto the bank at z = 6. Orange first, so nothing lands on bank 1.
+shoot orange 14.0 2.5 6.5
+shoot blue 10.5 1.8 1.0
+wait 5.0
+walk_to 6.5 11.0
+walk_to 6.5 13.6
+
+chamber: pack-the-bag
+// Gadget two first: a portal under it in the drawer, one on the shelf's face.
+wait 0.5
+walk_to 10.5 5.3
+shoot blue 10.5 1.0 7.3
+shoot orange 4.0 4.0 7.5
+wait 1.5
+walk_to 6.5 6.0
+grab
+wait 0.4
+walk_to 5.5 2.2
+look 5.5 3.3 3.5
+wait 0.6
+use
+wait 0.5
+// Gadget one: the wall above the shelf, and in through its face.
+walk_to 8.5 6.0
+shoot blue 1.0 6.2 7.5
+walk_to 2.5 8.0
+wait 0.5
+grab
+wait 0.4
+walk_to 5.5 8.5
+wait 0.5
+walk_to 8.5 2.2
+look 8.5 3.3 3.5
+wait 0.6
+use
+wait 1.0
+// Out of the front door.
+walk_to 6.9 8.5
+walk_to 6.9 11.5
+
+chamber: platform-11b
+// A portal by the start, one on the rack's back wall: step up onto the rack.
+shoot blue 1.0 3.0 2.5
+shoot orange 2.5 5.0 9.0
+walk_to -1 2.5
+wait 0.4
+grab
+wait 0.4
+// Down off the rack, to the dock; the ticket goes on the button.
+walk_to 3.5 5.5
+walk_to 3.2 3.5
+wait 0.4
+look 4.5 2.3 3.5
+wait 0.6
+use
+// The train leaves at once: it is slower than you. Run and hop on.
+wait 0.2
+walk_to 3.4 4.4
+walk_to 7.6 4.0
+wait 3.2
+walk_to 13.5 4
+
+chamber: change-at-amersfoort
+// A portal by the train door, one by the pole.
+look 19.0 1.6 4.5
+wait 0.3
+shoot orange 19.0 1.6 4.5
+walk_to 3.0 3.0
+look 0.0 1.6 3.5
+wait 0.3
+shoot blue 0.0 1.6 3.5
+// Check in, and step through.
+walk_to 2.0 2.4
+look 1.5 2.1 1.5
+wait 0.3
+use
+walk_to 1.2 3.5
+walk_to 0.0 3.5
+walk_to 18.5 6.0
+walk_to 18.5 7.5
+walk_to 17.0 8.5
+
+
+chamber: headwind
+// The island: a portal where the gel drips.
+shoot blue 13.6 1.0 7.5
+// The roof over the end of the path. Looking east, the portal lies
+// across the path, so the gel lands right under the cell shot.
+walk_to 3.5 10.5
+shoot orange 4.4 8.0 10.5
+wait 1.6
+// Move it back twice: nine metres of orange in a row.
+walk_to 3.5 7.5
+shoot orange 4.4 8.0 7.5
+wait 1.6
+walk_to 3.5 4.5
+shoot orange 4.4 8.0 4.5
+wait 1.6
+// Back to the start, full speed down the path, and jump at the end.
+// (The jump lands from 0.9 s to 1.3 s of running.)
+walk_to 3.5 1.6
+wait 0.5
+face 0 0
+walk 1.1
+jump
+walk_to 3.5 22.5
+wait 1
+
+chamber: the-dyke
+// Floor portal under the drip, ceiling portal at the foot of the dyke.
+shoot blue 2.5 1.0 4.6
+shoot orange 7.9 9.0 7.0
+// Let the gel come through and paint the floor by the dyke.
+wait 2.5
+walk_to 7.9 7.3
+wait 1.5
+face 0 0
+jump
+walk_to 7.9 9.5
+// Cycle east along the top of the dyke to the ferry.
+walk_to 13.5 8.5
+// Step north onto the ferry; walking on the way it throws you does no harm.
+face 0 0
+walk 0.3
+wait 4
+
+chamber: loading-the-van
+// Portals: the street wall to the attic.
+shoot blue 1.0 2.0 4.5
+shoot orange 1.0 5.0 14.5
+walk_to 0.5 4.5
+wait 0.3
+walk_to 2.5 15.2
+grab
+wait 0.4
+look 0.0 5.3 14.5
+wait 0.5
+walk_to 0.5 14.5
+wait 0.4
+// The gear onto the plate, and into the van.
+walk_to 8.5 5.2
+look 8.5 1.6 8.5
+wait 0.4
+use
+wait 3
+walk_to 14 2.9
+walk_to 16.5 2.9
+
+
+chamber: speed-cameras
+// Drop the first crate on the west camera: the ceiling over it, then
+// the floor of the hold under the crate.
+shoot orange 1.5 5.0 19.3
+shoot blue 1.6 1.0 1.5
+wait 2.5
+// The second crate on the east camera.
+shoot orange 4.5 5.0 20.3
+shoot blue 1.6 1.0 3.5
+wait 2.5
+// Both down: drive on.
+walk_to 3.0 12.0
+walk_to 2.7 22.5
+
+chamber: the-wifi
+// The east wall, where the funnel ends: one portal.
+shoot blue 19.0 2.0 8.5
+// The patch on the floor under the hatch: the other. Looking north, the
+// portal lies along the hall, so the funnel comes up in the hatch.
+shoot orange 9.5 1.0 16.0
+// Step into the funnel: it carries you east, through, and up.
+walk_to 10.5 7.3
+face 0 0
+walk 0.4
+wait 5.5
+// At the roof, over the deck: steer west, onto it, and on to the access point.
+walk_to 7.5 15.5
+walk_to 2.5 15.5
+wait 1
+
+chamber: daisy-chain
+// Cube 1: onto the socket's line at z = 8, facing west: through power
+// strip 1. The beam no longer reaches the south of the hall.
+walk_to 14.5 5.5
+grab
+walk_to 13.8 8.5
+look 10 1.3 8.5
+wait 0.5
+use
+wait 0.3
+// Cube 2: round the south of the hall to x = 4, z = 8, facing north:
+// through power strip 2 into the stage inlet.
+walk_to 14.5 5.5
+grab
+walk_to 10 6
+walk_to 4.5 7.2
+look 4.5 1.3 10
+wait 0.5
+use
+wait 1.5
+// Portals: the stage front, low, and the south wall, high, where the
+// bridge now ends.
+shoot blue 2.5 1.8 12
+shoot orange 7.5 4.8 1.0
+walk_to 2.5 10
+walk_to 2.5 13
+walk_to 7.5 4
+walk_to 7.5 13
+walk_to 14.5 13.5

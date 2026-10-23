@@ -1,0 +1,11 @@
+from: #hackfest
+subject: getting here
+after: done 4
+
+travel update:
+- NS has works between Amersfoort and Deventer. the intercity still runs, mostly.
+- the wind is 6 Bft from the east. cyclists: good luck.
+- the van leaves at 09:30 with one seat left and a lot of gear. the A1 has
+  speed cameras. the van knows this. the driver does not.
+
+choose wisely.

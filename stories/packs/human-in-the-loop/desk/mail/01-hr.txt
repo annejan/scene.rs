@@ -1,0 +1,13 @@
+from: Human Resources
+subject: Welcome to the Department of Human Feedback
+
+Welcome!
+
+Your terminal has been configured. Your chair has been configured. Your
+lunch has been configured; please do not reconfigure it.
+
+Remember: every flaw you find makes the test chambers safer for the test
+subjects. That is what it says on the poster, so it must be true.
+
+Human Resources
+Aperture Science

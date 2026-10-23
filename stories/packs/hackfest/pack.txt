@@ -1,0 +1,25 @@
+name: Off to Hackfest
+author: annejan
+about: Hackfest is on Saturday, from noon, at Sickhouse in Enschede. A few things first. Geeky things.
+ending: Welcome to Hackfest, [Subject-Name-here]. Badge on, laptop open, Club-Mate in hand. You made it.
+music: hackfest push=6 lift=2
+frame: desk
+round: pull-request
+round: reflow
+round: power-banks
+round: pack-the-bag
+choose: How do you get to Enschede?
+route: train | By train | The intercity, and a change at Amersfoort.
+round: platform-11b
+round: change-at-amersfoort
+route: bike | By bike | 160 km. How hard can it be?
+round: headwind
+round: the-dyke
+route: van | A lift | A friend's van, full of gear. One seat left.
+round: loading-the-van
+round: speed-cameras
+join
+round: the-wifi
+round: daisy-chain
+outro: arrival
+chamber: needs-update

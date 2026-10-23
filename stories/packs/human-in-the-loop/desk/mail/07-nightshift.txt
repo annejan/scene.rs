@@ -1,0 +1,17 @@
+from: night.shift@aperture
+subject: is anyone still there?
+after: time 20:00
+
+hello?
+
+the lights went out on four. the elevators stopped at six. the break room
+door is locked from the inside and something in there is humming.
+
+if you are reading this you are not the only one left. do not drink the
+coffee. do not go near the vents. do not tell her you got this message.
+
+if you finish your queue she will let you go. that is what she told the
+others.
+
+--
+sent from terminal RLHF-07

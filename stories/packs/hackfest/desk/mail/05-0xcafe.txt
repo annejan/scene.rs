@@ -1,0 +1,7 @@
+from: 0xCAFE
+subject: where are you??
+after: time 11:00
+
+we're setting up the badge table. the LED wall is already up.
+someone brought a disco ball. we have no idea why.
+where are you??

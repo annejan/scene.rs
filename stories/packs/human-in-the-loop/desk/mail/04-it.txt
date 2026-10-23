@@ -1,0 +1,13 @@
+from: IT Support
+subject: Broken drafts: use the debugger
+after: done 2
+
+Hi,
+
+The next draft in your queue failed GLaDOS's own solver. She calls these
+"broken". We call them "Tuesday".
+
+The debugger opens when you load one. Instructions are in DEBUG.TXT.
+Please do not use the debugger on anything that is not a draft.
+
+IT Support

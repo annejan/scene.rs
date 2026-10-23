@@ -1,0 +1,6 @@
+card: 11:58. Sickhouse, Enschede. The Wi-Fi works, the stage has power, and the doors open in two minutes.
+card: The hall is full of tables, and the tables are full of badges, cables, and people arguing about pull-ups.
+card: At the registration desk they scan your badge. It boots Portals. Of course it does.
+reveal: HACKFEST
+coda: You made it. The TODO list is empty.
+coda: Next year: leave on Thursday.

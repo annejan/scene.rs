@@ -1,0 +1,11 @@
+PACKING LIST
+
+[ ] badge (this one)
+[ ] the other badge (the one that works)
+[ ] USB-C cables: 3. No, 5. You will lend two out and never see them again.
+[ ] power banks: all of them, charged
+[ ] soldering iron, tips, solder, flux, the good tweezers
+[ ] the bag of spare ESP32s nobody remembers buying
+[ ] power strip (everyone forgets the power strip)
+[ ] sleeping bag, toothbrush, socks
+[ ] Club-Mate: no. They have Club-Mate.

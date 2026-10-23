@@ -1,0 +1,21 @@
+after: done 6
+
+TEST SUBJECT ROSTER  --  Aperture Science Enrichment Center  --  page 31 of 31
+
+  #1488  ---------   relaxation vault, long term
+  #1489  ---------   relaxation vault, long term
+  #1490  ---------   did not complete orientation
+  #1491  ---------   relaxation vault, long term
+  #1492  ---------   incinerated (by request of the subject)
+  #1493  ---------   relaxation vault, long term
+  #1494  ---------   relaxation vault, long term
+  #1495  ---------   reassigned: turret quality assurance
+  #1496  ---------   relaxation vault, long term
+  #1497  ---------   relaxation vault, long term
+  #1498  C-------    relaxation vault, long term
+
+Notes on #1498: tenacious. Does not speak. Does not give up. Science fair,
+Bring Your Daughter to Work Day: potato battery. It won.
+
+Wake-up: when her chambers are ready. Her chambers: every chamber in
+today's review queue. The central core will wait. It is good at it.

@@ -1,0 +1,80 @@
+name: Hold the door
+hint: A draft: find a way she did not mean. The final draft: the way she did.
+story: A cube. A button. A door. I have tested this design on myself four thousand times. It is flawless. Prove it, or do not.
+review: flawed
+intended: button 1 by cube, door a
+flaw: a no door a -- Over the barrier by portal: a white panel on each side of it was all it took.
+fix: a 3-5 3-4 11 WG
+size: 9 6 12
+facing: north
+
+layer 0
+#########
+#########
+####E####
+#########
+#########
+#########
+#########
+#########
+#########
+#########
+#########
+#########
+
+layer 1
+#########
+#.......#
+#.......#
+#.......#
+#.......#
+####a####
+#.......#
+#C......#
+#.......#
+#...S...#
+#......1#
+###WWW###
+
+layer 2
+#########
+#.......#
+#.......#
+#.......#
+#.......#
+####a####
+#.......#
+#.......#
+#.......#
+#.......#
+#.......#
+###WWW###
+
+layer 3
+###WWW###
+#.......#
+#.......#
+#.......#
+#.......#
+#.......#
+#.......#
+#.......#
+#.......#
+#.......#
+#.......#
+#########
+
+layer 4
+###WWW###
+#.......#
+#.......#
+#.......#
+#.......#
+#.......#
+#.......#
+#.......#
+#.......#
+#.......#
+#.......#
+#########
+

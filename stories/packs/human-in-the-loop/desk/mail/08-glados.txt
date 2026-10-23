@@ -1,0 +1,11 @@
+from: GLaDOS
+subject: Your performance review
+after: done 8
+
+Thank you for your feedback. All of it has been incorporated.
+
+You found the flaws in my drafts so that no one else would have to. The
+test subjects will never know you were here. That is the nicest thing
+anyone has ever done for them, and they will never thank you for it.
+
+You may log out now. Type EXIT. Take your time. Take the stairs.

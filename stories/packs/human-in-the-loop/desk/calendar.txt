@@ -1,0 +1,20 @@
+event: Review queue: GLaDOS chamber drafts
+at: 09:00
+
+event: Bring Your Daughter to Work Day: science fair, atrium
+at: 10:00
+
+event: Neurotoxin vent test, sector C
+at: 14:00
+
+event: Henry's birthday cake, break room
+at: 15:00
+moves: done 1 15:30
+moves: done 3 16:30
+moves: done 5 never
+
+event: Overtime (approved in advance)
+at: 17:00
+
+event: Neurotoxin vent test, all sectors
+at: 23:00

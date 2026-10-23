@@ -1,0 +1,305 @@
+name: the cheeses, Portals 0.13.5
+version: 0.13.5 v0.13.5
+
+chamber: hold-the-door
+// cheese a
+// Blue by the start, orange high on the far wall: out of it, and
+// down, the far side of the barrier.
+shoot blue 4.5 2.0 1.0
+look 4.5 4.0 11.0
+wait 0.4
+shoot orange 4.5 4.0 11.0
+look 4.5 1.6 1.0
+wait 0.4
+walk_to 4.5 0.0
+wait 1.0
+walk_to 4.5 9.5
+
+
+chamber: pressure
+// cheese a
+// Cheese A: no cube at all. Stand on floor button 3 yourself; the pellet flies overhead.
+walk_to 6.5 6.5
+shoot orange 1.0 4.6 5.5
+shoot blue 1.0 4.6 4.5
+wait 5.0
+// The rest is the intended route from the turret on.
+walk_to 13.3 8.3
+walk_to 14.5 8.5
+walk_to 14.5 13.5
+walk_to 13.2 13.5
+walk_to 11.6 15.2
+grab
+wait 0.3
+walk_to 10.5 14.8
+look 10.5 2.4 13.5
+wait 0.6
+use
+wait 0.5
+walk_to 13.2 13.5
+walk_to 14.5 13.5
+walk_to 14.5 8.5
+walk_to 13.0 8.3
+walk_to 3.5 7.3
+look 3.5 3.1 8.5
+use
+walk_to 1.7 9.5
+walk_to 2.0 11.0
+wait 3.0
+walk_to 2.0 18.5
+
+
+chamber: pressure
+// cheese b
+// Steps 1-2 as intended.
+shoot orange 1.0 4.6 5.5
+walk_to 8.5 3.5
+walk_to 8.5 1.5
+shoot blue 1.7 3.0 1.5
+wait 1.5
+walk_to 8.5 3.5
+walk_to 3.5 5.5
+grab
+wait 0.4
+walk_to 6.5 5.2
+look 6.5 2.3 6.5
+wait 0.6
+use
+wait 0.5
+shoot blue 1.0 4.6 4.5
+wait 6.0
+// Cheese B: grab the turret, come back to the corridor side, and just let go
+// of it at eye height over K. It lands hard, topples, and lies on K harmless.
+walk_to 13.3 8.3
+walk_to 14.5 8.5
+walk_to 14.5 13.5
+walk_to 13.2 13.5
+walk_to 11.6 15.2
+grab
+wait 0.3
+walk_to 12.1 13.5
+look 9.0 3.6 13.5
+wait 0.6
+use
+wait 0.8
+walk_to 13.2 13.5
+walk_to 14.5 13.5
+walk_to 14.5 8.5
+walk_to 13.0 8.3
+walk_to 3.5 7.3
+look 3.5 3.1 8.5
+use
+walk_to 1.7 9.5
+walk_to 2.0 11.0
+wait 3.0
+walk_to 2.0 18.5
+
+
+chamber: pressure
+// cheese c
+// Steps 1-2 as intended.
+shoot orange 1.0 4.6 5.5
+walk_to 8.5 3.5
+walk_to 8.5 1.5
+shoot blue 1.7 3.0 1.5
+wait 1.5
+walk_to 8.5 3.5
+walk_to 3.5 5.5
+grab
+wait 0.4
+walk_to 6.5 5.2
+look 6.5 2.3 6.5
+wait 0.6
+use
+wait 0.5
+shoot blue 1.0 4.6 4.5
+wait 6.0
+// Cheese B: grab the turret, come back to the corridor side, and just let go
+// of it at eye height over K. It lands hard, topples, and lies on K harmless.
+walk_to 13.3 8.3
+walk_to 14.5 8.5
+walk_to 14.5 13.5
+walk_to 13.2 13.5
+walk_to 11.6 15.2
+grab
+wait 0.3
+walk_to 11.9 13.5
+look 10.5 2.4 13.5
+wait 0.6
+use
+wait 0.8
+walk_to 13.2 13.5
+walk_to 14.5 13.5
+walk_to 14.5 8.5
+// Cheese C: the turret stands upright facing west, over the ferry. Carry the
+// cube on the ferry and hold it between you and the turret.
+walk_to 13.0 8.3
+walk_to 6.5 7.3
+grab
+wait 0.3
+walk_to 2.6 8.0
+look 1.6 2.0 8.7
+wait 0.6
+use
+wait 0.4
+walk_to 3.5 7.3
+look 3.5 3.1 8.5
+use
+grab
+walk_to 1.7 9.5
+walk_to 2.0 10.9
+look 10.9 -0.6 13.5
+wait 1.6
+look 10.9 -0.6 14.5
+wait 1.4
+walk_to 2.0 18.5
+
+chamber: wet-floor
+// cheese a
+// CHEESE "splash": no portal at all. The drip lands on the front of the
+// cupboard's floor, and splashes the hall floor at its door blue. Stand in
+// that puddle with the cube, jump, and steer onto the mezzanine.
+walk_to 4.5 4.8
+grab
+wait 0.4
+walk_to 4.5 11.5
+face 0 0
+wait 0.3
+jump
+walk_to 4.5 14.0
+walk_to 8.6 14.5
+look 9.5 4.0 14.5
+wait 0.5
+use
+wait 1.0
+walk_to 8.5 10.0
+walk_to 7.0 10.0
+walk_to 7.0 14.5
+
+
+chamber: wet-floor
+// cheese b
+// CHEESE "mop sink": the cupboard's floor and the ceiling strip over the
+// button. Hold the cube out over the cupboard's floor and let go: it drops
+// out of the ceiling onto the button. Nobody bounces.
+walk_to 3.5 10.5
+look 3.5 1.0 12.9
+wait 0.6
+shoot blue 3.5 1.0 12.9
+walk_to 9.0 9.0
+look 9.5 7.0 14.9
+wait 0.6
+shoot orange 9.5 7.0 14.9
+walk_to 4.5 4.8
+grab
+wait 0.4
+walk_to 3.5 11.4
+face 0 30
+wait 0.5
+use
+wait 3.0
+walk_to 7.0 10.0
+walk_to 7.0 14.5
+
+chamber: observation
+// cheese a
+// CHEESE: no cube. The strip, and the low panel in the west wall square
+// to the catcher: the beam goes straight in. From the north side of it.
+walk_to 5.0 9.5
+shoot blue 14.0 6.0 9.5
+shoot orange 1.0 2.0 6.5
+wait 1.0
+walk_to 7.0 11.5
+walk_to 7.0 14.5
+walk_to 3.0 16.0
+
+
+chamber: observation
+// cheese b
+// CHEESE: over the observation deck. A portal through the missing pane
+// onto the white back wall of the observation room, one in Pw: in, along
+// the room, down the stairwell, and to the exit. The door stays shut.
+walk_to 6.5 5.0
+shoot blue 6.5 5.0 17.0
+shoot orange 10.5 2.0 1.0
+walk_to 10.5 1.5
+walk_to 10.5 -1.0
+wait 0.5
+walk_to 12.0 15.5
+wait 1.0
+walk_to 3.0 16.0
+
+chamber: momentum
+// cheese a
+// CHEESE "skip-paint": step 1 is skipped; no portal is shot before the
+// shaft. The dispenser's own drip paints a 3x3 orange patch on the floor
+// round the white patch (x 6..8, z 5..7). Carry the cube diagonally
+// north-west across that patch, jump at its corner and let go: about
+// 7.5 m/s, aimed at the ledge. The west wall and the back wall of the
+// ledge catch the cube, and it comes to rest on the button.
+wait 1.0
+walk_to 3.2 1.6
+grab
+wait 0.4
+walk_to 8.7 3.0
+face -29 -20
+walk 0.88
+jump
+wait 0.0
+use
+wait 1.5
+// The rest is the intended shaft and fling.
+walk_to 8.0 1.8
+walk_to 10.5 2.4
+wait 0.4
+shoot blue 10.5 5.0 1.5
+shoot orange 10.5 10.0 1.5
+wait 2.5
+shoot orange 6.5 9.5 1.0
+wait 1.5
+walk_to 9.5 15.5
+
+chamber: last-draft
+// cheese a
+// No cube: onto the plate yourself. It lands you on the turret; carry
+// the fallen turret to the button.
+walk_to 9.5 3.0
+face 0 0
+walk 0.4
+wait 3.0
+walk_to 10.5 26.6
+look 10.5 5.45 27.4
+use
+wait 0.4
+walk_to 8.9 26.5
+look 7.5 3.0 26.5
+wait 0.6
+use
+wait 1.2
+walk_to 9.5 27.5
+walk_to 9.5 29.5
+
+
+chamber: last-draft
+// cheese b
+// The cube carried over the bridge and in at the gate, held low between
+// you and the turret.
+wait 0.8
+walk_to 3.5 3.5
+grab
+wait 0.3
+shoot blue 10.5 4.0 1.0
+shoot orange 20.0 4.0 6.5
+wait 0.3
+walk_to 10.5 3.0
+face 0 6
+walk_to 10.5 25.8
+// Under its column it cannot see you: the cube on its button, and out.
+walk_to 8.9 26.6
+look 7.5 3.0 26.5
+wait 0.6
+use
+wait 1.2
+walk_to 9.5 27.5
+walk_to 9.5 29.5
+

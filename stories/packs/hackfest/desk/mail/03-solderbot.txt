@@ -1,0 +1,7 @@
+from: solderbot
+subject: the workshop
+after: done 2
+
+the soldering workshop is at 13:30 and you have all the irons.
+no pressure.
+(some pressure)

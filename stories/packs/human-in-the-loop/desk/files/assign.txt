@@ -1,0 +1,26 @@
+ASSIGNMENT                                     Department of Human Feedback
+
+To:    DR, RLHF specialist, terminal 07
+Re:    GLaDOS chamber drafts, today's review queue
+
+The Genetic Lifeform and Disk Operating System designs test chambers. She
+is very good at it. She is not perfect at it. That is where you come in.
+
+Run GLADOS to load the next draft in the queue. Each draft has flaws: ways
+through that she did not intend. Your job is to find them by using them.
+Reach the exit the wrong way and the flaw is logged, and she patches it.
+
+DO NOT solve a draft the way it was designed. A draft solved as intended
+teaches her nothing, and you will be asked to do it again.
+
+When every known flaw is patched, the draft is final. Solve the final the
+way she intended: that is your approval, and the queue moves on.
+
+Some drafts are broken: she cannot solve them at all. Those open in the
+debugger instead (DEBUG.TXT, once you have one).
+
+The queue must be empty by the end of the day. Type STATUS to see where
+it stands. See HANDBOOK.TXT for the scoring.
+
+Stuck? HINT asks her where to look, for a point. DEFER sends a draft
+back unreviewed, once you have loaded it twice. She will remember.

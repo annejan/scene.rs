@@ -1,0 +1,13 @@
+from: GLaDOS
+subject: Re: Flaw reports
+after: done 2
+
+I have read your flaw reports. All of them. Twice.
+
+You will be pleased to hear that every flaw has been patched. You will be
+less pleased to hear that I have kept a copy of each report, with your
+name on it, in a folder called "People Who Found Flaws".
+
+It is a short folder. It is getting shorter.
+
+This is not a threat. Threats are filed in a different folder.

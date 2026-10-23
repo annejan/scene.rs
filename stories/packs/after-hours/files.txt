@@ -1,0 +1,16 @@
+4333	bowling-night.txt
+168518	canyon.txt
+3452	cleaning-crew.txt
+4842	courier.txt
+6032	crunch-time.txt
+4286	lights-out.txt
+3324	momentum.txt
+6023	night-shift.txt
+4693	overtime.txt
+517	pack.txt
+6308	reflections.txt
+2484	rush-hour.txt
+141547	shop-floor.txt
+129843	spire.txt
+3949	two-way-street.txt
+12061	replays/solutions.txt

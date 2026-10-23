@@ -1,0 +1,281 @@
+name: the solutions, Portals 0.13.5
+version: 0.13.5 v0.13.5
+
+chamber: hold-the-door
+// The cube onto the button, and through the door while it holds.
+look 1.5 1.3 4.5
+walk_to 2.4 4.3
+grab
+wait 0.4
+walk_to 6.4 2.2
+look 7.5 1.0 1.5
+wait 0.5
+use
+wait 1.0
+walk_to 4.5 5.0
+walk_to 4.5 9.5
+
+
+chamber: pressure
+// One: the cube is out of reach under the press. Bring it out through its shelf.
+shoot orange 1.0 4.6 5.5
+walk_to 8.5 3.5
+walk_to 8.5 1.5
+shoot blue 1.7 3.0 1.5
+wait 1.5
+walk_to 8.5 3.5
+walk_to 3.5 5.5
+grab
+wait 0.4
+walk_to 6.5 5.2
+look 6.5 2.3 6.5
+wait 0.6
+use
+wait 0.5
+// Two: the shutter is open. Send the pellet back, one row over, into the receiver.
+shoot blue 1.0 4.6 4.5
+wait 6.0
+// Three: rush the turret, and set it on its button facing away from the ferry.
+walk_to 13.3 8.3
+walk_to 14.5 8.5
+walk_to 14.5 13.5
+walk_to 13.2 13.5
+walk_to 11.6 15.2
+grab
+wait 0.3
+walk_to 10.5 14.8
+look 10.5 2.4 13.5
+wait 0.6
+use
+wait 0.5
+// Four: press the pedestal, board at once, and step off into the exit.
+walk_to 13.2 13.5
+walk_to 14.5 13.5
+walk_to 14.5 8.5
+walk_to 13.0 8.3
+walk_to 3.5 7.3
+look 3.5 3.1 8.5
+use
+walk_to 1.7 9.5
+walk_to 2.0 11.0
+wait 3.0
+walk_to 2.0 18.5
+
+
+chamber: light-work
+// The cube hangs at the end of the funnel, in the beam, facing north:
+// the light goes on past the catcher.
+look 14.7 3.5 8.5
+wait 1.0
+// One: the laser into the white patch on the barrier and out of the west
+// wall, through relay 2: the funnel turns round and brings the cube back.
+shoot orange 10.0 4.9 2.5
+shoot blue 1.0 4.0 5.5
+walk_to 2.6 7.6
+wait 4.0
+grab
+wait 0.4
+walk_to 6.0 7.6
+// Two: the beam out of the south wall instead. It lights relay 1 alone,
+// and the funnel runs forward again.
+shoot blue 7.5 3.9 1.0
+// Three: the cube back into the funnel, facing north-west, at the catcher.
+face 315 0
+wait 0.6
+use
+wait 4.5
+// Four: the door is open, and the bridge with it.
+walk_to 1.5 10.5
+walk_to 1.5 13.5
+walk_to 8.5 13.5
+
+chamber: wet-floor
+// One: the mop water is in the cupboard. A portal in its floor, under the
+// drip, and one in the ceiling strip out over the hall: the blue gel falls
+// through and mops a patch of floor in front of the mezzanine.
+walk_to 3.5 10.5
+look 3.5 1.0 12.9
+wait 0.6
+shoot blue 3.5 1.0 12.9
+walk_to 8.5 9.0
+look 8.5 7.0 11.0
+wait 0.6
+shoot orange 8.5 7.0 11.0
+// Two: fetch the cube, and take a running jump off the wet floor, cube and
+// all, three metres up onto the mezzanine.
+walk_to 4.5 4.8
+grab
+wait 0.4
+walk_to 8.5 7.0
+face 0 0
+walk 0.6
+jump
+walk_to 8.5 13.0
+// Three: the cube on its button opens the store room under the mezzanine.
+walk_to 8.8 13.2
+look 9.5 4.0 14.5
+wait 0.5
+use
+wait 1.0
+walk_to 8.5 10.0
+walk_to 7.0 10.0
+walk_to 7.0 14.5
+
+
+chamber: break-room
+// Through the gap at the foot of the north wall: the I of LIE, on
+// the den's back wall. Then the fridge.
+look 8.5 1.2 20.0
+wait 0.5
+shoot blue 8.5 1.2 20.0
+// The cube, off the counter, under the cabinet it came out of.
+walk_to 3.0 7.5
+grab
+wait 0.4
+// The fridge; into it, and out of the I, in the den.
+walk_to 12.5 10.5
+shoot orange 14.0 2.6 10.5
+look 14.0 2.5 10.5
+wait 0.4
+walk_to 15.0 10.5
+wait 0.5
+// The cube on the button; out by the side door.
+walk_to 10.5 16.4
+look 10.5 1.0 17.5
+wait 0.5
+use
+wait 1.2
+walk_to 13.5 16.8
+walk_to 14.6 16.8
+
+
+chamber: second-opinion
+// One: up to the consulting floor -- the west wall and the new back-wall panel.
+shoot blue 1.0 2.0 3.5
+shoot orange 8.5 6.0 15.0
+walk_to 1.5 3.5
+walk_to 0.2 3.5
+// Two: along the back wall and down the hatch into the dispensary.
+walk_to 13.5 14.5
+walk_to 13.5 12.5
+wait 0.5
+walk_to 12.6 12.5
+grab
+wait 0.4
+// Three: the dispensary's panel with the colour that is downstairs, and out.
+shoot blue 14.0 2.0 11.5
+walk_to 14.2 11.5
+wait 0.6
+// Four: the cube on the button, through the door, into the exit.
+walk_to 7.5 13.7
+look 7.5 4.3 12.5
+wait 0.6
+use
+wait 0.6
+walk_to 6.0 13.5
+walk_to 4.5 12.5
+walk_to 2.5 12.5
+
+chamber: observation
+// The cube, from the north-west corner, to where Pw's line crosses the
+// catcher's: set down facing east, square to it.
+walk_to 2.5 9.0
+grab
+wait 0.4
+walk_to 9.2 6.5
+face 90 25
+wait 0.5
+use
+wait 0.6
+// The strip high in the east wall, and Pw low in the south wall: the beam
+// comes out of Pw going north, into the cube, and east into the catcher.
+shoot blue 14.0 6.0 9.5
+shoot orange 10.5 2.0 1.0
+wait 1.0
+// West of the cube, out of the beam, to the door.
+walk_to 7.0 11.5
+walk_to 7.0 14.5
+walk_to 3.0 16.0
+
+
+chamber: momentum
+// One: shoot the patch the orange gel drips on, and the white strip over
+// the lane. The gel falls through and paints the lane, a patch at a time.
+// (The patch is under the drip: in the draft at the north end, patched at
+// the south. A shot at metal takes no portal, so both are tried.)
+walk_to 7.5 3.0
+look 7.5 9.0 6.0
+wait 0.6
+shoot blue 7.5 5.0 6.0
+look 7.5 9.0 1.5
+wait 0.6
+shoot blue 7.5 5.0 1.4
+walk_to 1.5 1.5
+shoot orange 1.5 11.0 6.2
+wait 1.2
+shoot orange 1.5 11.0 3.4
+wait 1.5
+// Two: no arm in here can throw a cube that far. Running on orange gel,
+// you can: jump at the end of the lane and let go, and the cube keeps
+// your speed, over the parapet and the goo onto its ledge.
+walk_to 3.2 1.6
+grab
+wait 0.4
+walk_to 1.5 1.4
+wait 0.5
+look 1.5 2.5 16.5
+wait 0.5
+face 0 0
+walk 0.61
+jump
+wait 0.05
+use
+wait 1.5
+// Three: the door to the shaft is open. A floor and a ceiling: fall
+// through one into the other until the speed stops rising...
+walk_to 1.6 2.2
+walk_to 5.5 3.6
+walk_to 8.6 3.6
+walk_to 8.6 1.8
+walk_to 10.5 2.4
+wait 0.4
+shoot blue 10.5 5.0 1.5
+shoot orange 10.5 10.0 1.5
+wait 2.5
+// ... then move the ceiling's portal to the panel high on the south wall.
+// Out of it at thirty metres a second, over everything, onto the deck.
+shoot orange 6.5 9.5 1.0
+wait 1.5
+walk_to 9.5 15.5
+
+
+chamber: last-draft
+// One: the cube from the dropper, held out over the plate and let go.
+// It flies over the goo and the glass and knocks the turret off its feet.
+wait 0.8
+walk_to 3.5 3.5
+grab
+wait 0.3
+walk_to 9.5 3.2
+look 9.5 3.6 4.6
+wait 0.6
+use
+wait 2.2
+// Two: the bridge, turned north across the moat, in at the gate.
+shoot blue 10.5 4.0 1.0
+shoot orange 20.0 4.0 6.5
+wait 0.3
+walk_to 10.5 3.0
+walk_to 10.5 26.6
+// Three: the cube down off the monument, onto its button; out.
+look 10.5 6.1 27.6
+use
+wait 0.4
+walk_to 8.9 26.5
+look 7.5 3.0 26.5
+wait 0.6
+use
+wait 1.2
+walk_to 9.5 27.5
+walk_to 9.5 29.5
+

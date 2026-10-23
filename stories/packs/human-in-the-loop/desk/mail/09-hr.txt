@@ -1,0 +1,15 @@
+from: Human Resources
+subject: Reminder: Bring Your Daughter to Work Day
+after: round 1
+
+Reminder: Bring Your Daughter to Work Day!
+
+The science fair is in the atrium. Please keep your daughter away from the
+test chambers, the incinerators and the central core.
+
+This reminder was scheduled by Human Resources and is being delivered by
+the central core. The central core apologises for the delay. The science
+fair has been judged. The potato battery won.
+
+Human Resources
+Aperture Science

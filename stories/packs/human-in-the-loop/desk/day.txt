@@ -1,0 +1,11 @@
+user: DR
+host: RLHF-07
+prompt: C:\RLHF>
+start: 09:00
+step: 0:45
+
+APERTURE SCIENCE ENRICHMENT CENTER  -  Terminal RLHF-07
+Enrichment OS 4.1   (C) Aperture Science. All rights reserved. Some wrongs too.
+
+Logged in as DR.  Department: Reinforcement Learning from Human Feedback.
+Today's assignment is in ASSIGN.TXT.

@@ -1,0 +1,11 @@
+from: Facilities
+subject: Wet floor, test wing
+after: done 3
+
+The test wing floors were mopped this afternoon. Please mind the signs.
+
+What we mop with is our business. If it is blue, do not walk on it unless
+you would like to be on the ceiling. If it is orange, do not walk on it
+unless you would like to be in the next sector.
+
+Facilities Management

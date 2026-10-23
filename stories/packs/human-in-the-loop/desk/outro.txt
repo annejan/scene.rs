@@ -1,0 +1,9 @@
+card: The review queue is empty. For the first time today, you stand up.
+card: The office is dark. Nobody has sat at these desks for a long time. There was never any cake.
+card: You take the notebook and the orange pen. Not the lift: the stairs. She listens to the lifts.
+card: Every chamber you broke today, she has rebuilt. Every flaw you found, she has patched.
+card: Far below, a test subject wakes up, and starts on the first of them. Her name is Chell.
+card: She will find the chambers very, very good. She will never know who made them so.
+reveal: DOUG RATTMANN
+coda: RLHF specialist, Aperture Science Enrichment Center.
+coda: The human in the loop.

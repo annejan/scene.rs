@@ -1,0 +1,11 @@
+from: Mail Delivery Subsystem
+subject: Undeliverable: Re: Cake! Break room, 15:00
+after: done 5
+
+Your calendar accepted "Henry's birthday cake, break room" on your behalf
+and sent Henry a reply.
+
+The reply could not be delivered. Henry's mailbox has not been opened in
+1,042 days.
+
+This is an automated message. Everything is an automated message.

@@ -1,0 +1,13 @@
+// HINT at the desk: the next flaw's, a point the first time. GLaDOS says
+// it free once a draft has been solved her way twice. Builds before 0.13.5
+// never open this file.
+hold-the-door a: The barrier is very tall. The walls on either side of it are very white.
+pressure a: My third button wants a cube. It has never once checked that it got one.
+pressure c: The turret shoots whatever it sees on the ferry. Make sure it sees something else.
+wet-floor a: Before you carry any gel anywhere, look at where the cupboard drips.
+wet-floor b: The mop sink drains somewhere. Things other than water fit down it.
+observation a: The beam goes where the walls send it. A cube is only one kind of wall.
+observation b: Count the panes in the observation window. Then count them again.
+momentum a: Watch where the drip lands. Then ask yourself why you are fetching gel at all.
+last-draft a: The faith plate throws whatever stands on it. Whatever.
+last-draft b: The plate is one way to get a cube past the turret. Your arms are another.
