@@ -1,6 +1,8 @@
-# One name: www.scene.rs goes to scene.rs (http:// already redirects in the vhost)
+# One name: www and every other *.scene.rs (the vhost has a wildcard alias) go to scene.rs.
+# Let's Encrypt challenges stay where they land.
 RewriteEngine On
-RewriteCond %{HTTP_HOST} ^www\.scene\.rs$ [NC]
+RewriteCond %{HTTP_HOST} !^scene\.rs\.?$ [NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/
 RewriteRule ^ https://scene.rs%{REQUEST_URI} [R=301,L]
 # Security headers (internet.nl). The page's script and style are files here, nothing inline.
 Header always set X-Frame-Options "DENY"
