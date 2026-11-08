@@ -44,7 +44,8 @@ DB = os.path.join(DATA, "runs.db")
 # release, or a ghost's physics), the newest physics it is at least.
 PHYSICS = [((0, 13, 0), "0.13.0"), ((0, 12, 8), "0.12.8"), ((0, 12, 0), "0.12.0")]
 
-# The twenty test chambers, in order: a run through all of them is "the twenty".
+# The twenty test chambers, in order: a run through all of them is "the twenty" -- also one
+# that goes on (chamber 21 came with Portals 0.14.0), timed to the twentieth exit.
 TWENTY = ["01-gap", "02-ledge", "03-fling", "04-button", "05-delivery", "06-faith-plate", "07-the-grill",
           "08-through-the-glass", "09-the-ferry", "10-two-buttons", "11-against-the-clock", "12-redirection",
           "13-hard-light", "14-repulsion", "15-catch", "16-relay", "17-gauntlet", "18-edgeless", "19-sentry",
@@ -280,8 +281,10 @@ def board(con):
         base = {"id": id_, "nick": nick, "date": created[:10], "video": video, "version": version}
         ok = [r for r in runs if r.get("exit")]
         ids = [r.get("chamber") or r.get("id") for r in runs]
-        if complete and ids == TWENTY:
-            offer(physics, "twenty", side, dict(base, time=round(total, 3)))
+        head = runs[:len(TWENTY)]
+        if ids[:len(TWENTY)] == TWENTY and all(r.get("exit") for r in head):
+            twenty = total if complete and ids == TWENTY else sum(r.get("time") or 0.0 for r in head)
+            offer(physics, "twenty", side, dict(base, time=round(twenty, 3)))
         for pid, p in stories.items():
             if complete and ids == p["order"]:
                 offer(physics, "story:" + pid, side, dict(base, time=round(total, 3)))
