@@ -56,7 +56,11 @@ function fillPickers() {
   const ph = $('physics');
   const want = new URLSearchParams(location.hash.slice(1));
   ph.textContent = '';
-  for (const p of boardData.physics) ph.append(el('option', { value: p, text: `Portals ${p} physics${p === boardData.physics[0] ? ' (now)' : ''}` }));
+  // Each physics by the releases on it: a release that kept the physics has no board of its own.
+  const rel = boardData.releases || {};
+  for (const p of boardData.physics) {
+    ph.append(el('option', { value: p, text: `Portals ${rel[p] || p}${p === boardData.physics[0] ? ' (now)' : ''}` }));
+  }
   // The newest physics that has a board, unless the address asks for one.
   const has = boardData.physics.find((p) => Object.keys(boardData.boards[p] || {}).length);
   if (has) ph.value = has;

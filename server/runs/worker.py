@@ -43,6 +43,9 @@ DB = os.path.join(DATA, "runs.db")
 # Which build replays a recording: by its version line's first word (a
 # release, or a ghost's physics), the newest physics it is at least.
 PHYSICS = [((0, 13, 0), "0.13.0"), ((0, 12, 8), "0.12.8"), ((0, 12, 0), "0.12.0")]
+# The Portals releases on each physics, for the board's picker. The newest goes on until a release
+# changes the physics again.
+RELEASES = {"0.13.0": "0.13.0 to 0.14.0", "0.12.8": "0.12.8", "0.12.0": "0.12.0 to 0.12.7"}
 
 # The twenty test chambers, in order: a run through all of them is "the twenty" -- also one
 # that goes on (chamber 21 came with Portals 0.14.0), timed to the twentieth exit.
@@ -265,7 +268,7 @@ def board(con):
     rows = con.execute("select id, created, nick, tas, video, note, physics, rkind, complete, total, runs, version "
                        "from runs where hidden = 0 order by created").fetchall()
     stories = packs()
-    out = {"updated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "physics": [p for _, p in PHYSICS],
+    out = {"updated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "physics": [p for _, p in PHYSICS], "releases": RELEASES,
            "boards": {}, "recent": []}
     best = {}  # (physics, board, side, nick) -> entry
 
